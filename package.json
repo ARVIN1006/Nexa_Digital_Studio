@@ -1,0 +1,13 @@
+{
+  "name": "webdevservice",
+  "version": "1.0.0",
+  "description": "Jasa pembuatan website profesional khusus UMKM",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./src/input.css -o ./style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

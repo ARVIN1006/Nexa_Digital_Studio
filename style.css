@@ -1,0 +1,15 @@
+/* 
+  Variable overrides or custom keyframes not easily handled by Tailwind utilities alone 
+  (Though most are now in index.html for the CDN based workflow)
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Since we are using CDN, this file is mostly redundant but kept 
+  if the user decides to switch to a build step later.
+  
+  The logic has been moved to <style> blocks or utility classes in index.html
+*/
