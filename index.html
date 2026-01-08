@@ -84,13 +84,13 @@
     <div class="bg-glow-blob glow-1 animate-float-slow"></div>
     <div class="bg-glow-blob glow-2 animate-float-reverse"></div>
 
-    <!-- Navigation (Standard Top Bar) -->
+    <!-- Navigation (Dynamic Island Style) -->
     <nav
       id="navbar"
-      class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-white/5 transition-all duration-300"
+      class="fixed top-4 z-50 left-0 right-0 mx-auto w-[92%] md:w-fit transition-all duration-300"
     >
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between"
+        class="bg-surface/80 backdrop-blur-xl border border-white/10 rounded-full pl-8 pr-3 py-3 shadow-2xl flex items-center justify-between relative"
       >
         <!-- Logo -->
         <a
@@ -101,34 +101,34 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden md:flex items-center gap-1 mx-4">
           <a
             href="#home"
-            class="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            class="px-5 py-2.5 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
             >Beranda</a
           >
           <a
             href="#services"
-            class="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            class="px-5 py-2.5 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
             >Solusi</a
           >
           <a
             href="#process"
-            class="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            class="px-5 py-2.5 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
             >Proses</a
           >
           <a
             href="#pricing"
-            class="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            class="px-5 py-2.5 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
             >Harga</a
           >
         </div>
 
         <!-- CTA & Mobile Toggle -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
           <a
             href="#contact"
-            class="hidden md:inline-flex items-center gap-2 bg-white text-surface px-6 py-2.5 rounded-full text-sm font-bold hover:bg-slate-200 transition-all shadow-lg hover:shadow-white/20"
+            class="hidden md:inline-flex items-center gap-2 bg-white text-surface px-6 py-3 rounded-full text-sm font-bold hover:bg-slate-200 transition-all shadow-lg hover:shadow-white/20"
           >
             Tanya Gratis
           </a>
@@ -136,7 +136,7 @@
           <!-- Hamburger Button -->
           <button
             id="mobile-menu-btn"
-            class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/5"
+            class="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
             aria-label="Menu"
           >
             <i class="fas fa-bars text-sm"></i>
@@ -144,35 +144,37 @@
         </div>
       </div>
 
-      <!-- Mobile Menu Dropdown -->
+      <!-- Mobile Menu Dropdown (Floating below island) -->
       <div
         id="mobile-menu-panel"
-        class="md:hidden border-t border-white/5 bg-surface absolute w-full left-0 overflow-hidden transition-all duration-300 max-h-0 opacity-0 origin-top shadow-2xl"
+        class="md:hidden absolute top-full left-0 w-full mt-2 overflow-hidden transition-all duration-300 max-h-0 opacity-0 origin-top"
       >
-        <div class="flex flex-col p-4 space-y-2">
+        <div
+          class="bg-surface/90 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-2xl flex flex-col gap-2 mx-1"
+        >
           <a
             href="#home"
-            class="mobile-link block px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-colors"
+            class="mobile-link text-center text-slate-300 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-sm transition-colors"
             >Beranda</a
           >
           <a
             href="#services"
-            class="mobile-link block px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-colors"
+            class="mobile-link text-center text-slate-300 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-sm transition-colors"
             >Solusi</a
           >
           <a
             href="#process"
-            class="mobile-link block px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-colors"
+            class="mobile-link text-center text-slate-300 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-sm transition-colors"
             >Cara Pesan</a
           >
           <a
             href="#pricing"
-            class="mobile-link block px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-colors"
+            class="mobile-link text-center text-slate-300 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-sm transition-colors"
             >Harga</a
           >
           <a
             href="#contact"
-            class="mobile-link block px-4 py-3 bg-white text-surface text-center font-bold rounded-xl shadow-lg mt-2"
+            class="mobile-link text-center bg-white text-surface py-3 rounded-xl font-bold text-sm shadow-lg mt-2"
           >
             Konsultasi Sekarang
           </a>
