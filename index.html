@@ -16,6 +16,42 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>"
     />
     <title>WebCrave - Jasa Website UMKM Terpercaya & Laris</title>
+    <meta
+      name="description"
+      content="Jasa pembuatan website profesional khusus UMKM. Tingkatkan penjualan dan kredibilitas bisnis Anda dengan website murah, cepat, dan berkualitas."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://webcrave.id/" />
+    <meta
+      property="og:title"
+      content="WebCrave - Jasa Website UMKM Terpercaya & Laris"
+    />
+    <meta
+      property="og:description"
+      content="Bikin usaha makin laris dengan website profesional. Mulai 1 jutaan!"
+    />
+    <meta
+      property="og:image"
+      content="https://source.unsplash.com/random/1200x630/?website,business"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://webcrave.id/" />
+    <meta
+      property="twitter:title"
+      content="WebCrave - Jasa Website UMKM Terpercaya & Laris"
+    />
+    <meta
+      property="twitter:description"
+      content="Bikin usaha makin laris dengan website profesional. Mulai 1 jutaan!"
+    />
+    <meta
+      property="twitter:image"
+      content="https://source.unsplash.com/random/1200x630/?website,business"
+    />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,11 +62,20 @@
     />
     <link href="./style.css" rel="stylesheet" />
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome (Optimized Loading) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+    </noscript>
   </head>
   <body
     class="bg-background text-slate-300 font-sans antialiased overflow-x-hidden relative"
@@ -42,7 +87,7 @@
     <!-- Navigation (Dynamic Island Style) -->
     <nav
       id="navbar"
-      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[500px] md:max-w-3xl transition-all duration-300"
+      class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto md:min-w-[600px] max-w-5xl transition-all duration-300"
     >
       <div
         class="bg-surface/80 backdrop-blur-xl border border-white/10 rounded-full pl-6 pr-2 py-2 shadow-2xl flex items-center justify-between relative"
@@ -890,49 +935,6 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="script.js"></script>
-    <script>
-      // Accordion Custom Logic specific to Tailwind classes
-      document.querySelectorAll('.accordion-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          const content = button.nextElementSibling;
-          const arrow = button.querySelector('.fa-chevron-down');
-
-          if (content.style.maxHeight) {
-            content.style.maxHeight = null;
-            arrow.style.transform = 'rotate(0deg)';
-          } else {
-            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-            document.querySelectorAll('.fa-chevron-down').forEach(a => a.style.transform = 'rotate(0deg)');
-
-            content.style.maxHeight = content.scrollHeight + "px";
-            arrow.style.transform = 'rotate(180deg)';
-          }
-        });
-      });
-      // Mobile Menu Logic
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const menuPanel = document.getElementById('mobile-menu-panel');
-
-      if(menuBtn && menuPanel) {
-        menuBtn.addEventListener('click', () => {
-           if(menuPanel.classList.contains('max-h-0')) {
-             menuPanel.classList.remove('max-h-0', 'opacity-0');
-             menuPanel.classList.add('max-h-96', 'opacity-100');
-           } else {
-             menuPanel.classList.add('max-h-0', 'opacity-0');
-             menuPanel.classList.remove('max-h-96', 'opacity-100');
-           }
-        });
-
-        // Close on link click
-        document.querySelectorAll('.mobile-link').forEach(link => {
-          link.addEventListener('click', () => {
-             menuPanel.classList.add('max-h-0', 'opacity-0');
-             menuPanel.classList.remove('max-h-96', 'opacity-100');
-          });
-        });
-      }
-    </script>
+    <script src="script.js" defer></script>
   </body>
 </html>

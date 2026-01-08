@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
   const navbar = document.getElementById("navbar");
   if (navbar) {
     window.addEventListener("scroll", () => {
@@ -57,6 +56,53 @@ document.addEventListener("DOMContentLoaded", () => {
       const message = `Halo WebCrave, saya ${name}.%0A%0ASaya tertarik dengan: *${service}*.%0AMohon penjelasannya.`;
       const waUrl = `https://wa.me/6281234567890?text=${message}`;
       window.open(waUrl, "_blank");
+    });
+  }
+
+  // --- Accordion Logic ---
+  document.querySelectorAll(".accordion-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const content = button.nextElementSibling;
+      const arrow = button.querySelector(".fa-chevron-down");
+
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        document
+          .querySelectorAll(".accordion-content")
+          .forEach((c) => (c.style.maxHeight = null));
+        document
+          .querySelectorAll(".fa-chevron-down")
+          .forEach((a) => (a.style.transform = "rotate(0deg)"));
+
+        content.style.maxHeight = content.scrollHeight + "px";
+        arrow.style.transform = "rotate(180deg)";
+      }
+    });
+  });
+
+  // --- Mobile Menu Logic ---
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const menuPanel = document.getElementById("mobile-menu-panel");
+
+  if (menuBtn && menuPanel) {
+    menuBtn.addEventListener("click", () => {
+      if (menuPanel.classList.contains("max-h-0")) {
+        menuPanel.classList.remove("max-h-0", "opacity-0");
+        menuPanel.classList.add("max-h-96", "opacity-100");
+      } else {
+        menuPanel.classList.add("max-h-0", "opacity-0");
+        menuPanel.classList.remove("max-h-96", "opacity-100");
+      }
+    });
+
+    // Close on link click
+    document.querySelectorAll(".mobile-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuPanel.classList.add("max-h-0", "opacity-0");
+        menuPanel.classList.remove("max-h-96", "opacity-100");
+      });
     });
   }
 });
