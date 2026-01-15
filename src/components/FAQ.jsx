@@ -16,9 +16,9 @@ export default function FAQ() {
         "Cukup siapkan materi dasar (logo, foto produk, teks profil). Jika belum ada, kami bisa bantu buatkan konten dasar atau gunakan placeholder sementara. Tim kami akan memandu Anda step-by-step.",
     },
     {
-      question: "Apakah ada biaya bulanan/tahunan?",
+      question: "Apakah ada biaya bulanan atau tahunan?",
       answer:
-        "Website butuh Domain (alamat .com) & Hosting (penyimpanan) yang diperpanjang tahunan. Untuk tahun pertama biasanya sudah GRATIS dari kami (sesuai paket). Tahun berikutnya Anda cukup bayar perpanjangan saja (mulai 300rb/tahun).",
+        "Transparansi adalah inti dari layanan kami. Anda hanya perlu menyedikan budget untuk Domain & Hosting sebagai biaya operasional tahunan. Untuk tahun pertama, semua sudah termasuk dalam paket Nexa Digital Studio. Tahun berikutnya, Anda cukup membayar biaya perpanjangan murni tanpa tambahan biaya jasa.",
     },
     {
       question: "Bisakah saya update konten sendiri nanti?",
@@ -53,7 +53,7 @@ export default function FAQ() {
     {
       question: "Saya gaptek, apakah akan diajari?",
       answer:
-        "Pasti. Salah satu nilai plus Nexa Studio adalah kami 'Manusiawi'. Kami akan jelaskan dengan bahasa awam, bukan bahasa teknis yang membingungkan. Ada training admin via Zoom/Meet jika perlu.",
+        "Pasti. Salah satu nilai plus Nexa Digital Studio adalah kami 'Manusiawi'. Kami akan jelaskan dengan bahasa awam, bukan bahasa teknis yang membingungkan. Ada training admin via Zoom/Meet jika perlu.",
     },
   ];
 

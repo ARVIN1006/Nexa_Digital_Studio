@@ -1,57 +1,64 @@
-import {
-  Lightning,
-  MagnifyingGlassPlus,
-  DeviceMobileCamera,
-  Cursor,
-  ShieldCheck,
-  Code,
-} from "phosphor-react";
+import * as Icons from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function Benefits() {
-  const benefits = [
+  const { benefits: sanityBenefits } = useSiteData();
+
+  const staticBenefits = [
     {
-      icon: <Lightning size={32} weight="fill" />,
-      title: "Lightning Fast",
-      desc: "Loading di bawah 2 detik. Kami optimasi setiap baris kode agar pengunjung menyukai performa website Anda.",
+      icon: "Lightning",
+      title: "Future-Ready Performance",
+      desc: "Optimasi tingkat tinggi untuk kecepatan maksimal. Website yang responsif bukan pilihan, tapi standar mutlak di Nexa.",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
     },
     {
-      icon: <MagnifyingGlassPlus size={32} weight="fill" />,
-      title: "SEO Optimized",
-      desc: "Struktur HTML semantik & meta tags rapi sejak hari pertama. Fondasi kuat untuk nangkring di halaman 1.",
+      icon: "MagnifyingGlassPlus",
+      title: "Strategic SEO Architecture",
+      desc: "Struktur data yang dirancang cerdas agar bisnis Anda tidak hanya sekadar online, tapi dominan di hasil pencarian.",
       color: "text-green-500",
       bg: "bg-green-500/10",
     },
     {
-      icon: <DeviceMobileCamera size={32} weight="fill" />,
-      title: "Mobile-First",
-      desc: "Desain responsif yang adaptif. Tampilan tetap mewah dan fungsional, baik di iPhone terbaru maupun Android lama.",
+      icon: "DeviceMobileCamera",
+      title: "Adaptive Fluid Experience",
+      desc: "Transisi antar perangkat yang mulus. Kami memastikan estetika visual tetap terjaga di layar sekecil apapun.",
       color: "text-orange-500",
       bg: "bg-orange-500/10",
     },
     {
-      icon: <Cursor size={32} weight="fill" />,
-      title: "Conversion Focused",
-      desc: 'Layout psikologis yang mengarahkan mata pengunjung ke tombol "Beli" atau "Hubungi Kami". Jualan lebih mudah.',
+      icon: "Cursor",
+      title: "Psychology-Driven UX",
+      desc: "Layout yang dipandu riset perilaku pengguna untuk memaksimalkan setiap klik menjadi sebuah aksi nyata.",
       color: "text-purple-500",
       bg: "bg-purple-500/10",
     },
     {
-      icon: <ShieldCheck size={32} weight="fill" />,
-      title: "Secure & Safe",
-      desc: "Proteksi SSL standar perbankan dan anti-DDOS dasar. Data pelanggan aman, bisnis jalan terus tanpa was-was.",
+      icon: "ShieldCheck",
+      title: "Vault-Grade Security",
+      desc: "Standar keamanan berlapis untuk menjaga integritas data dan kepercayaan pelanggan Anda tetap utuh.",
       color: "text-teal-500",
       bg: "bg-teal-500/10",
     },
     {
-      icon: <Code size={32} weight="fill" />,
-      title: "Clean Code Standard",
-      desc: "Codingan rapi & terstruktur standar industri. Mudah dikembangkan lagi oleh developer manapun di masa depan.",
+      icon: "Code",
+      title: "Sustainable Clean Code",
+      desc: "Arsitektur kode yang bersih dan terstruktur untuk kemudahan skalabilitas bisnis Anda di masa depan.",
       color: "text-pink-500",
       bg: "bg-pink-500/10",
     },
   ];
+
+  const activeBenefits =
+    sanityBenefits.length > 0
+      ? sanityBenefits.map((b) => ({
+          icon: b.icon,
+          title: b.title,
+          desc: b.description,
+          color: "text-primary",
+          bg: "bg-primary/10",
+        }))
+      : staticBenefits;
 
   return (
     <section
@@ -66,9 +73,9 @@ export default function Benefits() {
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 leading-tight">
             Bukan Sekadar <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block px-2">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Estetika Visual.
-              <span className="absolute bottom-0 left-0 w-full h-1/3 bg-primary/20 -z-10 -skew-x-12"></span>
+              <span className="absolute bottom-1 left-0 w-full h-1/3 bg-primary/20 -z-10 -skew-x-12"></span>
             </span>
           </h2>
           <p className="text-lg md:text-xl text-gray-500 dark:text-gray-300 max-w-2xl leading-relaxed">
@@ -82,24 +89,27 @@ export default function Benefits() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {benefits.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-100 dark:border-slate-700 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
+          {activeBenefits.map((item, index) => {
+            const IconComponent = Icons[item.icon] || Icons.Cube;
+            return (
               <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${item.bg} ${item.color} group-hover:scale-110 transition-transform`}
+                key={index}
+                className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-100 dark:border-slate-700 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
               >
-                {item.icon}
+                <div
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${item.bg} ${item.color} group-hover:scale-110 transition-transform`}
+                >
+                  <IconComponent size={32} weight="fill" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[0.95rem]">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                {item.title}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-[0.95rem]">
-                {item.desc}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

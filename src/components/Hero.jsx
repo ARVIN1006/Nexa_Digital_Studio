@@ -1,6 +1,15 @@
 import { WhatsappLogo, ArrowRight, Star } from "phosphor-react";
+import heroPerson from "../assets/hero-people.avif";
+import { useSiteData } from "../context/SiteContext";
 
 export default function Hero() {
+  const { settings } = useSiteData();
+
+  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+  )}`;
+
   return (
     <header
       id="hero"
@@ -19,9 +28,14 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
-            Bangun{" "}
+            {settings?.heroTitle?.split(" ")[0] || "Ubah"}{" "}
+            {settings?.heroTitle?.split(" ")[1] || "Visi"}{" "}
+            {settings?.heroTitle?.split(" ").slice(2, -2).join(" ") ||
+              "Menjadi"}{" "}
+            <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
-              Website Impian
+              {settings?.heroTitle?.split(" ").slice(-2).join(" ") ||
+                "Karya Digital."}
               <svg
                 className="absolute w-full h-3 -bottom-1 left-0 text-primary/20 -z-10"
                 viewBox="0 0 100 10"
@@ -34,20 +48,17 @@ export default function Hero() {
                   fill="none"
                 />
               </svg>
-            </span>{" "}
-            <br className="hidden md:block" />
-            Tanpa Ribet.
+            </span>
           </h1>
 
-          <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-8 max-w-lg md:mx-0 leading-relaxed">
-            Layanan pembuatan website & aplikasi profesional yang dirancang
-            untuk meningkatkan konversi penjualan. Desain premium, teknis beres,
-            bisnis Anda terima jadi.
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
+            {settings?.heroSubtitle ||
+              "Nexa Digital Studio hadir untuk mendefinisikan ulang standar digital di Bandung. Kami membangun website & aplikasi berkelas dunia dengan harga yang tetap membumi."}
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
             <a
-              href="https://wa.me/6281234567890"
+              href={waLink}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-full font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
             >
               <WhatsappLogo size={20} weight="fill" />
@@ -74,6 +85,8 @@ export default function Hero() {
                   <img
                     src={`https://i.pravatar.cc/100?img=${i + 10}`}
                     alt="Client"
+                    width="40"
+                    height="40"
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover"
@@ -102,9 +115,11 @@ export default function Hero() {
           {/* Main Image */}
           <div className="relative z-10 w-[85%] md:w-full max-w-md mx-auto md:mr-0">
             <img
-              src="/HERO PEOPLE.png"
+              src={heroPerson}
               alt="Professional Developer"
-              fetchPriority="high"
+              width="600"
+              height="800"
+              fetchpriority="high"
               loading="eager"
               className="w-full h-auto object-contain mask-image-bottom drop-shadow-2xl"
               style={{

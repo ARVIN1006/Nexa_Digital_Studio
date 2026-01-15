@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { List, X, Sun, Moon } from "phosphor-react";
 import { useTheme } from "../hooks/useTheme";
+import logoLight from "../assets/logo-light.avif";
+import logoDark from "../assets/logo-dark.avif";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,13 +63,11 @@ export default function Navbar() {
           className="flex items-center gap-2 group"
         >
           <img
-            src={
-              theme === "dark"
-                ? "/NEXA LOGO NO BG LIGHT.webp"
-                : "/NEXA LOGO NO BG DARK.webp"
-            }
-            alt="Nexa Studio"
-            className="h-12 md:h-14 w-auto transition-all duration-300"
+            src={theme === "dark" ? logoLight : logoDark}
+            alt="Nexa Digital Studio"
+            className={`transition-all duration-500 w-auto ${
+              scrolled ? "h-8 md:h-9" : "h-10 md:h-11"
+            }`}
           />
         </a>
 

@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { CheckCircle } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function Pricing() {
-  const [activeTab, setActiveTab] = useState("umkm");
+  const { pricing: sanityPricing } = useSiteData();
+  const [activeTab, setActiveTab] = useState("business");
 
   const tabs = [
-    { id: "personal", label: "Personal" },
-    { id: "umkm", label: "UMKM" },
-    { id: "corporate", label: "Corporate" },
+    { id: "personal", label: "Identity" },
+    { id: "business", label: "Momentum" },
+    { id: "corporate", label: "Enterprise" },
   ];
 
-  const pricingData = {
+  const staticPricing = {
     personal: [
       {
         title: "Link Bio / Kartu Nama",
@@ -38,34 +40,8 @@ export default function Pricing() {
         cta: "Pilih Paket",
         popular: true,
       },
-      {
-        title: "Personal Branding",
-        price: "Rp 499rb",
-        originalPrice: "Rp 1.2jt",
-        features: [
-          "5 Halaman Lengkap",
-          "Blog / Artikel",
-          "SEO Basic",
-          "Free Maintenance 1 Bln",
-        ],
-        cta: "Pilih Paket",
-        popular: false,
-      },
     ],
-    umkm: [
-      {
-        title: "Paket Rintisan",
-        price: "Rp 349rb",
-        originalPrice: "Rp 750rb",
-        features: [
-          "Landing Page Simple",
-          "Profil Usaha",
-          "Tombol WhatsApp",
-          "Mobile Friendly",
-        ],
-        cta: "Pilih Hemat",
-        popular: false,
-      },
+    business: [
       {
         title: "Paket Laris Manis",
         price: "Rp 699rb",
@@ -80,35 +56,8 @@ export default function Pricing() {
         cta: "Ambil Promo",
         popular: true,
       },
-      {
-        title: "Paket Juragan",
-        price: "Rp 1.1jt",
-        originalPrice: "Rp 2.5jt",
-        features: [
-          "Katalog Unlimited",
-          "Fitur Ongkir Otomatis",
-          "Pembayaran Online",
-          "Laporan Penjualan",
-          "Training Admin",
-        ],
-        cta: "Pilih Paket",
-        popular: false,
-      },
     ],
     corporate: [
-      {
-        title: "Startup Validation",
-        price: "Rp 1.9jt",
-        originalPrice: "Rp 4jt",
-        features: [
-          "Landing Page High-Conv",
-          "A/B Testing Setup",
-          "Analytics Dashboard",
-          "Email Marketing Setup",
-        ],
-        cta: "Mulai Validasi",
-        popular: false,
-      },
       {
         title: "Company Profile Pro",
         price: "Rp 2.9jt",
@@ -123,22 +72,27 @@ export default function Pricing() {
         cta: "Hubungi Sales",
         popular: true,
       },
-      {
-        title: "Custom System",
-        price: "Start 4.5jt",
-        originalPrice: "Rp 10jt",
-        features: [
-          "Web App / SAAS",
-          "Database Complex",
-          "API Integration",
-          "Mobile App (Android)",
-          "Garansi 3 Bulan",
-        ],
-        cta: "Konsultasi",
-        popular: false,
-      },
     ],
   };
+
+  const pricingData =
+    sanityPricing.length > 0
+      ? sanityPricing.reduce((acc, plan) => {
+          const cat = plan.category || "business";
+          if (!acc[cat]) acc[cat] = [];
+          acc[cat].push({
+            title: plan.title,
+            price: plan.price,
+            originalPrice: plan.originalPrice,
+            features: plan.features || [],
+            cta: "Pilih Paket",
+            popular: plan.isPopular,
+          });
+          return acc;
+        }, {})
+      : staticPricing;
+
+  const currentPricing = pricingData[activeTab] || [];
 
   return (
     <section
@@ -160,9 +114,10 @@ export default function Pricing() {
             </h2>
           </div>
           <div className="max-w-sm text-left hidden md:block">
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
-              Pilih paket yang pas. Tidak ada biaya tersembunyi ("Add-on" ini
-              itu) di belakang. Fair trade.
+            <p className="text-gray-500 dark:text-gray-400 leading-relaxed font-medium italic">
+              "Excellence is not an act, but a habit." <br />
+              Kami menyusun paket yang dirancang untuk mendampingi pertumbuhan
+              bisnis Anda di setiap tahap.
             </p>
           </div>
         </div>
@@ -189,16 +144,16 @@ export default function Pricing() {
         {/* Grid */}
         <div
           key={activeTab}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center animate-fade-in-up"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto animate-fade-in-up"
         >
-          {pricingData[activeTab].map((item, index) => (
+          {currentPricing.map((item, index) => (
             <div
               key={index}
-              className={`relative bg-white dark:bg-slate-800 rounded-3xl p-8 border ${
+              className={`relative bg-white dark:bg-slate-800 rounded-[2.5rem] p-10 md:p-12 border-2 ${
                 item.popular
-                  ? "border-primary/50 shadow-2xl shadow-primary/10 ring-4 ring-primary/5 dark:ring-primary/20"
-                  : "border-gray-100 dark:border-slate-700 shadow-lg"
-              } hover:-translate-y-2 transition-transform duration-300`}
+                  ? "border-primary shadow-2xl shadow-primary/20 ring-8 ring-primary/5"
+                  : "border-gray-100 dark:border-slate-800 shadow-xl"
+              } hover:-translate-y-3 transition-all duration-500 group`}
             >
               {item.popular && (
                 <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
@@ -211,10 +166,10 @@ export default function Pricing() {
                   {item.title}
                 </h3>
                 <div className="flex flex-col items-center">
-                  <span className="text-sm text-gray-400 line-through mb-1">
+                  <span className="text-sm text-gray-500/70 dark:text-gray-400/70 line-through mb-1 font-medium">
                     {item.originalPrice}
                   </span>
-                  <div className="text-4xl font-extrabold text-primary">
+                  <div className="text-5xl font-black text-primary tracking-tight">
                     {item.price}
                   </div>
                 </div>
@@ -224,7 +179,7 @@ export default function Pricing() {
                 {item.features.map((feat, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-3 text-gray-600 dark:text-gray-300 text-sm"
+                    className="flex items-center gap-4 text-gray-600 dark:text-gray-300 text-base font-medium"
                   >
                     <CheckCircle
                       size={20}

@@ -1,8 +1,8 @@
-# Nexa Studio - Digital Innovation & Strategy 🚀
+# Nexa Digital Studio - Digital Innovation & Strategy 🚀
 
-Nexa Studio adalah layanan pembuatan website dan aplikasi profesional yang dirancang untuk meningkatkan konversi penjualan dan memperkuat digital presence bisnis Anda.
+Nexa Digital Studio adalah layanan pembuatan website dan aplikasi profesional yang dirancang untuk meningkatkan konversi penjualan dan memperkuat digital presence bisnis Anda.
 
-![Nexa Studio OG Image](https://raw.githubusercontent.com/ARVIN1006/Nexa_Digital_Studio/main/public/og-image.png)
+![Nexa Digital Studio OG Image](https://raw.githubusercontent.com/ARVIN1006/Nexa_Digital_Studio/main/public/og-image.png)
 
 ## ✨ Fitur Utama
 
@@ -58,9 +58,9 @@ Nexa Studio adalah layanan pembuatan website dan aplikasi profesional yang diran
 ## 📧 Kontak
 
 - **WhatsApp**: [+62 812 3456 7890](https://wa.me/6281234567890)
-- **Website**: [nexastudio.id](https://nexastudio.id)
-- **Instagram**: [@nexa.studio](https://instagram.com/nexa.studio)
+- **Website**: [nexadigitalstudio.netlify.app](https://nexadigitalstudio.netlify.app)
+- **Instagram**: [@\_nexadigitalstudio.id](https://instagram.com/_nexadigitalstudio.id)
 
 ---
 
-Developed with ❤️ by **Nexa Studio Team**
+Developed with ❤️ by **Nexa Digital Studio Team**

@@ -3,10 +3,18 @@ import {
   LinkedinLogo,
   Envelope,
   WhatsappLogo,
+  MapPin,
 } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function Footer() {
+  const { settings } = useSiteData();
   const currentYear = new Date().getFullYear();
+
+  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const email = settings?.contactEmail || "arvin.dev.business@gmail.com";
+  const igHandle = settings?.instagramHandle || "_nexadigitalstudio.id";
+  const igLink = `https://instagram.com/${igHandle.replace("@", "")}`;
 
   return (
     <footer className="bg-gray-950 dark:bg-black text-white pt-20 pb-10 transition-colors duration-300 border-t border-gray-800 dark:border-white/5">
@@ -16,7 +24,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
-                Nexa Studio.
+                Nexa Digital Studio.
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
                 Mitra teknologi visioner untuk bisnis modern. Kami mengubah ide
@@ -25,13 +33,15 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-4">
               <a
-                href="#"
+                href={igLink}
+                target="_blank"
+                rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all"
               >
                 <InstagramLogo size={20} weight="fill" />
               </a>
               <a
-                href="#"
+                href={`mailto:${email}`}
                 className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all"
               >
                 <Envelope size={20} weight="fill" />
@@ -97,18 +107,33 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Hubungi Kami</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
+              <li className="flex items-start gap-4 text-gray-400 text-sm group">
                 <WhatsappLogo
                   size={20}
-                  className="mt-0.5 text-green-500 shrink-0"
+                  className="mt-1 text-green-500 shrink-0 group-hover:scale-110 transition-transform"
                 />
-                <span>
-                  +62 812 3456 7890 <br /> (WhatsApp Only)
-                </span>
+                <a
+                  href={`https://wa.me/${waNumber}?text=${encodeURIComponent(
+                    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  +{waNumber.startsWith("62") ? waNumber : `62${waNumber}`}{" "}
+                  <br />
+                  <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">
+                    WhatsApp Only
+                  </span>
+                </a>
               </li>
               <li className="flex items-start gap-3 text-gray-400 text-sm">
                 <Envelope size={20} className="mt-0.5 text-blue-500 shrink-0" />
-                <span>hello@nexastudio.com</span>
+                <span>{email}</span>
+              </li>
+              <li className="flex items-start gap-3 text-gray-400 text-sm">
+                <MapPin size={20} className="mt-0.5 text-red-500 shrink-0" />
+                <span>Bandung, Indonesia</span>
               </li>
             </ul>
           </div>
@@ -116,14 +141,14 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 dark:text-gray-500 text-xs md:text-sm">
-            &copy; {currentYear} Nexa Studio. All rights reserved.
+          <p className="text-gray-400 dark:text-gray-400 text-xs md:text-sm font-medium">
+            &copy; {currentYear} Nexa Digital Studio. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-gray-500 font-medium">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex gap-6 text-xs text-gray-400 font-bold">
+            <a href="#" className="hover:text-white transition-all">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-all">
               Terms of Service
             </a>
           </div>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { WhatsappLogo } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function FloatingCTA() {
+  const { settings } = useSiteData();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -50,7 +52,11 @@ export default function FloatingCTA() {
       }`}
     >
       <a
-        href="https://wa.me/6281234567890"
+        href={`https://wa.me/${
+          settings?.whatsappNumber || "6282127666523"
+        }?text=${encodeURIComponent(
+          "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+        )}`}
         target="_blank"
         rel="noreferrer"
         className="group flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white pl-4 pr-6 py-3.5 rounded-full shadow-lg shadow-green-500/30 transition-all hover:-translate-y-1"

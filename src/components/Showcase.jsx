@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowRight } from "phosphor-react";
+import { client, urlFor } from "../lib/sanity";
+import project1 from "../assets/project-1.webp";
+import project2 from "../assets/project-2.webp";
+import project3 from "../assets/project-3.webp";
+import project4 from "../assets/project-4.webp";
 
 export default function Showcase() {
   const scrollRef = useRef(null);
@@ -7,43 +12,72 @@ export default function Showcase() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [sanityProjects, setSanityProjects] = useState([]);
 
-  const projects = [
+  const staticProjects = [
     {
       id: 1,
       title: "Web Personal Branding",
       category: "Influencer",
-      img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop",
+      img: project1,
       accent: "border-pink-200 shadow-pink-500/10",
+      previewUrl: "#",
     },
     {
       id: 2,
       title: "Website UMKM Kuliner",
       category: "F&B Business",
-      img: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=1000&auto=format&fit=crop",
+      img: project2,
       accent: "border-orange-200 shadow-orange-500/10",
+      previewUrl: "#",
     },
     {
       id: 3,
       title: "Corporate Company Profile",
       category: "Finance",
-      img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop",
+      img: project3,
       accent: "border-blue-200 shadow-blue-500/10",
+      previewUrl: "#",
     },
     {
       id: 4,
       title: "Aplikasi Reservasi Klinik",
       category: "Healthcare App",
-      img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1000&auto=format&fit=crop",
+      img: project4,
       accent: "border-teal-200 shadow-teal-500/10",
+      previewUrl: "#",
     },
   ];
 
-  // Increase duplicates to 12 sets to create a massive buffer
-  // This ensures user can drag for a long time without needing a reset,
-  // and when reset happens, it's invisible.
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const query = `*[_type == "project"] | order(_createdAt desc)`;
+        const data = await client.fetch(query);
+        if (data && data.length > 0) {
+          const formatted = data.map((proj) => ({
+            id: proj._id,
+            title: proj.title,
+            category: proj.category,
+            img: urlFor(proj.mainImage).url(),
+            accent: proj.accent || "border-gray-200 shadow-gray-500/10",
+            previewUrl: proj.previewUrl || "#",
+          }));
+          setSanityProjects(formatted);
+        }
+      } catch (error) {
+        console.error("Sanity fetch error:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const activeProjects =
+    sanityProjects.length > 0 ? sanityProjects : staticProjects;
+
   const DUPLICATION_COUNT = 8;
-  const infiniteProjects = Array(DUPLICATION_COUNT).fill(projects).flat();
+  const infiniteProjects = Array(DUPLICATION_COUNT).fill(activeProjects).flat();
 
   // Handle Infinite Looping Logic via onScroll
   const handleScroll = () => {
@@ -173,12 +207,21 @@ export default function Showcase() {
             key={`${project.id}-${index}`}
             className="w-[85vw] md:w-[450px] flex-shrink-0 select-none"
           >
-            <div
-              className={`group relative h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-4 border-transparent dark:border-slate-700/50 hover:border-primary/20 dark:hover:border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-500 ${project.accent}`}
+            <a
+              href={project.previewUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => {
+                // Prevent navigation if we were dragging
+                if (isDragging) e.preventDefault();
+              }}
+              className={`group block relative h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-4 border-transparent dark:border-slate-700/50 hover:border-primary/20 dark:hover:border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-500 ${project.accent} cursor-pointer`}
             >
               <img
                 src={project.img}
-                alt={project.title}
+                alt={`${project.title} - Jasa Pembuatan Website Bandung`}
+                width="400"
+                height="550"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
@@ -188,7 +231,7 @@ export default function Showcase() {
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-all duration-300 pointer-events-none"></div>
 
               {/* Content */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end pointer-events-none">
+              <div className="absolute inset-0 p-8 flex flex-col justify-end">
                 <div className="transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
                   <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-full mb-3 shadow-lg">
                     {project.category}
@@ -203,7 +246,7 @@ export default function Showcase() {
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         ))}
       </div>

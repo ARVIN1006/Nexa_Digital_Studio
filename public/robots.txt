@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nexastudio.id/sitemap.xml
+Sitemap: https://nexadigitalstudio.netlify.app/sitemap.xml

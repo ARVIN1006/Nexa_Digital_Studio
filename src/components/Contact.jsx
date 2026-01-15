@@ -6,8 +6,22 @@ import {
   LinkedinLogo,
   ArrowRight,
 } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function Contact() {
+  const { settings } = useSiteData();
+
+  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+  )}`;
+  const emailLink = `mailto:${
+    settings?.contactEmail || "arvin.dev.business@gmail.com"
+  }`;
+  const igLink = settings?.instagramHandle
+    ? `https://instagram.com/${settings.instagramHandle.replace("@", "")}`
+    : "https://instagram.com/_nexadigitalstudio.id";
+
   return (
     <section
       className="py-24 bg-gray-50 dark:bg-slate-800 transition-colors duration-300 relative overflow-hidden"
@@ -87,7 +101,7 @@ export default function Contact() {
             <div className="flex flex-col gap-4">
               {/* WhatsApp Option */}
               <a
-                href="https://wa.me/6281234567890"
+                href={waLink}
                 className="group block w-full bg-gradient-to-r from-[#25D366] to-[#20bd5a] hover:from-[#20bd5a] hover:to-[#1da851] text-white p-0.5 md:p-1 rounded-full transition-all shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1"
               >
                 <div className="flex items-center justify-between px-4 py-2.5 md:px-6 md:py-4">
@@ -126,7 +140,7 @@ export default function Contact() {
 
               {/* Email Option */}
               <a
-                href="mailto:hello@nexastudio.com"
+                href={emailLink}
                 className="group block w-full bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-slate-700 text-gray-700 dark:text-gray-200 hover:border-primary/50 hover:bg-gray-50 dark:hover:bg-slate-800/80 p-0.5 md:p-1 rounded-full transition-all hover:-translate-y-1"
               >
                 <div className="flex items-center justify-between px-4 py-2.5 md:px-6 md:py-4">
@@ -157,7 +171,7 @@ export default function Contact() {
 
               {/* Instagram Option */}
               <a
-                href="https://instagram.com/nexa.studio"
+                href={igLink}
                 target="_blank"
                 rel="noreferrer"
                 className="group block w-full bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-slate-700 text-gray-700 dark:text-gray-200 hover:border-pink-500/50 hover:bg-pink-50 dark:hover:bg-slate-800/80 p-0.5 md:p-1 rounded-full transition-all hover:-translate-y-1"
