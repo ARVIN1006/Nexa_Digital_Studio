@@ -81,27 +81,7 @@ export default function Showcase() {
     }
   }, []);
 
-  // Auto-scroll Animation Loop
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let animationId;
-    const animate = () => {
-      if (!isPaused && !isDragging) {
-        container.scrollLeft += 1;
-        // Note: The handleScroll function logic will catch the "too far" case
-        // separately because it fires on scroll event, but for smooth auto-scroll we trigger it manually slightly?
-        // Actually, changing scrollLeft triggers the native 'scroll' event, so handleScroll will run.
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [isPaused, isDragging]);
-
-  // Drag Handlers
+  // Simplified Drag Handler to avoid Forced Reflow
   const onMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.pageX - scrollRef.current.offsetLeft);
@@ -123,9 +103,30 @@ export default function Showcase() {
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - startX) * 2;
+    // Directly setting scrollLeft is performant enough if not overloaded with heavy reads
     scrollRef.current.scrollLeft = scrollLeft - walk;
     setIsPaused(true);
   };
+
+  // Use simple interval for auto-scroll instead of heavy RAF loop
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const interval = setInterval(() => {
+      if (!isPaused && !isDragging) {
+        // Check if we need to loop back seamlessly
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        if (container.scrollLeft >= maxScroll - 10) {
+          container.scrollLeft = 0; // Quick jump back for loop effect
+        } else {
+          container.scrollBy({ left: 1, behavior: "auto" });
+        }
+      }
+    }, 20); // 50fps is smooth enough and less taxing
+
+    return () => clearInterval(interval);
+  }, [isPaused, isDragging]);
 
   return (
     <section
