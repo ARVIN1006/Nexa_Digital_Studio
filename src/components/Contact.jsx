@@ -37,7 +37,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: Persuasion & Info */}
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Buka untuk Kolaborasi Baru
             </div>

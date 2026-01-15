@@ -38,7 +38,7 @@ export default function Pricing() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Transparent Pricing
             </div>
@@ -102,7 +102,7 @@ export default function Pricing() {
                   {item.title}
                 </h3>
                 <div className="flex flex-col items-center">
-                  <span className="text-sm text-gray-500/70 dark:text-gray-400/70 line-through mb-1 font-medium">
+                  <span className="text-sm text-gray-500 dark:text-gray-400 line-through mb-1 font-medium">
                     {item.originalPrice}
                   </span>
                   <div className="text-5xl font-black text-primary tracking-tight">

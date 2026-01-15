@@ -70,7 +70,7 @@ export default function FAQ() {
         <div className="flex flex-col lg:flex-row gap-16 md:gap-24">
           {/* Header (Sticky on Desktop) */}
           <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Common Questions
             </div>

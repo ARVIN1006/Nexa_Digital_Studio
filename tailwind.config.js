@@ -24,6 +24,7 @@ export default {
         primary: {
           DEFAULT: "#4f46e5",
           dark: "#4338ca",
+          light: "#818cf8", // Improved contrast for dark mode
         },
         accent: {
           DEFAULT: "#6366f1",

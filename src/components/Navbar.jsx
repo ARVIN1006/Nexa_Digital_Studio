@@ -113,6 +113,7 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             className="p-2 text-gray-600 dark:text-gray-300 transition-colors"
+            aria-label="Switch Theme"
           >
             {theme === "dark" ? (
               <Sun size={24} weight="bold" />
@@ -124,6 +125,7 @@ export default function Navbar() {
           <button
             className="p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
           >
             {isOpen ? (
               <X size={24} weight="bold" />

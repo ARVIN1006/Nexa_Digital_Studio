@@ -127,7 +127,7 @@ export default function Showcase() {
     >
       <div className="container mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
         <div className="max-w-3xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             Eksplorasi Karya
           </div>
