@@ -20,7 +20,14 @@ export default function Showcase() {
             id: proj._id,
             title: proj.title,
             category: proj.category,
-            img: urlFor(proj.mainImage).quality(80).url(),
+            img: {
+              src: urlFor(proj.mainImage).width(800).quality(80).url(), // Default Fallback
+              srcSet: `
+                ${urlFor(proj.mainImage).width(400).quality(80).url()} 400w,
+                ${urlFor(proj.mainImage).width(800).quality(80).url()} 800w,
+                ${urlFor(proj.mainImage).width(1200).quality(80).url()} 1200w
+              `,
+            },
             accent: proj.accent || "border-gray-200 shadow-gray-500/10",
             previewUrl: proj.previewUrl || "#",
           }));
@@ -176,7 +183,9 @@ export default function Showcase() {
               className={`group block relative h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-4 border-transparent dark:border-slate-700/50 hover:border-primary/20 dark:hover:border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-500 ${project.accent} cursor-pointer`}
             >
               <img
-                src={project.img}
+                src={project.img.src}
+                srcSet={project.img.srcSet}
+                sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px"
                 alt={`${project.title} - Jasa Pembuatan Website Bandung`}
                 width="400"
                 height="550"
