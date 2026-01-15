@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: 'iz9h8b1m',
     dataset: 'production',
   },
+  studioHost: 'nexadigitalstudio',
 })

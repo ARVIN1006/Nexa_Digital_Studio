@@ -168,7 +168,7 @@ export default function Showcase() {
         <div className="max-w-3xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Selected Projects
+            Eksplorasi Karya
           </div>
           <h2 className="text-4xl md:text-7xl font-black text-gray-900 dark:text-white leading-tight mb-6">
             Karya Yang <br />
@@ -183,9 +183,6 @@ export default function Showcase() {
             Website dan aplikasi yang membantu bisnis tumbuh. Bukan sekadar
             template, tapi solusi custom.
           </p>
-          <button className="hidden md:flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
-            Lihat Semua Project <ArrowRight weight="bold" />
-          </button>
         </div>
       </div>
 
@@ -251,12 +248,12 @@ export default function Showcase() {
         ))}
       </div>
 
-      {/* Mobile View All Button */}
-      <div className="container mx-auto px-6 mt-4 md:hidden flex justify-center">
+      {/* Mobile View All Button Removed until Portfolio page is ready */}
+      {/* <div className="container mx-auto px-6 mt-4 md:hidden flex justify-center">
         <button className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all p-4">
           Lihat Semua Project <ArrowRight weight="bold" />
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }

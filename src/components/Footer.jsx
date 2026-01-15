@@ -27,25 +27,9 @@ export default function Footer() {
                 Nexa Digital Studio.
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                Mitra teknologi visioner untuk bisnis modern. Kami mengubah ide
-                kompleks menjadi solusi digital yang profitable.
+                Membantu individu dan UMKM membangun kehadiran digital pertama
+                mereka dengan hasil yang profesional dan berkelas.
               </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <a
-                href={igLink}
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all"
-              >
-                <InstagramLogo size={20} weight="fill" />
-              </a>
-              <a
-                href={`mailto:${email}`}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all"
-              >
-                <Envelope size={20} weight="fill" />
-              </a>
             </div>
           </div>
 
@@ -80,30 +64,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Layanan */}
-          <div>
-            <h4 className="text-lg font-bold text-white mb-6">Resources</h4>
-            <ul className="space-y-4">
-              {[
-                "Blog",
-                "Community",
-                "Terms of Service",
-                "Privacy Policy",
-                "FAQ",
-              ].map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-primary transition-colors text-sm font-medium"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
+          {/* Contact Info (Moved here for better grid balance) */}
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Hubungi Kami</h4>
             <ul className="space-y-4">
@@ -144,13 +105,8 @@ export default function Footer() {
           <p className="text-gray-400 dark:text-gray-400 text-xs md:text-sm font-medium">
             &copy; {currentYear} Nexa Digital Studio. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-gray-400 font-bold">
-            <a href="#" className="hover:text-white transition-all">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-white transition-all">
-              Terms of Service
-            </a>
+          <div className="flex gap-6 text-xs text-gray-500 font-bold">
+            <span>Bandung, Indonesia</span>
           </div>
         </div>
       </div>

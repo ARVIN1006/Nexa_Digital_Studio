@@ -3,12 +3,12 @@ import { CheckCircle } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
 
 export default function Pricing() {
-  const { pricing: sanityPricing } = useSiteData();
+  const { settings, pricing: sanityPricing } = useSiteData();
   const [activeTab, setActiveTab] = useState("business");
 
   const tabs = [
     { id: "personal", label: "Identity" },
-    { id: "business", label: "Momentum" },
+    { id: "business", label: "UMKM" },
     { id: "corporate", label: "Enterprise" },
   ];
 
@@ -191,15 +191,22 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full py-3.5 rounded-xl font-bold transition-all ${
+              <a
+                href={`https://wa.me/${
+                  settings?.whatsappNumber || "6282127666523"
+                }?text=${encodeURIComponent(
+                  `Halo Nexa Studio, saya tertarik dengan paket *${item.title}*. Bisa dibantu?`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className={`w-full py-3.5 rounded-xl font-bold transition-all text-center block ${
                   item.popular
                     ? "bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/25"
                     : "bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 border border-gray-200 dark:border-slate-600"
                 }`}
               >
-                {item.cta}
-              </button>
+                {item.cta || "Ambil Paket"}
+              </a>
             </div>
           ))}
         </div>

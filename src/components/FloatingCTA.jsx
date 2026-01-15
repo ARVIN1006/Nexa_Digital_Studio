@@ -67,9 +67,9 @@ export default function FloatingCTA() {
         </div>
         <div className="text-left">
           <p className="text-[10px] font-medium text-green-50 opacity-90 uppercase tracking-wider">
-            Butuh Bantuan?
+            Ingin Tanya-Tanya?
           </p>
-          <p className="text-sm font-bold">Hubungi Kami</p>
+          <p className="text-sm font-bold">Diskusi Bareng Yuk</p>
         </div>
       </a>
     </div>

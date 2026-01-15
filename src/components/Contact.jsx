@@ -39,7 +39,7 @@ export default function Contact() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              Limited Slot Available
+              Buka untuk Kolaborasi Baru
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
               Siap Meroketkan <br />

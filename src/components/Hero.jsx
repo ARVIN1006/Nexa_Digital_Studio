@@ -1,4 +1,12 @@
-import { WhatsappLogo, ArrowRight, Star } from "phosphor-react";
+import {
+  WhatsappLogo,
+  ArrowRight,
+  Star,
+  Lightning,
+  ShieldCheck,
+  PaintBrush,
+  Code,
+} from "phosphor-react";
 import heroPerson from "../assets/hero-people.avif";
 import { useSiteData } from "../context/SiteContext";
 
@@ -64,10 +72,19 @@ export default function Hero() {
               <WhatsappLogo size={20} weight="fill" />
               Diskusi Gratis
             </a>
-            <button className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold transition-all">
+            <a
+              href="#pricing"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("pricing")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold transition-all cursor-pointer"
+            >
               Lihat Price List
               <ArrowRight size={16} weight="bold" />
-            </button>
+            </a>
           </div>
 
           {/* Mobile Only Note */}
@@ -77,24 +94,37 @@ export default function Hero() {
 
           <div className="hidden md:flex items-center gap-8 mt-12 pt-8 border-t border-gray-100 dark:border-white/10">
             <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
+              {[
+                {
+                  icon: <Lightning size={18} weight="fill" />,
+                  bg: "bg-amber-100 text-amber-600",
+                },
+                {
+                  icon: <ShieldCheck size={18} weight="fill" />,
+                  bg: "bg-blue-100 text-blue-600",
+                },
+                {
+                  icon: <PaintBrush size={18} weight="fill" />,
+                  bg: "bg-pink-100 text-pink-600",
+                },
+                {
+                  icon: <Code size={18} weight="fill" />,
+                  bg: "bg-indigo-100 text-indigo-600",
+                },
+              ].map((item, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-slate-900 overflow-hidden"
+                  className={`w-10 h-10 rounded-full ${
+                    item.bg
+                  } border-2 border-white dark:border-slate-900 flex items-center justify-center shadow-sm relative z-[${
+                    4 - i
+                  }]`}
                 >
-                  <img
-                    src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                    alt="Client"
-                    width="40"
-                    height="40"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
+                  {item.icon}
                 </div>
               ))}
-              <div className="w-10 h-10 rounded-full bg-gray-900 dark:bg-white dark:text-slate-900 text-white flex items-center justify-center text-xs font-bold border-2 border-white dark:border-slate-900 relative z-10">
-                50+
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold border-2 border-white dark:border-slate-900 relative z-10 shadow-lg">
+                <Star size={16} weight="fill" />
               </div>
             </div>
             <div className="flex flex-col">
@@ -104,7 +134,7 @@ export default function Hero() {
                 ))}
               </div>
               <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                Trusted by 50+ Happy Clients
+                Kualitas Premium & Bergaransi
               </span>
             </div>
           </div>
@@ -113,12 +143,12 @@ export default function Hero() {
         {/* Right Visual */}
         <div className="relative h-full flex flex-col justify-end items-center md:items-end">
           {/* Main Image */}
-          <div className="relative z-10 w-[85%] md:w-full max-w-md mx-auto md:mr-0">
+          <div className="relative z-10 w-full max-w-lg mx-auto md:mr-0">
             <img
               src={heroPerson}
               alt="Professional Developer"
-              width="600"
-              height="800"
+              width="800"
+              height="1000"
               fetchpriority="high"
               loading="eager"
               className="w-full h-auto object-contain mask-image-bottom drop-shadow-2xl"
@@ -129,71 +159,6 @@ export default function Hero() {
                   "linear-gradient(to bottom, black 80%, transparent 100%)",
               }}
             />
-
-            {/* Floating Cards - Visible on Mobile & Desktop */}
-
-            {/* 1. Rating - Top Left */}
-            <div className="absolute top-[15%] -left-4 md:top-[20%] md:-left-12 bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-slate-700 animate-float-slow z-20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
-                  <Star
-                    weight="fill"
-                    size={16}
-                    className="md:w-[20px] md:h-[20px]"
-                  />
-                </div>
-                <div>
-                  <p className="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium">
-                    Rating
-                  </p>
-                  <p className="text-xs md:text-sm font-bold text-gray-900 dark:text-white">
-                    4.9/5.0
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Projects Done - Bottom Right */}
-            <div className="absolute bottom-[20%] -right-2 md:-right-4 bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-slate-700 animate-float-delayed z-20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400">
-                  <ArrowRight
-                    weight="bold"
-                    size={16}
-                    className="md:w-[20px] md:h-[20px]"
-                  />
-                </div>
-                <div>
-                  <p className="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium">
-                    Project Done
-                  </p>
-                  <p className="text-xs md:text-sm font-bold text-gray-900 dark:text-white">
-                    120+ Web
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. New 'Finger' Bubble - Positioned for Pointing/Holding Effect */}
-            <div className="absolute top-[15%] -right-4 md:top-[2%] md:-right-16 bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-slate-700 animate-float-reverse z-20">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
-                  <WhatsappLogo
-                    weight="fill"
-                    size={16}
-                    className="md:w-[20px] md:h-[20px]"
-                  />
-                </div>
-                <div>
-                  <p className="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium">
-                    Support
-                  </p>
-                  <p className="text-xs md:text-sm font-bold text-gray-900 dark:text-white">
-                    Fast Response
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

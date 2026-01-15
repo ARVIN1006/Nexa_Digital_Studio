@@ -69,7 +69,7 @@ export default function Benefits() {
         <div className="flex flex-col md:items-start md:text-left items-center text-center max-w-4xl md:mx-0 mx-auto mb-20 relative">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            The Nexa Standard
+            Komitmen Kami
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 leading-tight">
             Bukan Sekadar <br className="hidden md:block" />
