@@ -30,7 +30,7 @@ export default function Hero() {
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="text-left pt-6 pb-12 md:pb-0">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-8 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-8 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             Available for New Projects
           </div>
@@ -88,7 +88,7 @@ export default function Hero() {
           </div>
 
           {/* Mobile Only Note */}
-          <p className="mt-6 text-xs text-gray-400 dark:text-gray-500 italic md:hidden text-left">
+          <p className="mt-6 text-xs text-gray-700 dark:text-gray-300 italic md:hidden text-left font-medium">
             *Konsultasi gratis & tanpa komitmen apapun.
           </p>
 

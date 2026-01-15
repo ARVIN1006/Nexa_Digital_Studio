@@ -102,19 +102,12 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 dark:text-gray-400 text-xs md:text-sm font-medium">
+          <p className="text-gray-300 dark:text-gray-300 text-xs md:text-sm font-medium">
             &copy; {currentYear} Nexa Digital Studio. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-gray-500 font-bold">
-            <a
-              href="/privacy-policy"
-              className="hover:text-white transition-all"
-            >
-              Privacy Policy
-            </a>
-            <a href="/terms" className="hover:text-white transition-all">
-              Terms of Service
-            </a>
+          <div className="flex gap-6 text-xs text-white font-bold opacity-90 hover:opacity-100 transition-opacity">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
           </div>
         </div>
       </div>
