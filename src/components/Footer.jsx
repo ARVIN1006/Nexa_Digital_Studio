@@ -106,7 +106,15 @@ export default function Footer() {
             &copy; {currentYear} Nexa Digital Studio. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-gray-500 font-bold">
-            <span>Bandung, Indonesia</span>
+            <a
+              href="/privacy-policy"
+              className="hover:text-white transition-all"
+            >
+              Privacy Policy
+            </a>
+            <a href="/terms" className="hover:text-white transition-all">
+              Terms of Service
+            </a>
           </div>
         </div>
       </div>

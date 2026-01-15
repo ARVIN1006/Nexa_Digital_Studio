@@ -59,7 +59,7 @@ export default function Showcase() {
             id: proj._id,
             title: proj.title,
             category: proj.category,
-            img: urlFor(proj.mainImage).url(),
+            img: urlFor(proj.mainImage).quality(80).url(),
             accent: proj.accent || "border-gray-200 shadow-gray-500/10",
             previewUrl: proj.previewUrl || "#",
           }));

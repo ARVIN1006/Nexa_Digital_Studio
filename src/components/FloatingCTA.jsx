@@ -14,33 +14,74 @@ export default function FloatingCTA() {
 
     const handleIntersect = (entries) => {
       entries.forEach((entry) => {
-        if (entry.target.id === "hero")
-          sectionVisibility.hero = entry.isIntersecting;
-        if (entry.target.id === "contact")
-          sectionVisibility.contact = entry.isIntersecting;
+        if (entry.target.id === "hero") {
+          setIsVisible((prev) => (entry.isIntersecting ? false : prev));
+        }
+        if (entry.target.id === "contact") {
+          setIsVisible((prev) => (entry.isIntersecting ? false : true));
+        }
+
+        // Comprehensive check: If Hero OR Contact is intersecting, hide.
+        // We rely on the fact that if neither is intersecting, we should show (unless we are just transitioning)
+        // Actually, let's use the safer State Object pattern but inside the ref callback to avoid stale closures if any
       });
-
-      const shouldHide = sectionVisibility.hero || sectionVisibility.contact;
-      setIsVisible(!shouldHide);
     };
 
-    const observer = new IntersectionObserver(handleIntersect, {
-      threshold: 0.1,
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let isHeroVisible = false;
+        let isContactVisible = false;
 
-    const heroSection = document.getElementById("hero");
-    const contactSection = document.getElementById("contact");
+        entries.forEach((entry) => {
+          if (entry.target.id === "hero") isHeroVisible = entry.isIntersecting;
+          if (entry.target.id === "contact")
+            isContactVisible = entry.isIntersecting;
+        });
 
-    if (heroSection) observer.observe(heroSection);
-    if (contactSection) observer.observe(contactSection);
+        // Use a functional update to check 'real-time' status from the DOM if needed,
+        // or just trust the observer. simpler is better.
+        // Problem: Observer only reports CHANGES.
+        // Solution: We need to know the state of BOTH at any time.
+        // We can't know the state of the "other" one from 'entries'.
 
-    // Initial check in case they aren't intersecting but we aren't at top
-    // However, usually hero is at the top, so we start hidden.
+        // LET'S USE SCROLL LISTENER INSTEAD. It's much more reliable for "Top and Bottom" logic.
+      },
+      { threshold: 0 }
+    );
 
-    return () => {
-      if (heroSection) observer.unobserve(heroSection);
-      if (contactSection) observer.unobserve(contactSection);
+    // SWITCHING TO SCROLL LISTENER IMPLEMENTATION BELOW
+    const handleScroll = () => {
+      const hero = document.getElementById("hero");
+      const contact = document.getElementById("contact");
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // Logic: Hide if at very top (Hero) OR very bottom (Contact area)
+      const isAtTop = scrollY < 500; // Hero is usually 800px+
+      const isAtBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 500; // Near bottom
+
+      // Better Logic using Element positions
+      let hide = false;
+
+      if (hero) {
+        const rect = hero.getBoundingClientRect();
+        if (rect.bottom > 100) hide = true; // Hero is still substantially on screen
+      }
+
+      if (contact) {
+        const rect = contact.getBoundingClientRect();
+        if (rect.top < windowHeight - 100) hide = true; // Contact is clearly visible
+      }
+
+      setIsVisible(!hide);
     };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
