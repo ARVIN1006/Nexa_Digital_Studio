@@ -12,85 +12,21 @@ export default function Pricing() {
     { id: "corporate", label: "Enterprise" },
   ];
 
-  const staticPricing = {
-    personal: [
-      {
-        title: "Link Bio / Kartu Nama",
-        price: "Rp 99rb",
-        originalPrice: "Rp 250rb",
-        features: [
-          "1 Halaman Link Tree",
-          "Foto Profil & Bio",
-          "Koneksi Sosmed",
-          "Selesai 24 Jam",
-        ],
-        cta: "Ambil Promo",
-        popular: false,
-      },
-      {
-        title: "Portfolio Basic",
-        price: "Rp 249rb",
-        originalPrice: "Rp 500rb",
-        features: [
-          "Galeri Foto/Karya",
-          "Tentang Saya",
-          "Kontak Form",
-          "Gratis Domain my.id",
-        ],
-        cta: "Pilih Paket",
-        popular: true,
-      },
-    ],
-    business: [
-      {
-        title: "Paket Laris Manis",
-        price: "Rp 699rb",
-        originalPrice: "Rp 1.5jt",
-        features: [
-          "Desain Premium",
-          "Katalog 12 Produk",
-          "Checkout WhatsApp",
-          "Integrasi Instagram",
-          "Gratis Domain .com",
-        ],
-        cta: "Ambil Promo",
-        popular: true,
-      },
-    ],
-    corporate: [
-      {
-        title: "Company Profile Pro",
-        price: "Rp 2.9jt",
-        originalPrice: "Rp 6jt",
-        features: [
-          "10 Halaman Premium",
-          "Multi-Bahasa",
-          "Proteksi Keamanan",
-          "Email Bisnis (5 Akun)",
-          "Priority Support",
-        ],
-        cta: "Hubungi Sales",
-        popular: true,
-      },
-    ],
-  };
+  // Static fallback removed in favor of Sanity data
 
-  const pricingData =
-    sanityPricing.length > 0
-      ? sanityPricing.reduce((acc, plan) => {
-          const cat = plan.category || "business";
-          if (!acc[cat]) acc[cat] = [];
-          acc[cat].push({
-            title: plan.title,
-            price: plan.price,
-            originalPrice: plan.originalPrice,
-            features: plan.features || [],
-            cta: "Pilih Paket",
-            popular: plan.isPopular,
-          });
-          return acc;
-        }, {})
-      : staticPricing;
+  const pricingData = sanityPricing.reduce((acc, plan) => {
+    const cat = plan.category || "business";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push({
+      title: plan.title,
+      price: plan.price,
+      originalPrice: plan.originalPrice,
+      features: plan.features || [],
+      cta: "Pilih Paket",
+      popular: plan.isPopular,
+    });
+    return acc;
+  }, {});
 
   const currentPricing = pricingData[activeTab] || [];
 

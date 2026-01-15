@@ -1,64 +1,51 @@
-import * as Icons from "phosphor-react";
+import {
+  Lightning,
+  MagnifyingGlassPlus,
+  DeviceMobileCamera,
+  Cursor,
+  ShieldCheck,
+  Code,
+  Cube,
+  Rocket,
+  PaintBrush,
+  Lightbulb,
+  Users,
+  ChartLine,
+  Globe,
+  Strategy,
+  TrendUp,
+} from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
+
+// Icon Mapping to avoid large bundle size
+const ICON_MAP = {
+  Lightning,
+  MagnifyingGlassPlus,
+  DeviceMobileCamera,
+  Cursor,
+  ShieldCheck,
+  Code,
+  Cube,
+  Rocket,
+  PaintBrush,
+  Lightbulb,
+  Users,
+  ChartLine,
+  Globe,
+  Strategy,
+  TrendUp,
+};
 
 export default function Benefits() {
   const { benefits: sanityBenefits } = useSiteData();
 
-  const staticBenefits = [
-    {
-      icon: "Lightning",
-      title: "Future-Ready Performance",
-      desc: "Optimasi tingkat tinggi untuk kecepatan maksimal. Website yang responsif bukan pilihan, tapi standar mutlak di Nexa.",
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
-    },
-    {
-      icon: "MagnifyingGlassPlus",
-      title: "Strategic SEO Architecture",
-      desc: "Struktur data yang dirancang cerdas agar bisnis Anda tidak hanya sekadar online, tapi dominan di hasil pencarian.",
-      color: "text-green-500",
-      bg: "bg-green-500/10",
-    },
-    {
-      icon: "DeviceMobileCamera",
-      title: "Adaptive Fluid Experience",
-      desc: "Transisi antar perangkat yang mulus. Kami memastikan estetika visual tetap terjaga di layar sekecil apapun.",
-      color: "text-orange-500",
-      bg: "bg-orange-500/10",
-    },
-    {
-      icon: "Cursor",
-      title: "Psychology-Driven UX",
-      desc: "Layout yang dipandu riset perilaku pengguna untuk memaksimalkan setiap klik menjadi sebuah aksi nyata.",
-      color: "text-purple-500",
-      bg: "bg-purple-500/10",
-    },
-    {
-      icon: "ShieldCheck",
-      title: "Vault-Grade Security",
-      desc: "Standar keamanan berlapis untuk menjaga integritas data dan kepercayaan pelanggan Anda tetap utuh.",
-      color: "text-teal-500",
-      bg: "bg-teal-500/10",
-    },
-    {
-      icon: "Code",
-      title: "Sustainable Clean Code",
-      desc: "Arsitektur kode yang bersih dan terstruktur untuk kemudahan skalabilitas bisnis Anda di masa depan.",
-      color: "text-pink-500",
-      bg: "bg-pink-500/10",
-    },
-  ];
-
-  const activeBenefits =
-    sanityBenefits.length > 0
-      ? sanityBenefits.map((b) => ({
-          icon: b.icon,
-          title: b.title,
-          desc: b.description,
-          color: "text-primary",
-          bg: "bg-primary/10",
-        }))
-      : staticBenefits;
+  const activeBenefits = sanityBenefits.map((b) => ({
+    icon: b.icon,
+    title: b.title,
+    desc: b.description,
+    color: "text-primary",
+    bg: "bg-primary/10",
+  }));
 
   return (
     <section
@@ -90,7 +77,7 @@ export default function Benefits() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {activeBenefits.map((item, index) => {
-            const IconComponent = Icons[item.icon] || Icons.Cube;
+            const IconComponent = ICON_MAP[item.icon] || ICON_MAP.Cube;
             return (
               <div
                 key={index}

@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowRight } from "phosphor-react";
 import { client, urlFor } from "../lib/sanity";
-import project1 from "../assets/project-1.webp";
-import project2 from "../assets/project-2.webp";
-import project3 from "../assets/project-3.webp";
-import project4 from "../assets/project-4.webp";
 
 export default function Showcase() {
   const scrollRef = useRef(null);
@@ -13,41 +9,6 @@ export default function Showcase() {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [sanityProjects, setSanityProjects] = useState([]);
-
-  const staticProjects = [
-    {
-      id: 1,
-      title: "Web Personal Branding",
-      category: "Influencer",
-      img: project1,
-      accent: "border-pink-200 shadow-pink-500/10",
-      previewUrl: "#",
-    },
-    {
-      id: 2,
-      title: "Website UMKM Kuliner",
-      category: "F&B Business",
-      img: project2,
-      accent: "border-orange-200 shadow-orange-500/10",
-      previewUrl: "#",
-    },
-    {
-      id: 3,
-      title: "Corporate Company Profile",
-      category: "Finance",
-      img: project3,
-      accent: "border-blue-200 shadow-blue-500/10",
-      previewUrl: "#",
-    },
-    {
-      id: 4,
-      title: "Aplikasi Reservasi Klinik",
-      category: "Healthcare App",
-      img: project4,
-      accent: "border-teal-200 shadow-teal-500/10",
-      previewUrl: "#",
-    },
-  ];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -73,8 +34,8 @@ export default function Showcase() {
     fetchProjects();
   }, []);
 
-  const activeProjects =
-    sanityProjects.length > 0 ? sanityProjects : staticProjects;
+  // Fallback to empty array or a loading skeleton could be better, but for now:
+  const activeProjects = sanityProjects;
 
   const DUPLICATION_COUNT = 8;
   const infiniteProjects = Array(DUPLICATION_COUNT).fill(activeProjects).flat();
