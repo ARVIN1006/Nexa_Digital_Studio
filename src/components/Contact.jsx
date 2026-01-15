@@ -203,7 +203,7 @@ export default function Contact() {
               </a>
             </div>
 
-            <p className="text-center text-sm text-gray-400 dark:text-gray-500 mt-6 italic">
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6 italic">
               “Diskusi personal, bukan jawaban bot.”
             </p>
           </div>

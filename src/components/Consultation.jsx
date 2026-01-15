@@ -50,7 +50,7 @@ export default function Consultation() {
           <div className="max-w-md text-lg text-gray-600 dark:text-gray-400 leading-relaxed md:text-left flex flex-col items-start">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Diskusi Dulu.{" "}
-              <span className="text-primary underline decoration-wavy decoration-primary/50">
+              <span className="text-indigo-600 dark:text-indigo-400 underline decoration-wavy decoration-indigo-600/50">
                 Gratis.
               </span>
             </h3>

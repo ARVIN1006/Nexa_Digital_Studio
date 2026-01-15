@@ -84,7 +84,7 @@ export default function FAQ() {
               Jawaban cepat untuk pertanyaan yang sering muncul. Masih bingung?{" "}
               <a
                 href="#contact"
-                className="text-primary font-semibold underline decoration-wavy"
+                className="text-indigo-600 dark:text-indigo-400 font-semibold underline decoration-wavy"
               >
                 Chat WhatsApp aja.
               </a>

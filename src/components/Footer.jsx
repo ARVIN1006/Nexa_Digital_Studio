@@ -83,7 +83,7 @@ export default function Footer() {
                 >
                   +{waNumber.startsWith("62") ? waNumber : `62${waNumber}`}{" "}
                   <br />
-                  <span className="text-[10px] text-gray-500 uppercase tracking-widest leading-none">
+                  <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none">
                     WhatsApp Only
                   </span>
                 </a>

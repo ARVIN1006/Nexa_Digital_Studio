@@ -105,7 +105,7 @@ export default function Pricing() {
                   <span className="text-sm text-gray-500 dark:text-gray-400 line-through mb-1 font-medium">
                     {item.originalPrice}
                   </span>
-                  <div className="text-5xl font-black text-primary tracking-tight">
+                  <div className="text-5xl font-black text-indigo-600 dark:text-indigo-400 tracking-tight">
                     {item.price}
                   </div>
                 </div>
