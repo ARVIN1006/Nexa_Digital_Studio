@@ -2,6 +2,7 @@ import { createClient } from "@sanity/client";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +20,25 @@ const client = createClient({
 async function populate() {
   console.log("🚀 Starting data population to Sanity...");
 
+  // 0. Upload Hero Image
+  console.log("📸 Uploading Hero Image...");
+  let heroImageAsset = null;
+  try {
+    const heroImagePath = path.resolve(
+      __dirname,
+      "../src/assets/hero-people.avif",
+    );
+    const heroImageBuffer = fs.readFileSync(heroImagePath);
+
+    heroImageAsset = await client.assets.upload("image", heroImageBuffer, {
+      filename: "hero-people.avif",
+      contentType: "image/avif",
+    });
+    console.log("✅ Hero image uploaded successfully!");
+  } catch (error) {
+    console.warn("⚠️  Could not upload hero image:", error.message);
+  }
+
   // 1. Site Settings
   console.log("📦 Creating Site Settings...");
   const settings = {
@@ -29,10 +49,10 @@ async function populate() {
     heroTitle: "Jasa Pembuatan Website UMKM Mulai 200 Ribu.",
     heroSubtitle:
       "Website sederhana dan mudah dipakai. Tingkatkan kepercayaan pelanggan dengan profil usaha yang profesional.",
-    whatsappNumber: "6282127666523",
+    whatsappNumber: "6285199198055",
     whatsappWelcomeMessage:
       "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
-    contactEmail: "arvin.dev.business@gmail.com",
+    contactEmail: "nexadigitalstudio.business@gmail.com",
     instagramHandle: "_nexadigitalstudio.id",
     linkedinHandle: "nexa-digital-studio",
     footerDescription:
@@ -47,6 +67,18 @@ async function populate() {
       { _key: "nav6", name: "Kontak", id: "contact" },
     ],
   };
+
+  // Add hero image if upload was successful
+  if (heroImageAsset) {
+    settings.heroImage = {
+      _type: "image",
+      asset: {
+        _type: "reference",
+        _ref: heroImageAsset._id,
+      },
+    };
+  }
+
   await client.createOrReplace(settings);
 
   // 2. Benefits
@@ -108,63 +140,28 @@ async function populate() {
   // 3. Pricing
   console.log("📦 Creating Pricing Plans...");
   const plans = [
-    // UMKM
-    {
-      _type: "pricing",
-      title: "UMKM Lite",
-      price: "500 Ribu",
-      duration: "5 Hari",
-      domainInfo: ".my.id / .biz.id",
-      features: [
-        "3 Halaman Website",
-        "Beranda & Profil Usaha",
-        "Kontak & WhatsApp",
-        "CMS Siap Pakai",
-      ],
-      category: "umkm",
-      order: 1,
-    },
-    {
-      _type: "pricing",
-      title: "UMKM Growth",
-      price: "750 Ribu",
-      duration: "7 Hari",
-      domainInfo: ".web.id / .co.id*",
-      features: [
-        "5 Halaman Website",
-        "Halaman Layanan / Produk",
-        "Galeri Foto",
-        "CMS Siap Pakai",
-      ],
-      category: "umkm",
-      isPopular: true,
-      order: 2,
-    },
-    {
-      _type: "pricing",
-      title: "UMKM Premium",
-      price: "1 Juta",
-      duration: "10 Hari",
-      domainInfo: ".com / .id",
-      features: [
-        "7 Halaman Website",
-        "Katalog Produk",
-        "Integrasi WhatsApp",
-        "CMS Siap Pakai",
-      ],
-      category: "umkm",
-      order: 3,
-    },
-    // Personal
+    // ===== PERSONAL =====
     {
       _type: "pricing",
       title: "Personal Lite",
       price: "300 Ribu",
       duration: "3 Hari",
       domainInfo: "Subdomain / .my.id",
-      features: ["1 Halaman Landing Page", "Profil Singkat", "Tombol WhatsApp"],
+      features: [
+        "1 Halaman Landing Page",
+        "Desain Simpel dan Rapi",
+        "Mobile Friendly",
+        "Profil Singkat",
+        "Tombol WhatsApp",
+        "Form Kontak",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (3 Hari)",
+      ],
       category: "personal",
-      order: 4,
+      order: 1,
     },
     {
       _type: "pricing",
@@ -174,11 +171,246 @@ async function populate() {
       domainInfo: ".my.id / .web.id",
       features: [
         "3 Halaman Website",
-        "Galeri / Portofolio",
+        "Desain Lebih Personal",
+        "Mobile Friendly",
+        "Profil Lengkap",
+        "Galeri atau Portofolio",
+        "Tombol WhatsApp",
         "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (5 Hari)",
       ],
       category: "personal",
+      order: 2,
+    },
+    {
+      _type: "pricing",
+      title: "Personal Premium",
+      price: "650 Ribu",
+      duration: "7 Hari",
+      domainInfo: ".com / .id",
+      features: [
+        "5 Halaman Website",
+        "Desain Custom",
+        "Mobile Friendly",
+        "Portofolio Lengkap",
+        "Integrasi WhatsApp & Email",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (7 Hari)",
+      ],
+      category: "personal",
+      order: 3,
+    },
+
+    // ===== UMKM =====
+    {
+      _type: "pricing",
+      title: "UMKM Lite",
+      price: "500 Ribu",
+      duration: "5 Hari",
+      domainInfo: ".my.id / .biz.id",
+      features: [
+        "3 Halaman Website",
+        "Beranda Usaha",
+        "Profil Usaha",
+        "Kontak dan WhatsApp",
+        "Mobile Friendly",
+        "Struktur Rapi",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (5 Hari)",
+      ],
+      category: "umkm",
+      order: 4,
+    },
+    {
+      _type: "pricing",
+      title: "UMKM Growth",
+      price: "750 Ribu",
+      duration: "7 Hari",
+      domainInfo: ".web.id / .co.id*",
+      features: [
+        "5 Halaman Website",
+        "Layanan atau Produk",
+        "Galeri Foto",
+        "Tombol WhatsApp di Semua Halaman",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (7 Hari)",
+      ],
+      category: "umkm",
+      isPopular: true,
       order: 5,
+    },
+    {
+      _type: "pricing",
+      title: "UMKM Premium",
+      price: "1 Juta",
+      duration: "10 Hari",
+      domainInfo: ".com / .id",
+      features: [
+        "7 Halaman Website",
+        "Desain Lebih Eksklusif",
+        "Katalog Produk",
+        "Integrasi WhatsApp",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (10 Hari)",
+      ],
+      category: "umkm",
+      order: 6,
+    },
+
+    // ===== PENDIDIKAN =====
+    {
+      _type: "pricing",
+      title: "Edu Basic",
+      price: "750 Ribu",
+      duration: "7 Hari",
+      domainInfo: ".sch.id / .my.id",
+      features: [
+        "5 Halaman Website",
+        "Profil Lembaga",
+        "Visi dan Misi",
+        "Program atau Jurusan",
+        "Kontak Admin",
+        "Mobile Friendly",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (7 Hari)",
+      ],
+      category: "pendidikan",
+      order: 7,
+    },
+    {
+      _type: "pricing",
+      title: "Edu Pro",
+      price: "1,1 Juta",
+      duration: "10 Hari",
+      domainInfo: ".sch.id / .ac.id",
+      features: [
+        "7 Halaman Website",
+        "Informasi Pendaftaran",
+        "Galeri Kegiatan",
+        "Kontak Terpusat",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (10 Hari)",
+      ],
+      category: "pendidikan",
+      order: 8,
+    },
+    {
+      _type: "pricing",
+      title: "Edu Premium",
+      price: "1,5 Juta",
+      duration: "14 Hari",
+      domainInfo: ".com / .id",
+      features: [
+        "10 Halaman Website",
+        "Desain Informatif",
+        "Navigasi Jelas",
+        "Integrasi WhatsApp",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (14 Hari)",
+      ],
+      category: "pendidikan",
+      order: 9,
+    },
+
+    // ===== COMPANY =====
+    {
+      _type: "pricing",
+      title: "Company Lite",
+      price: "1 Juta",
+      duration: "7 Hari",
+      domainInfo: ".biz.id / .web.id",
+      features: [
+        "5 Halaman Website",
+        "Profil Perusahaan",
+        "Layanan",
+        "Kontak Resmi",
+        "Mobile Friendly",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (7 Hari)",
+      ],
+      category: "company",
+      order: 10,
+    },
+    {
+      _type: "pricing",
+      title: "Company Pro",
+      price: "1,5 Juta",
+      duration: "10 Hari",
+      domainInfo: ".co.id / .com",
+      features: [
+        "8 Halaman Website",
+        "Company Profile Lengkap",
+        "Portofolio Proyek",
+        "Kontak Profesional",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (10 Hari)",
+      ],
+      category: "company",
+      order: 11,
+    },
+    {
+      _type: "pricing",
+      title: "Company Premium",
+      price: "2 Juta",
+      duration: "14 Hari",
+      domainInfo: ".com / .id",
+      features: [
+        "12 Halaman Website",
+        "Desain Custom",
+        "Struktur Profesional",
+        "Integrasi WhatsApp & Email",
+        "Mobile Friendly",
+        "Struktur SEO Dasar",
+        "CMS Siap Pakai",
+        "Hosting 1 Tahun",
+        "SSL Aktif",
+        "Setup dan Deploy",
+        "Revisi Sepuasnya (14 Hari)",
+      ],
+      category: "company",
+      order: 12,
     },
   ];
   for (const p of plans) {
@@ -192,22 +424,106 @@ async function populate() {
       _type: "faq",
       question: "Apa saja layanan yang kamu tawarkan?",
       answer:
-        "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi.",
+        "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi. Fokus pada website informatif, cepat, dan mudah dikelola.",
       order: 1,
     },
     {
       _type: "faq",
       question: "Apakah semua paket sudah termasuk CMS?",
       answer:
-        "Iya. Semua paket sudah termasuk CMS. Klien bisa edit teks, gambar, dan konten sendiri tanpa coding.",
+        "Iya. Semua paket sudah termasuk CMS. Klien bisa edit teks, gambar, dan konten sendiri tanpa coding melalui browser.",
       order: 2,
     },
     {
       _type: "faq",
       question: "Apakah domain dan hosting sudah termasuk?",
       answer:
-        "Iya. Semua paket sudah termasuk domain dan hosting selama 1 tahun.",
+        "Iya. Semua paket sudah termasuk domain dan hosting selama 1 tahun. Jenis domain menyesuaikan paket dan ketersediaan.",
       order: 3,
+    },
+    {
+      _type: "faq",
+      question: "Domain apa saja yang bisa didapat?",
+      answer:
+        "Tergantung paket. Bisa subdomain, .my.id, .web.id, .biz.id, .co.id, .sch.id, .ac.id, atau .com. Domain tertentu mengikuti syarat resmi.",
+      order: 4,
+    },
+    {
+      _type: "faq",
+      question: "Berapa lama proses pengerjaan website?",
+      answer:
+        "Waktu pengerjaan tergantung paket. Mulai dari 3 hari sampai 14 hari. Waktu dihitung sejak data dan materi klien lengkap.",
+      order: 5,
+    },
+    {
+      _type: "faq",
+      question: "Apakah revisi benar-benar sepuasnya?",
+      answer:
+        "Iya. Revisi tidak dibatasi selama masih dalam masa pengerjaan paket. Revisi dilakukan sampai klien menyatakan selesai.",
+      order: 6,
+    },
+    {
+      _type: "faq",
+      question: "Apa yang termasuk revisi?",
+      answer:
+        "Revisi meliputi perubahan teks, gambar, warna, layout ringan, dan penyesuaian konten sesuai brief awal.",
+      order: 7,
+    },
+    {
+      _type: "faq",
+      question: "Apakah bisa request desain?",
+      answer:
+        "Bisa. Klien boleh kirim referensi desain. Desain disesuaikan dengan kebutuhan dan paket yang dipilih.",
+      order: 8,
+    },
+    {
+      _type: "faq",
+      question: "Apakah website bisa dibuka di HP?",
+      answer:
+        "Iya. Semua website dibuat mobile friendly dan nyaman diakses di HP, tablet, dan desktop.",
+      order: 9,
+    },
+    {
+      _type: "faq",
+      question: "Apakah website sudah aman?",
+      answer:
+        "Iya. Semua paket sudah termasuk SSL dan pengamanan dasar untuk penggunaan normal.",
+      order: 10,
+    },
+    {
+      _type: "faq",
+      question: "Apakah klien dapat akses admin?",
+      answer:
+        "Iya. Akses admin diberikan setelah website live. Klien bebas mengelola konten sendiri.",
+      order: 11,
+    },
+    {
+      _type: "faq",
+      question: "Apakah ada biaya tambahan setelah jadi?",
+      answer:
+        "Tidak ada biaya tersembunyi. Biaya tahunan hanya untuk perpanjangan domain dan hosting setelah 1 tahun.",
+      order: 12,
+    },
+    {
+      _type: "faq",
+      question: "Apakah bisa upgrade paket di tengah jalan?",
+      answer:
+        "Bisa. Klien dapat upgrade paket dengan menyesuaikan selisih harga dan scope pekerjaan.",
+      order: 13,
+    },
+    {
+      _type: "faq",
+      question: "Apakah bisa minta bantuan setelah website aktif?",
+      answer:
+        "Bisa. Support awal tersedia sesuai paket. Layanan lanjutan bisa didiskusikan.",
+      order: 14,
+    },
+    {
+      _type: "faq",
+      question: "Bagaimana cara memulai pemesanan?",
+      answer:
+        "Pilih paket. Kirim brief dan kebutuhan. Proses pengerjaan dimulai setelah konfirmasi.",
+      order: 15,
     },
   ];
   for (const f of faqs) {
