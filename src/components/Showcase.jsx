@@ -167,7 +167,12 @@ export default function Showcase() {
             category: catTitle,
             context: finalContext,
             img: p.mainImage
-              ? urlFor(p.mainImage).width(800).height(500).fit("top").url()
+              ? urlFor(p.mainImage)
+                  .width(800)
+                  .height(500)
+                  .fit("crop")
+                  .crop("top")
+                  .url()
               : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
             accent: p.accent || "border-primary/20",
             previewUrl: finalUrl,

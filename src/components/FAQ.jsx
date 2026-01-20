@@ -6,16 +6,7 @@ export default function FAQ() {
   const { faqs: sanityFaqs } = useSiteData();
   const [openIndex, setOpenIndex] = useState(null);
 
-  const faqs =
-    sanityFaqs.length > 0
-      ? sanityFaqs
-      : [
-          {
-            question: "Apa saja layanan yang kamu tawarkan?",
-            answer:
-              "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi. Fokus pada website informatif, cepat, dan mudah dikelola.",
-          },
-        ];
+  const faqs = sanityFaqs || [];
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);

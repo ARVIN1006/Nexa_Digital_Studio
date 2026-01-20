@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cleanup": "node scripts/cleanup_sanity.js",
+    "populate": "node scripts/populate_sanity.js"
   },
   "dependencies": {
     "@sanity/client": "^6.15.20",

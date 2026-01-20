@@ -35,7 +35,7 @@ export default function Hero() {
         <div className="text-left pt-0 pb-12 md:pb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            {settings?.heroBadge || "Siap Membantu Bisnis Anda"}
+            {settings?.heroBadge || ""}
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
@@ -59,14 +59,12 @@ export default function Hero() {
                 </span>
               </>
             ) : (
-              settings?.heroTitle ||
-              "Jasa Pembuatan Website UMKM Mulai 200 Ribu."
+              settings?.heroTitle || ""
             )}
           </h1>
 
           <p className="text-base md:text-lg text-gray-700 dark:text-gray-200 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
-            {settings?.heroSubtitle ||
-              "Website sederhana dan mudah dipakai. Tingkatkan kepercayaan pelanggan dengan profil usaha yang profesional."}
+            {settings?.heroSubtitle || ""}
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
@@ -150,11 +148,7 @@ export default function Hero() {
           {/* Main Image */}
           <div className="relative z-10 w-full max-w-lg mx-auto md:mr-0">
             <img
-              src={
-                settings?.heroImage
-                  ? urlFor(settings.heroImage).url()
-                  : heroPerson
-              }
+              src={settings?.heroImage ? urlFor(settings.heroImage).url() : ""}
               alt="Professional Developer"
               width="800"
               height="1000"

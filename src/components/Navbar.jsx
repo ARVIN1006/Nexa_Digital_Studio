@@ -41,17 +41,7 @@ export default function Navbar() {
 
   const { settings } = useSiteData();
 
-  const navLinks =
-    settings?.navLinks?.length > 0
-      ? settings.navLinks
-      : [
-          { name: "Portfolio", id: "showcase" },
-          { name: "Layanan", id: "benefits" },
-          { name: "Proses", id: "services" },
-          { name: "Harga", id: "pricing" },
-          { name: "FAQ", id: "faq" },
-          { name: "Kontak", id: "contact" },
-        ];
+  const navLinks = settings?.navLinks || [];
 
   const waNumber = settings?.whatsappNumber || "6282127666523";
   const waWelcome =

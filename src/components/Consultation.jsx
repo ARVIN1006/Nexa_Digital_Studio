@@ -20,44 +20,7 @@ const ICON_MAP = {
 export default function Consultation() {
   const { processes: sanityProcesses } = useSiteData();
 
-  const defaultSteps = [
-    {
-      icon: "Strategy",
-      title: "Deep Discovery",
-      desc: "Kami bedah bisnis Anda. Bukan cuma tanya 'maunya apa', tapi 'butuhnya apa' untuk cuan.",
-      color: "text-blue-500",
-    },
-    {
-      icon: "Scroll",
-      title: "Blueprint Technic",
-      desc: "Rancangan arsitektur sistem. Database, server, teknologi yang dipakai—semua transparan.",
-      color: "text-purple-500",
-    },
-    {
-      icon: "ShieldCheck",
-      title: "Secure Contract",
-      desc: "Legalitas jelas. Garansi uang kembali jika hasil tidak sesuai spek. Aman.",
-      color: "text-teal-500",
-    },
-    {
-      icon: "PaintBrushBroad",
-      title: "High-Fidelity UI/UX",
-      desc: "Desain yang bisa diklik-klik (Prototype). Revisi visual sepuasnya di fase ini.",
-      color: "text-pink-500",
-    },
-    {
-      icon: "Code",
-      title: "Agile Dev",
-      desc: "Coding dimulai. Anda bisa pantau progress mingguan. Tidak ada 'hilang kabar'.",
-      color: "text-orange-500",
-    },
-    {
-      icon: "Rocket",
-      title: "Launch & Handover",
-      desc: "Server setup, domain connect, training admin. Kami pastikan siap tempur.",
-      color: "text-green-500",
-    },
-  ];
+  const defaultSteps = [];
 
   const steps = (
     sanityProcesses?.length > 0 ? sanityProcesses : defaultSteps

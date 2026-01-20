@@ -11,12 +11,12 @@ import { useSiteData } from "../context/SiteContext";
 export default function Contact() {
   const { settings } = useSiteData();
 
-  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waNumber = settings?.whatsappNumber || "6285199198055";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
     "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
   )}`;
   const emailLink = `mailto:${
-    settings?.contactEmail || "arvin.dev.business@gmail.com"
+    settings?.contactEmail || "nexadigitalstudio.business@gmail.com"
   }`;
   const igLink = settings?.instagramHandle
     ? `https://instagram.com/${settings.instagramHandle.replace("@", "")}`

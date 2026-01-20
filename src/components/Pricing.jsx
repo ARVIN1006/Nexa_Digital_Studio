@@ -20,7 +20,7 @@ export default function Pricing() {
   const [activeTab, setActiveTab] = useState("umkm");
 
   // Format data from Sanity for the component
-  const pricingData = sanityPricing.reduce((acc, plan) => {
+  const pricingData = (sanityPricing || []).reduce((acc, plan) => {
     const cat = plan.category || "umkm";
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push({

@@ -11,8 +11,8 @@ export default function Footer() {
   const { settings } = useSiteData();
   const currentYear = new Date().getFullYear();
 
-  const waNumber = settings?.whatsappNumber || "6282127666523";
-  const email = settings?.contactEmail || "arvin.dev.business@gmail.com";
+  const waNumber = settings?.whatsappNumber || "6285199198055";
+  const email = settings?.contactEmail || "nexadigitalstudio.business@gmail.com";
   const igHandle = settings?.instagramHandle || "_nexadigitalstudio.id";
   const igLink = `https://instagram.com/${igHandle.replace("@", "")}`;
 
@@ -24,11 +24,10 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
-                {settings?.siteName || "Nexa Digital Studio."}
+                {settings?.siteName || ""}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
-                {settings?.footerDescription ||
-                  "Membantu individu dan UMKM membangun kehadiran digital pertama mereka dengan hasil yang profesional dan berkelas."}
+                {settings?.footerDescription || ""}
               </p>
             </div>
           </div>
@@ -37,17 +36,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Menu</h4>
             <ul className="space-y-4">
-              {(settings?.navLinks?.length > 0
-                ? settings.navLinks
-                : [
-                    { name: "Portfolio", id: "showcase" },
-                    { name: "Layanan", id: "benefits" },
-                    { name: "Proses", id: "services" },
-                    { name: "Harga", id: "pricing" },
-                    { name: "FAQ", id: "faq" },
-                    { name: "Kontak", id: "contact" },
-                  ]
-              ).map((item) => (
+              {(settings?.navLinks || []).map((item) => (
                 <li key={item.name}>
                   <a
                     href={`#${item.id}`}
@@ -91,7 +80,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-gray-300 text-sm">
                 <MapPin size={20} className="mt-0.5 text-red-500 shrink-0" />
-                <span>{settings?.address || "Bandung, Indonesia"}</span>
+                <span>{settings?.address || ""}</span>
               </li>
             </ul>
           </div>
