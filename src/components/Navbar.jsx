@@ -65,6 +65,8 @@ export default function Navbar() {
           <img
             src={theme === "dark" ? logoLight : logoDark}
             alt="Nexa Digital Studio"
+            width="150"
+            height="44"
             className={`transition-all duration-500 w-auto ${
               scrolled ? "h-8 md:h-9" : "h-10 md:h-11"
             }`}

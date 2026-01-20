@@ -146,6 +146,7 @@ export default function Hero() {
               alt="Professional Developer"
               width="800"
               height="1000"
+              sizes="(max-width: 768px) 90vw, 500px"
               fetchpriority="high"
               loading="eager"
               className="w-full h-auto object-contain mask-image-bottom drop-shadow-2xl"
