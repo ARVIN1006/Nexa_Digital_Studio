@@ -7,9 +7,10 @@ import {
   ArrowRight,
 } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
+import { ContactSkeleton } from "./Skeletons";
 
 export default function Contact() {
-  const { settings } = useSiteData();
+  const { settings, loading } = useSiteData();
 
   const waNumber = settings?.whatsappNumber || "6285199198055";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
@@ -22,9 +23,11 @@ export default function Contact() {
     ? `https://instagram.com/${settings.instagramHandle.replace("@", "")}`
     : "https://instagram.com/_nexadigitalstudio.id";
 
+  if (loading) return <ContactSkeleton />;
+
   return (
     <section
-      className="py-24 bg-gray-50 dark:bg-slate-800 transition-colors duration-300 relative overflow-hidden"
+      className="py-12 md:py-16 bg-gray-50 dark:bg-slate-800 transition-colors duration-300 relative overflow-hidden scroll-mt-20"
       id="contact"
     >
       {/* Background Decor */}
@@ -41,14 +44,14 @@ export default function Contact() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Jasa Website Profesional
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
               Buat Website <br />
               Usaha Kamu <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 Sekarang!
               </span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed max-w-lg">
+            <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-lg">
               Tunggu apa lagi? Miliki website profesional mulai dari{" "}
               <span className="font-bold text-gray-900 dark:text-white">
                 200 Ribu
@@ -89,15 +92,15 @@ export default function Contact() {
           </div>
 
           {/* Right: Action Card */}
-          <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-white/5 relative">
+          <div className="bg-white dark:bg-slate-900 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl shadow-gray-200/50 dark:shadow-black/20 border border-gray-100 dark:border-white/5 relative">
             <div className="absolute top-0 right-0 p-8 opacity-10">
               <WhatsappLogo size={120} weight="fill" className="text-primary" />
             </div>
 
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Mulai Project
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
+            <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base mb-8">
               Klik tombol di bawah untuk terhubung langsung dengan kami.
             </p>
 
@@ -107,18 +110,18 @@ export default function Contact() {
                 href={waLink}
                 className="group block w-full bg-gradient-to-r from-[#25D366] to-[#20bd5a] hover:from-[#20bd5a] hover:to-[#1da851] text-white p-0.5 md:p-1 rounded-full transition-all shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1"
               >
-                <div className="flex items-center justify-between px-4 py-2.5 md:px-6 md:py-4">
-                  <div className="flex items-center gap-3 md:gap-4">
+                <div className="flex items-center justify-between px-4 py-2.5 md:px-5 md:py-3.5">
+                  <div className="flex items-center gap-2.5 md:gap-3">
                     <WhatsappLogo
-                      size={24}
+                      size={20}
                       weight="fill"
-                      className="md:w-[32px] md:h-[32px] w-[20px] h-[20px]"
+                      className="md:w-[28px] md:h-[28px] w-[18px] h-[18px]"
                     />
                     <div className="text-left">
-                      <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-90">
+                      <p className="hidden md:block text-[9px] font-bold uppercase tracking-wider opacity-90">
                         Fast Response
                       </p>
-                      <p className="text-sm md:text-lg font-bold leading-none">
+                      <p className="text-sm md:text-base font-bold leading-none">
                         Chat WhatsApp
                       </p>
                     </div>
@@ -154,7 +157,7 @@ export default function Contact() {
                       className="text-gray-500 dark:text-gray-400 group-hover:text-primary transition-colors md:w-[32px] md:h-[32px] w-[20px] h-[20px]"
                     />
                     <div className="text-left">
-                      <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-60">
+                      <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-80">
                         Formal Discussion
                       </p>
                       <p className="text-sm md:text-lg font-bold leading-none group-hover:text-primary transition-colors">
@@ -187,7 +190,7 @@ export default function Contact() {
                       className="text-gray-400 group-hover:text-pink-500 transition-colors md:w-[32px] md:h-[32px] w-[20px] h-[20px]"
                     />
                     <div className="text-left">
-                      <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-60">
+                      <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-80">
                         Explore Portfolio
                       </p>
                       <p className="text-sm md:text-lg font-bold leading-none group-hover:text-pink-500 transition-colors">
@@ -206,7 +209,7 @@ export default function Contact() {
               </a>
             </div>
 
-            <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6 italic">
+            <p className="text-center text-sm text-gray-700 dark:text-gray-400 mt-6 italic">
               “Diskusi personal, bukan jawaban bot.”
             </p>
           </div>

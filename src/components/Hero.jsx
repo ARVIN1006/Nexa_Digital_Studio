@@ -8,18 +8,21 @@ import {
   Code,
   Tag,
 } from "phosphor-react";
-import heroPerson from "../assets/hero-people.avif";
+
 import { useSiteData } from "../context/SiteContext";
 import { urlFor } from "../lib/sanity";
+import { HeroSkeleton } from "./Skeletons";
 
 export default function Hero() {
-  const { settings } = useSiteData();
+  const { settings, loading } = useSiteData();
 
-  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waNumber = settings?.whatsappNumber || "6285199198055";
   const waWelcome =
     settings?.whatsappWelcomeMessage ||
     "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`;
+
+  if (loading) return <HeroSkeleton />;
 
   return (
     <header
@@ -38,7 +41,7 @@ export default function Hero() {
             {settings?.heroBadge || ""}
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.2] mb-4 tracking-tight">
             {settings?.heroTitle?.includes("Mulai") ? (
               <>
                 {settings.heroTitle.split("Mulai")[0]} <br />
@@ -61,16 +64,16 @@ export default function Hero() {
             ) : (
               settings?.heroTitle || ""
             )}
-          </h1>
+          </h2>
 
-          <p className="text-base md:text-lg text-gray-700 dark:text-gray-200 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
+          <p className="text-xs md:text-lg text-gray-700 dark:text-gray-200 mb-6 max-w-lg md:mx-0 leading-relaxed font-medium">
             {settings?.heroSubtitle || ""}
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
             <a
               href={waLink}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-full font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-full font-semibold text-xs md:text-sm transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
             >
               <WhatsappLogo size={20} weight="fill" />
               Chat WhatsApp
@@ -83,7 +86,7 @@ export default function Hero() {
                   .getElementById("pricing")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold transition-all cursor-pointer"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold text-xs md:text-sm transition-all cursor-pointer"
             >
               Lihat Pilihan Paket
               <ArrowRight size={16} weight="bold" />
@@ -136,7 +139,7 @@ export default function Hero() {
                   <Star key={i} weight="fill" />
                 ))}
               </div>
-              <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+              <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                 Terpercaya & Profesional
               </span>
             </div>
@@ -158,7 +161,7 @@ export default function Hero() {
                   ? `
                 ${urlFor(settings.heroImage).width(350).quality(85).url()} 350w,
                 ${urlFor(settings.heroImage).width(450).quality(90).url()} 450w,
-                ${urlFor(settings.heroImage).width(600).quality(90).url()} 600w
+                ${urlFor(settings.heroImage).width(500).quality(90).url()} 500w
               `
                   : ""
               }

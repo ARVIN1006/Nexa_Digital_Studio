@@ -43,7 +43,7 @@ export default function Navbar() {
 
   const navLinks = settings?.navLinks || [];
 
-  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waNumber = settings?.whatsappNumber || "6285199198055";
   const waWelcome =
     settings?.whatsappWelcomeMessage ||
     "Halo, saya mau tanya jasa pembuatan website UMKM.";
@@ -52,8 +52,8 @@ export default function Navbar() {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm h-16"
-          : "bg-transparent h-20"
+          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm h-14 md:h-16"
+          : "bg-transparent h-16 md:h-20"
       } border-b border-gray-100/50 dark:border-white/5`}
     >
       <div className="container mx-auto px-6 h-full flex justify-between items-center">
@@ -69,7 +69,7 @@ export default function Navbar() {
             width="150"
             height="44"
             className={`transition-all duration-500 w-auto ${
-              scrolled ? "h-8 md:h-9" : "h-10 md:h-11"
+              scrolled ? "h-6 md:h-9" : "h-7 md:h-11"
             }`}
           />
         </a>
@@ -81,7 +81,7 @@ export default function Navbar() {
               <a
                 href={`#${item.id}`}
                 onClick={(e) => scrollToSection(e, item.id)}
-                className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                className="text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
               >
                 {item.name}
               </a>
@@ -106,7 +106,7 @@ export default function Navbar() {
             href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
             target="_blank"
             rel="noreferrer"
-            className="px-5 py-2.5 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
+            className="px-4 py-2 rounded-full text-xs font-bold bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
           >
             Chat WhatsApp
           </a>
@@ -151,7 +151,7 @@ export default function Navbar() {
             <li key={item.name}>
               <a
                 href={`#${item.id}`}
-                className="block py-2 text-gray-600 dark:text-gray-300 font-medium hover:text-primary"
+                className="block py-2 text-gray-700 dark:text-gray-200 font-bold hover:text-primary"
                 onClick={(e) => scrollToSection(e, item.id)}
               >
                 {item.name}
@@ -163,7 +163,7 @@ export default function Navbar() {
               href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
               target="_blank"
               rel="noreferrer"
-              className="w-full inline-block px-5 py-3 rounded-full text-sm font-bold bg-primary text-white shadow-lg shadow-primary/25"
+              className="w-full inline-block px-4 py-2.5 rounded-full text-xs font-bold bg-primary text-white shadow-lg shadow-primary/25"
             >
               Chat WhatsApp
             </a>

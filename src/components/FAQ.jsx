@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { CaretDown } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
+import { FAQSkeleton } from "./Skeletons";
 
 export default function FAQ() {
-  const { faqs: sanityFaqs } = useSiteData();
+  const { faqs: sanityFaqs, loading } = useSiteData();
   const [openIndex, setOpenIndex] = useState(null);
 
   const faqs = sanityFaqs || [];
@@ -12,9 +13,11 @@ export default function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  if (loading) return <FAQSkeleton />;
+
   return (
     <section
-      className="py-24 bg-bg-surface dark:bg-slate-900 transition-colors duration-300"
+      className="py-12 md:py-16 bg-bg-surface dark:bg-slate-900 transition-colors duration-300 scroll-mt-20"
       id="faq"
     >
       <div className="container mx-auto px-6">
@@ -25,13 +28,13 @@ export default function FAQ() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               Common Questions
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
               Sering <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 Ditanyakan
               </span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
+            <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-8">
               Jawaban cepat untuk pertanyaan yang sering muncul. Masih bingung?{" "}
               <a
                 href="#contact"
@@ -54,7 +57,7 @@ export default function FAQ() {
                   className="w-full flex items-start justify-between py-6 text-left focus:outline-none group"
                 >
                   <span
-                    className={`font-bold text-lg md:text-xl pr-8 transition-colors ${
+                    className={`font-bold text-base md:text-xl pr-8 transition-colors ${
                       openIndex === index
                         ? "text-primary"
                         : "text-gray-900 dark:text-white group-hover:text-primary"
@@ -80,7 +83,7 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="pb-8 text-gray-700 dark:text-gray-200 leading-relaxed text-base md:text-lg">
+                    <div className="pb-8 text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-lg">
                       {faq.answer}
                     </div>
                   </div>

@@ -7,6 +7,7 @@ import {
   Rocket,
 } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
+import { ProcessSkeleton } from "./Skeletons";
 
 const ICON_MAP = {
   Strategy,
@@ -18,7 +19,7 @@ const ICON_MAP = {
 };
 
 export default function Consultation() {
-  const { processes: sanityProcesses } = useSiteData();
+  const { processes: sanityProcesses, loading } = useSiteData();
 
   const defaultSteps = [];
 
@@ -40,9 +41,11 @@ export default function Consultation() {
     };
   });
 
+  if (loading) return <ProcessSkeleton />;
+
   return (
     <section
-      className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300"
+      className="py-12 md:py-16 bg-white dark:bg-slate-900 transition-colors duration-300 scroll-mt-20"
       id="services"
     >
       <div className="container mx-auto px-6">
@@ -78,13 +81,13 @@ export default function Consultation() {
           </div>
 
           <div className="max-w-md text-lg text-gray-600 dark:text-gray-400 leading-relaxed md:text-left flex flex-col items-start">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Diskusi Dulu.{" "}
               <span className="text-indigo-600 dark:text-indigo-400 underline decoration-wavy decoration-indigo-600/50">
                 Gratis.
               </span>
             </h3>
-            <p className="opacity-80">
+            <p className="opacity-80 text-sm md:text-lg">
               Jangan tebak-tebakan. Kami bantu validasi konsep Anda sebelum
               keluar uang sepeser pun.
             </p>
@@ -122,7 +125,7 @@ export default function Consultation() {
                       <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">
                         Step 0{index + 1}
                       </span>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                      <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                         {step.title}
                       </h3>
                     </div>

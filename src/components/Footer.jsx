@@ -12,7 +12,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const waNumber = settings?.whatsappNumber || "6285199198055";
-  const email = settings?.contactEmail || "nexadigitalstudio.business@gmail.com";
+  const email =
+    settings?.contactEmail || "nexadigitalstudio.business@gmail.com";
   const igHandle = settings?.instagramHandle || "_nexadigitalstudio.id";
   const igLink = `https://instagram.com/${igHandle.replace("@", "")}`;
 
@@ -23,7 +24,7 @@ export default function Footer() {
           {/* Brand & Socials */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
+              <h3 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
                 {settings?.siteName || ""}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed max-w-xs">

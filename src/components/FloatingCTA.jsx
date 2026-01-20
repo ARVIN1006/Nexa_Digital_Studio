@@ -94,7 +94,7 @@ export default function FloatingCTA() {
     >
       <a
         href={`https://wa.me/${
-          settings?.whatsappNumber || "6282127666523"
+          settings?.whatsappNumber || "6285199198055"
         }?text=${encodeURIComponent(
           "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
         )}`}

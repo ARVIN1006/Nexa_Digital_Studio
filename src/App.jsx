@@ -25,7 +25,10 @@ function Home() {
         <Hero />
         <Suspense
           fallback={
-            <div className="h-96 md:h-[500px] bg-slate-50 dark:bg-slate-800/50 animate-pulse rounded-3xl mx-6 my-12" />
+            <div className="space-y-24 py-24">
+              <div className="container mx-auto px-6 h-96 bg-gray-100 dark:bg-slate-800/50 animate-pulse rounded-[2rem]" />
+              <div className="container mx-auto px-6 h-96 bg-gray-100 dark:bg-slate-800/50 animate-pulse rounded-[2rem]" />
+            </div>
           }
         >
           <Showcase />

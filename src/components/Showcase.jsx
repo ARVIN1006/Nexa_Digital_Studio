@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowRight, Tag, Target, Storefront } from "phosphor-react";
 import { client, urlFor } from "../lib/sanity";
+import { ShowcaseSkeleton } from "./Skeletons";
 
 export default function Showcase() {
   const scrollRef = useRef(null);
@@ -9,6 +10,7 @@ export default function Showcase() {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -29,151 +31,44 @@ export default function Showcase() {
           businessFunction
         }`;
         const data = await client.fetch(query);
-        console.log("SANITY DATA DEBUG:", data);
-
-        // Helper to adapt raw data into Business Context based on Category AND URL (Pricing Aligned)
-        const getContext = (categoryTitle, projectUrl) => {
-          const cat = (categoryTitle || "").toLowerCase();
-          const url = (projectUrl || "").toLowerCase();
-
-          // 1. PENDIDIKAN (Education)
-          if (
-            cat.includes("edu") ||
-            cat.includes("sekolah") ||
-            cat.includes("kursus") ||
-            cat.includes("kampus") ||
-            url.includes(".sch.id") ||
-            url.includes(".ac.id")
-          ) {
-            return {
-              type: "Instansi Pendidikan",
-              goal: "Membangun Kepercayaan Publik",
-              function: "Profil Sekolah & Info PPDB",
-            };
-          }
-
-          // 2. COMPANY PROFILE (Corporate/Professional)
-          if (
-            cat.includes("company") ||
-            cat.includes("korporat") ||
-            cat.includes("pt") ||
-            cat.includes("cv") ||
-            cat.includes("agency") ||
-            cat.includes("properti")
-          ) {
-            return {
-              type: "Company Profile",
-              goal: "Branding & Profesionalitas",
-              function: "Showcase Layanan & Klien",
-            };
-          }
-
-          // 3. PERSONAL (Portfolio/Blog)
-          if (
-            cat.includes("personal") ||
-            cat.includes("blog") ||
-            cat.includes("porto") ||
-            cat.includes("resume")
-          ) {
-            return {
-              type: "Personal Branding",
-              goal: "Meningkatkan Nilai Jual Diri",
-              function: "Portofolio & Kontak Sewa",
-            };
-          }
-
-          // 4. UMKM & STORE (Specifics)
-          if (
-            cat.includes("kuliner") ||
-            cat.includes("makan") ||
-            cat.includes("resto") ||
-            cat.includes("cafe")
-          ) {
-            return {
-              type: "Usaha Kuliner",
-              goal: "Meningkatkan Pesanan Online",
-              function: "Menu Digital & Tombol WA",
-            };
-          }
-          if (
-            cat.includes("fashion") ||
-            cat.includes("baju") ||
-            cat.includes("store") ||
-            cat.includes("toko") ||
-            url.includes("store") ||
-            url.includes("shop")
-          ) {
-            return {
-              type: "Online Shop / Retail",
-              goal: "Katalog 24 Jam Nonstop",
-              function: "Galeri Produk & Checkout",
-            };
-          }
-          if (
-            cat.includes("jasa") ||
-            cat.includes("service") ||
-            cat.includes("laundry") ||
-            cat.includes("bengkel") ||
-            cat.includes("travel")
-          ) {
-            return {
-              type: "Usaha Jasa",
-              goal: "Memudahkan Booking Pelanggan",
-              function: "Daftar Harga & Lokasi",
-            };
-          }
-
-          // 5. GENERIC UMKM (Default)
-          return {
-            type: categoryTitle || "UMKM & Usaha Lokal",
-            goal: "Meningkatkan Penjualan",
-            function: "Profil Usaha & Identitas",
-          };
-        };
 
         const mappedProjects = data.map((p) => {
           // Smart URL detection
           const getProjectUrl = (item) => {
             const candidates = [
-              item.previewUrl, // Primary from project schema
+              item.previewUrl,
               item.link,
               item.url,
               item.website,
             ];
             for (const c of candidates) {
-              if (typeof c === "string" && c.length > 1) return c; // Simple string
-              if (typeof c === "object" && c?.href) return c.href; // Object with href
+              if (typeof c === "string" && c.length > 1) return c;
+              if (typeof c === "object" && c?.href) return c.href;
             }
             return "#";
           };
 
           const finalUrl = getProjectUrl(p);
-
-          // Prioritize simple string 'category' from project schema, fallback to 'categories' ref from post schema
           const catTitle =
             p.categoryString || p.categoriesRef?.[0]?.title || "UMKM";
-          const autoContext = getContext(catTitle, finalUrl);
-
-          // Use explicit Sanity fields if available, otherwise use auto-generated context
-          const finalContext = {
-            type: p.businessType || autoContext.type,
-            goal: p.businessGoal || autoContext.goal,
-            function: p.businessFunction || autoContext.function,
-          };
 
           return {
             id: p._id,
             title: p.title,
             category: catTitle,
-            context: finalContext,
+            context: {
+              type: p.businessType || "Usaha Digital",
+              goal: p.businessGoal || "Meningkatkan Branding",
+              function: p.businessFunction || "Company Profile",
+            },
             img: p.mainImage
               ? urlFor(p.mainImage)
-                  .width(800)
-                  .height(500)
+                  .width(600)
+                  .height(400)
                   .fit("crop")
                   .crop("top")
                   .url()
-              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop",
             accent: p.accent || "border-primary/20",
             previewUrl: finalUrl,
           };
@@ -182,6 +77,8 @@ export default function Showcase() {
         setProjects(mappedProjects);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -266,18 +163,20 @@ export default function Showcase() {
     return () => clearInterval(interval);
   }, [isPaused, isDragging, displayProjects]);
 
+  if (loading) return <ShowcaseSkeleton />;
+
   return (
     <section
-      className="py-24 bg-bg-surface dark:bg-slate-900 transition-colors duration-300 overflow-hidden"
+      className="py-12 md:py-16 bg-bg-surface dark:bg-slate-900 transition-colors duration-300 overflow-hidden scroll-mt-20"
       id="showcase"
     >
-      <div className="container mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
+      <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
         <div className="max-w-3xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-4">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             Contoh Hasil Kerja
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-tight mb-6">
+          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
             Contoh Website <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               Untuk Usaha Kamu.
@@ -286,7 +185,7 @@ export default function Showcase() {
           <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
         </div>
         <div className="flex flex-col items-start gap-4">
-          <p className="text-gray-800 dark:text-gray-200 max-w-sm text-lg text-left leading-relaxed font-medium">
+          <p className="text-gray-800 dark:text-gray-200 max-w-sm text-sm md:text-lg text-left leading-relaxed font-medium">
             Didesain khusus untuk kebutuhan UMKM. Simpel, informatif, dan
             langsung ke tujuan bisnis.
           </p>
@@ -312,10 +211,10 @@ export default function Showcase() {
             className="w-[85vw] md:w-[380px] lg:w-[450px] flex-shrink-0 select-none group"
           >
             <div
-              className={`relative h-[550px] md:h-[500px] lg:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-[3px] border-gray-100 dark:border-slate-700 shadow-xl transition-all duration-500 flex flex-col`}
+              className={`relative h-[500px] md:h-[500px] lg:h-[550px] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-[3px] border-gray-100 dark:border-slate-700 shadow-xl transition-all duration-500 flex flex-col`}
             >
               {/* Image Top */}
-              <div className="h-[250px] md:h-[220px] lg:h-[250px] overflow-hidden relative border-b border-gray-100 dark:border-slate-700">
+              <div className="h-[200px] md:h-[220px] lg:h-[250px] overflow-hidden relative border-b border-gray-100 dark:border-slate-700">
                 <img
                   src={project.img}
                   alt={project.title}
@@ -330,8 +229,8 @@ export default function Showcase() {
               </div>
 
               {/* Business Context Content */}
-              <div className="p-6 md:p-6 lg:p-8 flex-1 flex flex-col relative bg-white dark:bg-slate-800">
-                <h3 className="text-2xl md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
+              <div className="p-5 md:p-6 lg:p-8 flex-1 flex flex-col relative bg-white dark:bg-slate-800">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 md:mb-6">
                   {project.title}
                 </h3>
 
@@ -410,7 +309,7 @@ export default function Showcase() {
       </div>
 
       <div className="container mx-auto px-6 mt-4 flex justify-center">
-        <p className="text-center text-gray-500 text-sm">
+        <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
           Geser untuk melihat contoh lainnya
         </p>
       </div>

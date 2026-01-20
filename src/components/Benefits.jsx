@@ -16,6 +16,7 @@ import {
   TrendUp,
 } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
+import { BenefitsSkeleton } from "./Skeletons";
 
 // Icon Mapping to avoid large bundle size
 const ICON_MAP = {
@@ -37,7 +38,7 @@ const ICON_MAP = {
 };
 
 export default function Benefits() {
-  const { benefits: sanityBenefits } = useSiteData();
+  const { benefits: sanityBenefits, loading } = useSiteData();
 
   const activeBenefits = sanityBenefits.map((b) => ({
     icon: b.icon,
@@ -47,9 +48,11 @@ export default function Benefits() {
     bg: "bg-primary/10",
   }));
 
+  if (loading) return <BenefitsSkeleton />;
+
   return (
     <section
-      className="py-20 bg-bg-surface dark:bg-slate-900 transition-colors duration-300"
+      className="py-12 md:py-16 bg-bg-surface dark:bg-slate-900 transition-colors duration-300 scroll-mt-20"
       id="benefits"
     >
       <div className="container mx-auto px-6">
@@ -58,14 +61,14 @@ export default function Benefits() {
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             Komitmen Kami
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
             Bukan Sekadar <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Estetika Visual.
               <span className="absolute bottom-1 left-0 w-full h-1/3 bg-primary/20 -z-10 -skew-x-12"></span>
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-500 dark:text-gray-300 max-w-2xl leading-relaxed">
+          <p className="text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
             Kami membangun{" "}
             <strong className="text-gray-900 dark:text-white">
               mesin pertumbuhan bisnis
@@ -81,17 +84,17 @@ export default function Benefits() {
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-100 dark:border-slate-700 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-slate-700 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div
                   className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${item.bg} ${item.color} group-hover:scale-110 transition-transform`}
                 >
                   <IconComponent size={32} weight="fill" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[0.95rem]">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-xs md:text-[0.95rem]">
                   {item.desc}
                 </p>
               </div>
