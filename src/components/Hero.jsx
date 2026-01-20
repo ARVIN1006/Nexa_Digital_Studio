@@ -27,7 +27,7 @@ export default function Hero() {
       className="relative min-h-screen pt-28 pb-0 md:pb-20 flex flex-col justify-center overflow-hidden bg-white dark:bg-slate-900 transition-colors duration-300"
     >
       {/* Background Decoration */}
-      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-[10%] left-[-10%] w-[600px] h-[600px] bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
@@ -146,21 +146,34 @@ export default function Hero() {
         {/* Right Visual */}
         <div className="relative h-full flex flex-col justify-end items-center md:items-end">
           {/* Main Image */}
-          <div className="relative z-10 w-full max-w-lg mx-auto md:mr-0">
+          <div className="relative z-10 w-full max-w-md mx-auto md:mr-0">
             <img
-              src={settings?.heroImage ? urlFor(settings.heroImage).url() : ""}
+              src={
+                settings?.heroImage
+                  ? urlFor(settings.heroImage).width(450).quality(90).url()
+                  : ""
+              }
+              srcSet={
+                settings?.heroImage
+                  ? `
+                ${urlFor(settings.heroImage).width(350).quality(85).url()} 350w,
+                ${urlFor(settings.heroImage).width(450).quality(90).url()} 450w,
+                ${urlFor(settings.heroImage).width(600).quality(90).url()} 600w
+              `
+                  : ""
+              }
               alt="Professional Developer"
-              width="800"
-              height="1000"
-              sizes="(max-width: 768px) 90vw, 500px"
+              width="450"
+              height="450"
+              sizes="(max-width: 768px) 90vw, 450px"
               fetchpriority="high"
               loading="eager"
               className="w-full h-auto object-contain mask-image-bottom drop-shadow-2xl"
               style={{
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+                  "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
                 maskImage:
-                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+                  "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
               }}
             />
           </div>
