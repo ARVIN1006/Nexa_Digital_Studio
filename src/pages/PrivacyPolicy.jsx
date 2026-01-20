@@ -20,11 +20,11 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold mb-4">1. Pendahuluan</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Selamat datang di Nexa Digital Studio. Kami menghargai privasi
+              Di <strong>Nexa Digital Studio</strong>, kami menghargai privasi
               Anda dan berkomitmen untuk melindungi informasi pribadi yang Anda
               bagikan kepada kami. Kebijakan Privasi ini menjelaskan bagaimana
-              kami mengumpulkan, menggunakan, dan melindungi data Anda saat
-              menggunakan layanan kami.
+              kami mengumpulkan, menggunakan, dan melindungi data Anda saat Anda
+              berkunjung ke website kami atau menggunakan jasa kami.
             </p>
           </section>
 
@@ -33,45 +33,71 @@ export default function PrivacyPolicy() {
               2. Informasi yang Kami Kumpulkan
             </h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-              Kami hanya mengumpulkan informasi yang diperlukan untuk memberikan
-              layanan terbaik kepada Anda, meliputi:
+              Kami mengumpulkan informasi minimal yang diperlukan untuk
+              memproses pesanan dan konsultasi Anda, yaitu:
             </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300">
-              <li>Nama lengkap</li>
-              <li>Alamat email</li>
-              <li>Nomor telepon (WhatsApp)</li>
-              <li>Detail kebutuhan project yang Anda berikan</li>
+            <ul className="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300 font-medium">
+              <li>Nama & Nama Bisnis</li>
+              <li>Alamat Email aktif</li>
+              <li>Nomor Telepon (WhatsApp)</li>
+              <li>Informasi teknis (seperti domain yang diinginkan)</li>
+              <li>Detail brief project yang dikirimkan</li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold mb-4">3. Penggunaan Informasi</h2>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Data yang Anda berikan hanya digunakan untuk keperluan komunikasi
-              bisnis, seperti:
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              Informasi yang Anda berikan digunakan secara eksklusif untuk
+              kepentingan layanan Nexa Digital Studio, antara lain:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-gray-600 dark:text-gray-300 mt-4">
-              <li>Menghubungi Anda untuk konsultasi project.</li>
-              <li>Mengirimkan penawaran harga (quotation).</li>
-              <li>Proses administrasi dan penagihan (invoice).</li>
+              <li>Berkomunikasi terkait konsultasi dan pengerjaan project.</li>
+              <li>
+                Proses penagihan (Invoice) dan administrasi kelengkapan domain.
+              </li>
+              <li>Mengirimkan update penting mengenai status website Anda.</li>
+              <li>
+                Keperluan riset internal untuk meningkatkan kualitas layanan
+                kami.
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">4. Perlindungan Data</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              4. Keamanan & Perlindungan Data
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              Kami menjamin kerahasiaan data Anda. Nexa Digital Studio{" "}
+              <strong>tidak akan pernah</strong> menjual, menyewakan, atau
+              memberikan data pribadi Anda kepada pihak ketiga untuk kepentingan
+              iklan atau pemasaran tanpa izin tertulis dari Anda.
+            </p>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Kami menjamin bahwa data Anda tidak akan dijual, disewakan, atau
-              disebarluaskan kepada pihak ketiga tanpa izin Anda, kecuali jika
-              diwajibkan oleh hukum yang berlaku di Indonesia.
+              Semua akses kredensial (seperti login hosting atau CMS) akan
+              diserahkan sepenuhnya kepada Anda setelah project selesai, dan
+              kami tidak menyimpan salinan kredensial tersebut kecuali atas
+              permintaan Anda untuk maintenance berkala.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">5. Hubungi Kami</h2>
+            <h2 className="text-2xl font-bold mb-4">5. Perubahan Kebijakan</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini,
-              silakan hubungi kami melalui WhatsApp atau Email yang tertera di
-              website.
+              Kami mungkin memperbarui Kebijakan Privasi ini sesekali untuk
+              mencerminkan perubahan praktik layanan kami atau karena alasan
+              operasional, hukum, atau peraturan lainnya.
+            </p>
+          </section>
+
+          <section className="bg-primary/5 p-8 rounded-2xl border border-primary/10">
+            <h2 className="text-2xl font-bold mb-4">6. Hubungi Kami</h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              Jika Anda memiliki pertanyaan mengenai privasi Anda, silakan
+              hubungi tim kami melalui WhatsApp resmi di{" "}
+              <strong>6285199198055</strong> atau email di{" "}
+              <strong>nexadigitalstudio.business@gmail.com</strong>.
             </p>
           </section>
         </div>
