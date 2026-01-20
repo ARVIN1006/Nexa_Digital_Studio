@@ -183,50 +183,7 @@ export default function Showcase() {
     fetchProjects();
   }, []);
 
-  // Hardcoded Demo Projects relevant to User's Real Portfolio (Fallback)
-  const demoProjects = [
-    {
-      id: 1,
-      title: "UMKM Kit - Web Builder",
-      category: "UMKM", // Matches Pricing "UMKM"
-      context: {
-        type: "Platform Digital UMKM",
-        goal: "Membantu UMKM Go Digital",
-        function: "Katalog & Pembuatan Web Instan",
-      },
-      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-      accent: "border-indigo-200 shadow-indigo-500/10",
-      previewUrl: "https://umkmkit.netlify.app/",
-    },
-    {
-      id: 2,
-      title: "Arvin Ramdhan Portfolio",
-      category: "Personal", // Matches Pricing "Personal"
-      context: {
-        type: "Personal Branding",
-        goal: "Menampilkan Portofolio Pro",
-        function: "Showcase Skill & Kontak",
-      },
-      img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
-      accent: "border-slate-200 shadow-slate-500/10",
-      previewUrl: "http://arvindev.netlify.app/",
-    },
-    {
-      id: 3,
-      title: "Smart WMS System",
-      category: "Company", // Matches Pricing "Company"
-      context: {
-        type: "Sistem Manajemen Perusahaan",
-        goal: "Efisiensi Operasional (B2B)",
-        function: "Tracking Stok & Laporan",
-      },
-      img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
-      accent: "border-blue-200 shadow-blue-500/10",
-      previewUrl: "https://wms-project-4dtd.vercel.app/",
-    },
-  ];
-
-  const displayProjects = projects.length > 0 ? projects : demoProjects;
+  const displayProjects = projects;
 
   // Duplicate for infinite scroll sensation only if we have projects
   const DUPLICATION_COUNT = 8;
