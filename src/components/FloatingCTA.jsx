@@ -46,7 +46,7 @@ export default function FloatingCTA() {
 
         // LET'S USE SCROLL LISTENER INSTEAD. It's much more reliable for "Top and Bottom" logic.
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
 
     // SWITCHING TO SCROLL LISTENER IMPLEMENTATION BELOW
@@ -96,7 +96,7 @@ export default function FloatingCTA() {
         href={`https://wa.me/${
           settings?.whatsappNumber || "6282127666523"
         }?text=${encodeURIComponent(
-          "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+          "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
         )}`}
         target="_blank"
         rel="noreferrer"
@@ -108,9 +108,9 @@ export default function FloatingCTA() {
         </div>
         <div className="text-left">
           <p className="text-[10px] font-medium text-green-50 opacity-90 uppercase tracking-wider">
-            Ingin Tanya-Tanya?
+            Butuh Website?
           </p>
-          <p className="text-sm font-bold">Diskusi Bareng Yuk</p>
+          <p className="text-sm font-bold">Chat WhatsApp</p>
         </div>
       </a>
     </div>

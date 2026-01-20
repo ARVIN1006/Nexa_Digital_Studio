@@ -6,54 +6,79 @@ export default function FAQ() {
 
   const faqs = [
     {
+      question: "Apa saja layanan yang kamu tawarkan?",
+      answer:
+        "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi. Fokus pada website informatif, cepat, dan mudah dikelola.",
+    },
+    {
+      question: "Apakah semua paket sudah termasuk CMS?",
+      answer:
+        "Iya. Semua paket sudah termasuk CMS. Klien bisa edit teks, gambar, dan konten sendiri tanpa coding melalui browser.",
+    },
+    {
+      question: "Apakah domain dan hosting sudah termasuk?",
+      answer:
+        "Iya. Semua paket sudah termasuk domain dan hosting selama 1 tahun. Jenis domain menyesuaikan paket dan ketersediaan.",
+    },
+    {
+      question: "Domain apa saja yang bisa didapat?",
+      answer:
+        "Tergantung paket. Bisa subdomain, .my.id, .web.id, .biz.id, .co.id, .sch.id, .ac.id, atau .com. Domain tertentu mengikuti syarat resmi.",
+    },
+    {
       question: "Berapa lama proses pengerjaan website?",
       answer:
-        "Tergantung paket. Untuk Link Bio/Landing Page sederhana bisa selesai dalam 24 jam. Website Company Profile biasanya 3-7 hari, dan Custom System butuh 2-4 minggu. Kami selalu update progress di setiap tahap.",
+        "Waktu pengerjaan tergantung paket. Mulai dari 3 hari sampai 14 hari. Waktu dihitung sejak data dan materi klien lengkap.",
     },
     {
-      question: "Apa saja yang perlu saya siapkan?",
+      question: "Apakah revisi benar benar sepuasnya?",
       answer:
-        "Cukup siapkan materi dasar (logo, foto produk, teks profil). Jika belum ada, kami bisa bantu buatkan konten dasar atau gunakan placeholder sementara. Tim kami akan memandu Anda step-by-step.",
+        "Iya. Revisi tidak dibatasi selama masih dalam masa pengerjaan paket. Revisi dilakukan sampai klien menyatakan selesai.",
     },
     {
-      question: "Apakah ada biaya bulanan atau tahunan?",
+      question: "Apa yang termasuk revisi?",
       answer:
-        "Transparansi adalah inti dari layanan kami. Anda hanya perlu menyedikan budget untuk Domain & Hosting sebagai biaya operasional tahunan. Untuk tahun pertama, semua sudah termasuk dalam paket Nexa Digital Studio. Tahun berikutnya, Anda cukup membayar biaya perpanjangan murni tanpa tambahan biaya jasa.",
+        "Revisi meliputi perubahan teks, gambar, warna, layout ringan, dan penyesuaian konten sesuai brief awal.",
     },
     {
-      question: "Bisakah saya update konten sendiri nanti?",
+      question: "Apakah bisa request desain?",
       answer:
-        "Tentu! Kami berikan akses dashboard admin (CMS) yang mudah digunakan. Anda bisa ganti foto, teks, atau harga produk semudah update status WhatsApp. Ada panduan videonya juga.",
+        "Bisa. Klien boleh kirim referensi desain. Desain disesuaikan dengan kebutuhan dan paket yang dipilih.",
     },
     {
-      question: "Apakah website sudah termasuk SEO?",
+      question: "Apakah website bisa dibuka di HP?",
       answer:
-        "Semua website kami dibangun dengan struktur 'SEO Friendly' (cepat, rapi, mobile-friendly). Ini fondasi agar mudah ditemukan Google. Untuk optimasi keyword lanjutan, bisa ambil paket maintenance tambahan.",
+        "Iya. Semua website dibuat mobile friendly dan nyaman diakses di HP, tablet, dan desktop.",
     },
     {
-      question: "Bagaimana jika ada error/masalah setelah jadi?",
+      question: "Apakah website sudah aman?",
       answer:
-        "Tenang, kami berikan GARANSI teknis. Jika ada bug atau error dari sistem kami, perbaikan GRATIS selamanya. Kami juga ada support via WhatsApp untuk tanya-tanya.",
+        "Iya. Semua paket sudah termasuk SSL dan pengamanan dasar untuk penggunaan normal.",
     },
     {
-      question: "Apakah bisa request fitur khusus (Custom)?",
+      question: "Apakah klien dapat akses admin?",
       answer:
-        "Sangat bisa. Kami bukan cuma pakai template. Tim developer kami bisa bangun fitur khusus seperti sistem member, booking online, kalkulator, atau integrasi API pihak ketiga.",
+        "Iya. Akses admin diberikan setelah website live. Klien bebas mengelola konten sendiri.",
     },
     {
-      question: "Pembayarannya bagaimana?",
+      question: "Apakah ada biaya tambahan setelah jadi?",
       answer:
-        "Sistem DP (Down Payment) 50% di awal untuk mulai pengerjaan. Sisanya 50% dibayarkan setelah website jadi dan Anda puas dengan hasilnya.",
+        "Tidak ada biaya tersembunyi. Biaya tahunan hanya untuk perpanjangan domain dan hosting setelah 1 tahun.",
     },
     {
-      question: "Apakah dapat email bisnis (nama@perusahaan)?",
+      question: "Apakah bisa upgrade paket di tengah jalan?",
       answer:
-        "Ya, untuk paket Corporate/Company Profile sudah termasuk setup Email Bisnis profesional. Bikin bisnis Anda terlihat lebih bonafide di mata klien.",
+        "Bisa. Klien dapat upgrade paket dengan menyesuaikan selisih harga dan scope pekerjaan.",
     },
     {
-      question: "Saya gaptek, apakah akan diajari?",
+      question: "Apakah bisa minta bantuan setelah website aktif?",
       answer:
-        "Pasti. Salah satu nilai plus Nexa Digital Studio adalah kami 'Manusiawi'. Kami akan jelaskan dengan bahasa awam, bukan bahasa teknis yang membingungkan. Ada training admin via Zoom/Meet jika perlu.",
+        "Bisa. Support awal tersedia sesuai paket. Layanan lanjutan bisa didiskusikan.",
+    },
+    {
+      question: "Bagaimana cara memulai pemesanan?",
+      answer:
+        "Pilih paket. Kirim brief dan kebutuhan. Proses pengerjaan dimulai setelah konfirmasi.",
     },
   ];
 
@@ -80,7 +105,7 @@ export default function FAQ() {
                 Ditanyakan
               </span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-lg mb-8">
+            <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
               Jawaban cepat untuk pertanyaan yang sering muncul. Masih bingung?{" "}
               <a
                 href="#contact"
@@ -115,7 +140,7 @@ export default function FAQ() {
                     className={`mt-1 transition-transform duration-300 ${
                       openIndex === index
                         ? "rotate-180 text-primary"
-                        : "text-gray-400"
+                        : "text-gray-500"
                     }`}
                   >
                     <CaretDown size={24} weight="bold" />
@@ -129,7 +154,7 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="pb-8 text-gray-500 dark:text-gray-400 leading-relaxed text-base md:text-lg">
+                    <div className="pb-8 text-gray-700 dark:text-gray-200 leading-relaxed text-base md:text-lg">
                       {faq.answer}
                     </div>
                   </div>

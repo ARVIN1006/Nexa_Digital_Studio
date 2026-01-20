@@ -13,7 +13,7 @@ export default function Contact() {
 
   const waNumber = settings?.whatsappNumber || "6282127666523";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
   )}`;
   const emailLink = `mailto:${
     settings?.contactEmail || "arvin.dev.business@gmail.com"
@@ -39,17 +39,21 @@ export default function Contact() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              Buka untuk Kolaborasi Baru
+              Jasa Website Profesional
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Siap Meroketkan <br />
+              Buat Website <br />
+              Usaha Kamu <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                Bisnis Anda?
+                Sekarang!
               </span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-lg mb-8 leading-relaxed max-w-lg">
-              Jangan biarkan kompetitor menyalip. Kami siap membantu Anda
-              membangun digital presence yang profesional, aman, dan profitable.
+            <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed max-w-lg">
+              Tunggu apa lagi? Miliki website profesional mulai dari{" "}
+              <span className="font-bold text-gray-900 dark:text-white">
+                200 Ribu
+              </span>
+              . Konsultasi gratis via WhatsApp.
             </p>
 
             <div className="space-y-6 mb-10">
@@ -74,7 +78,7 @@ export default function Contact() {
                       />
                     </svg>
                   </div>
-                  <span className="font-medium text-gray-700 dark:text-gray-200">
+                  <span className="font-medium text-gray-800 dark:text-gray-100">
                     {item}
                   </span>
                 </div>
@@ -91,11 +95,10 @@ export default function Contact() {
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Mulai Konsultasi
+              Mulai Project
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-8">
-              Diskusikan ide Anda langsung dengan tim kami. Tanpa komitmen,
-              tanpa ribet.
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              Klik tombol di bawah untuk terhubung langsung dengan kami.
             </p>
 
             <div className="flex flex-col gap-4">
@@ -116,7 +119,7 @@ export default function Contact() {
                         Fast Response
                       </p>
                       <p className="text-sm md:text-lg font-bold leading-none">
-                        Chat via WhatsApp
+                        Chat WhatsApp
                       </p>
                     </div>
                   </div>
@@ -148,7 +151,7 @@ export default function Contact() {
                     <Envelope
                       size={24}
                       weight="fill"
-                      className="text-gray-400 group-hover:text-primary transition-colors md:w-[32px] md:h-[32px] w-[20px] h-[20px]"
+                      className="text-gray-500 dark:text-gray-400 group-hover:text-primary transition-colors md:w-[32px] md:h-[32px] w-[20px] h-[20px]"
                     />
                     <div className="text-left">
                       <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-60">
@@ -203,7 +206,7 @@ export default function Contact() {
               </a>
             </div>
 
-            <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6 italic">
+            <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6 italic">
               “Diskusi personal, bukan jawaban bot.”
             </p>
           </div>

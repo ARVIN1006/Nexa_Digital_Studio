@@ -1,34 +1,240 @@
 import { useState } from "react";
-import { CheckCircle } from "phosphor-react";
+import {
+  CheckCircle,
+  WhatsappLogo,
+  Timer,
+  Globe,
+  DeviceMobile,
+  PenNib,
+  Layout,
+  ShieldCheck,
+  User,
+  Storefront,
+  GraduationCap,
+  Buildings,
+} from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
 
 export default function Pricing() {
-  const { settings, pricing: sanityPricing } = useSiteData();
-  const [activeTab, setActiveTab] = useState("business");
+  const { settings } = useSiteData();
+  const [activeTab, setActiveTab] = useState("umkm"); // Default to UMKM as it's the main focus usually
 
-  const tabs = [
-    { id: "personal", label: "Identity" },
-    { id: "business", label: "UMKM" },
-    { id: "corporate", label: "Enterprise" },
+  const commonFeatures = [
+    { icon: <PenNib size={20} />, text: "Kelola Website Sendiri (CMS)" },
+    { icon: <Layout size={20} />, text: "Edit Teks & Gambar Mudah" },
+    {
+      icon: <CheckCircle size={20} />,
+      text: "Revisi Sepuasnya (Selama Pengerjaan)",
+    },
+    { icon: <Globe size={20} />, text: "Gratis Domain & Hosting 1 Tahun" },
+    { icon: <ShieldCheck size={20} />, text: "SSL Security (HTTPS) Aktif" },
+    { icon: <DeviceMobile size={20} />, text: "Tampilan Mobile Friendly" },
   ];
 
-  // Static fallback removed in favor of Sanity data
+  const categories = [
+    { id: "personal", label: "Personal", icon: <User weight="bold" /> },
+    { id: "umkm", label: "UMKM", icon: <Storefront weight="bold" /> },
+    { id: "edu", label: "Pendidikan", icon: <GraduationCap weight="bold" /> },
+    { id: "company", label: "Company", icon: <Buildings weight="bold" /> },
+  ];
 
-  const pricingData = sanityPricing.reduce((acc, plan) => {
-    const cat = plan.category || "business";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push({
-      title: plan.title,
-      price: plan.price,
-      originalPrice: plan.originalPrice,
-      features: plan.features || [],
-      cta: "Pilih Paket",
-      popular: plan.isPopular,
-    });
-    return acc;
-  }, {});
+  const pricingData = {
+    personal: [
+      {
+        title: "Personal Lite",
+        price: "300 Ribu",
+        duration: "3 Hari",
+        domain: "Subdomain / .my.id",
+        features: [
+          "1 Halaman Landing Page",
+          "Desain Simpel & Rapi",
+          "Profil Singkat",
+          "Tujuan Website Jelas",
+          "Tombol WhatsApp",
+          "Form Kontak",
+          "Setup & Deploy",
+        ],
+      },
+      {
+        title: "Personal Pro",
+        price: "450 Ribu",
+        duration: "5 Hari",
+        domain: ".my.id / .web.id",
+        features: [
+          "3 Halaman Website",
+          "Desain Lebih Personal",
+          "Profil Lengkap",
+          "Galeri / Portofolio",
+          "Tombol WhatsApp",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+      },
+      {
+        title: "Personal Premium",
+        price: "650 Ribu",
+        duration: "7 Hari",
+        domain: ".com / .id (Standar)",
+        features: [
+          "5 Halaman Website",
+          "Desain Custom",
+          "Portofolio Lengkap",
+          "Integrasi WA & Email",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+        popular: true,
+      },
+    ],
+    umkm: [
+      {
+        title: "UMKM Lite",
+        price: "500 Ribu",
+        duration: "5 Hari",
+        domain: ".my.id / .biz.id",
+        features: [
+          "3 Halaman Website",
+          "Beranda & Profil Usaha",
+          "Kontak & WhatsApp",
+          "Struktur Rapi",
+          "Mobile Friendly",
+          "CMS Siap Pakai",
+          "Setup & Deploy",
+        ],
+      },
+      {
+        title: "UMKM Growth",
+        price: "750 Ribu",
+        duration: "7 Hari",
+        domain: ".web.id / .co.id*",
+        features: [
+          "5 Halaman Website",
+          "Halaman Layanan / Produk",
+          "Galeri Foto",
+          "Tombol WA di Semua Halaman",
+          "Struktur SEO Dasar",
+          "CMS Siap Pakai",
+          "Setup & Deploy",
+        ],
+        popular: true,
+      },
+      {
+        title: "UMKM Premium",
+        price: "1 Juta",
+        duration: "10 Hari",
+        domain: ".com / .id",
+        features: [
+          "7 Halaman Website",
+          "Desain Lebih Eksklusif",
+          "Katalog Produk",
+          "Integrasi WhatsApp",
+          "Struktur SEO Dasar",
+          "CMS Siap Pakai",
+          "Setup & Deploy",
+        ],
+      },
+    ],
+    edu: [
+      {
+        title: "Edu Basic",
+        price: "750 Ribu",
+        duration: "7 Hari",
+        domain: ".sch.id / .my.id*",
+        features: [
+          "5 Halaman Website",
+          "Profil Lembaga",
+          "Visi & Misi",
+          "Program / Jurusan",
+          "Kontak Admin",
+          "Setup & Deploy",
+        ],
+      },
+      {
+        title: "Edu Pro",
+        price: "1,1 Juta",
+        duration: "10 Hari",
+        domain: ".sch.id / .ac.id*",
+        features: [
+          "7 Halaman Website",
+          "Informasi Pendaftaran",
+          "Galeri Kegiatan",
+          "Kontak Terpusat",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+        popular: true,
+      },
+      {
+        title: "Edu Premium",
+        price: "1,5 Juta",
+        duration: "14 Hari",
+        domain: ".com / .id",
+        features: [
+          "10 Halaman Website",
+          "Desain Informatif",
+          "Navigasi Jelas",
+          "Integrasi WhatsApp",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+      },
+    ],
+    company: [
+      {
+        title: "Company Lite",
+        price: "1 Juta",
+        duration: "7 Hari",
+        domain: ".biz.id / .web.id",
+        features: [
+          "5 Halaman Website",
+          "Profil Perusahaan",
+          "Layanan",
+          "Kontak Resmi",
+          "CMS Siap Pakai",
+          "Setup & Deploy",
+        ],
+      },
+      {
+        title: "Company Pro",
+        price: "1,5 Juta",
+        duration: "10 Hari",
+        domain: ".co.id* / .com",
+        features: [
+          "8 Halaman Website",
+          "Company Profile Lengkap",
+          "Portofolio Proyek",
+          "Kontak Profesional",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+        popular: true,
+      },
+      {
+        title: "Company Premium",
+        price: "2 Juta",
+        duration: "14 Hari",
+        domain: ".com / .id",
+        features: [
+          "12 Halaman Website",
+          "Desain Custom",
+          "Struktur Profesional",
+          "Integrasi WA & Email",
+          "Struktur SEO Dasar",
+          "Setup & Deploy",
+        ],
+      },
+    ],
+  };
 
   const currentPricing = pricingData[activeTab] || [];
+
+  const getWaLink = (title, price) => {
+    const phone = settings?.whatsappNumber || "6282127666523";
+    const text = encodeURIComponent(
+      `Halo Nexa Studio, saya tertarik dengan paket *${title}* (${price}). Bisa dibantu dijelaskan detailnya?`,
+    );
+    return `https://wa.me/${phone}?text=${text}`;
+  };
 
   return (
     <section
@@ -36,91 +242,112 @@ export default function Pricing() {
       id="pricing"
     >
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-6">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              Transparent Pricing
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white">
-              Investasi Tanpa <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-700">
-                Misteri & Teka-Teki.
-              </span>
-            </h2>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            Daftar Harga Lengkap
           </div>
-          <div className="max-w-sm text-left hidden md:block">
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed font-medium italic">
-              "Excellence is not an act, but a habit." <br />
-              Kami menyusun paket yang dirancang untuk mendampingi pertumbuhan
-              bisnis Anda di setiap tahap.
-            </p>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-6">
+            Pilih Paket Sesuai <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Kebutuhan Bisnis Anda.
+            </span>
+          </h2>
+
+          {/* Common Features Grid */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-white/5 mx-auto mt-8">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300 mb-4 border-b border-gray-100 dark:border-white/10 pb-2">
+              Semua Paket Sudah Termasuk:
+            </h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4 text-left">
+              {commonFeatures.map((feat, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-2 text-sm font-medium text-gray-800 dark:text-gray-100"
+                >
+                  <div className="text-primary shrink-0">{feat.icon}</div>
+                  <span>{feat.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Tabs */}
+        {/* Tab Navigation - Modern Segmented Control */}
         <div className="flex justify-center mb-12">
-          <div className="bg-gray-100 dark:bg-slate-800 p-1.5 rounded-full inline-flex transition-colors">
-            {tabs.map((tab) => (
+          <div className="bg-gray-100 dark:bg-slate-800 p-1.5 rounded-2xl inline-flex flex-wrap md:flex-nowrap justify-center gap-2">
+            {categories.map((cat) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                key={cat.id}
+                onClick={() => setActiveTab(cat.id)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm md:text-base font-bold transition-all duration-300 ${
+                  activeTab === cat.id
+                    ? "bg-white dark:bg-slate-700 text-primary shadow-lg shadow-gray-200/50 dark:shadow-black/30 scale-100 ring-1 ring-black/5 dark:ring-white/10"
+                    : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/50 dark:hover:bg-white/5"
                 }`}
               >
-                {tab.label}
+                <span className="text-lg">{cat.icon}</span>
+                {cat.label}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Grid */}
-        <div
-          key={activeTab}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto animate-fade-in-up"
-        >
+        {/* Pricing Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {currentPricing.map((item, index) => (
             <div
               key={index}
-              className={`relative bg-white dark:bg-slate-800 rounded-[2.5rem] p-10 md:p-12 border-2 ${
+              className={`relative bg-white dark:bg-slate-800 rounded-[2rem] p-8 border-2 flex flex-col ${
                 item.popular
-                  ? "border-primary shadow-2xl shadow-primary/20 ring-8 ring-primary/5"
-                  : "border-gray-100 dark:border-slate-800 shadow-xl"
-              } hover:-translate-y-3 transition-all duration-500 group`}
+                  ? "border-primary shadow-xl shadow-primary/10 scale-100 md:scale-105 z-10"
+                  : "border-gray-50 dark:border-slate-700 shadow-lg hover:border-primary/20"
+              } transition-all duration-300`}
             >
               {item.popular && (
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Best Choice
-                </span>
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+                  Paling Laris
+                </div>
               )}
 
-              <div className="text-center mb-8">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+              <div className="mb-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   {item.title}
                 </h3>
-                <div className="flex flex-col items-center">
-                  <span className="text-sm text-gray-500 dark:text-gray-400 line-through mb-1 font-medium">
-                    {item.originalPrice}
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-gray-500">Rp</span>
+                  <span className="text-4xl font-black text-gray-900 dark:text-white">
+                    {item.price.split(" ")[0]}
                   </span>
-                  <div className="text-5xl font-black text-indigo-600 dark:text-indigo-400 tracking-tight">
-                    {item.price}
-                  </div>
+                  <span className="text-lg font-bold text-gray-600 dark:text-gray-400">
+                    {item.price.split(" ").slice(1).join(" ")}
+                  </span>
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              {/* Specs */}
+              <div className="flex items-center gap-4 mb-6 text-sm font-semibold text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-slate-900/50 p-3 rounded-xl border border-gray-100 dark:border-white/5">
+                <div className="flex items-center gap-1.5">
+                  <Timer size={18} className="text-orange-500" />
+                  {item.duration}
+                </div>
+                <div className="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+                <div className="flex items-center gap-1.5">
+                  <Globe size={18} className="text-blue-500" />
+                  {item.domain}
+                </div>
+              </div>
+
+              <ul className="space-y-4 mb-8 flex-1">
                 {item.features.map((feat, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-4 text-gray-600 dark:text-gray-300 text-base font-medium"
+                    className="flex items-start gap-3 text-gray-700 dark:text-gray-200 text-sm font-medium leading-tight"
                   >
                     <CheckCircle
-                      size={20}
+                      size={18}
                       weight="fill"
-                      className="text-green-500 flex-shrink-0"
+                      className="text-green-500 flex-shrink-0 mt-0.5"
                     />
                     {feat}
                   </li>
@@ -128,54 +355,67 @@ export default function Pricing() {
               </ul>
 
               <a
-                href={`https://wa.me/${
-                  settings?.whatsappNumber || "6282127666523"
-                }?text=${encodeURIComponent(
-                  `Halo Nexa Studio, saya tertarik dengan paket *${item.title}*. Bisa dibantu?`
-                )}`}
+                href={getWaLink(item.title, item.price)}
                 target="_blank"
                 rel="noreferrer"
-                className={`w-full py-3.5 rounded-xl font-bold transition-all text-center block ${
+                className={`w-full py-3.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-2 ${
                   item.popular
-                    ? "bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/25"
-                    : "bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 border border-gray-200 dark:border-slate-600"
+                    ? "bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/25 hover:-translate-y-1"
+                    : "bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-slate-600 hover:-translate-y-1"
                 }`}
               >
-                {item.cta || "Ambil Paket"}
+                <WhatsappLogo size={20} weight="fill" />
+                Pesan Sekarang
               </a>
             </div>
           ))}
         </div>
 
-        {/* Custom Solution Card (Visible on all tabs) */}
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-white/10 dark:to-white/5 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden border border-gray-800 dark:border-white/10 shadow-2xl">
-            {/* Decor */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        {/* Custom Budget Option */}
+        <div className="mt-16 max-w-4xl mx-auto relative group px-6 md:px-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-[2rem] blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+          <div className="relative bg-white dark:bg-slate-800 border border-gray-100 dark:border-white/10 rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl overflow-hidden">
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 p-0 md:p-12 opacity-5 translate-x-1/4 -translate-y-1/4 pointer-events-none">
+              <WhatsappLogo size={300} weight="fill" className="text-primary" />
+            </div>
 
-            <div className="relative z-10 text-center md:text-left">
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Punya Kebutuhan Khusus?
+            <div className="text-center md:text-left relative z-10 max-w-lg">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-bold tracking-widest uppercase mb-4">
+                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                Solusi Fleksibel
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4">
+                Punya Budget Khusus?
               </h3>
-              <p className="text-gray-400 max-w-lg">
-                Jangan paksakan paket jika tidak sesuai. Kami sediakan solusi{" "}
-                <span className="text-white font-bold">
-                  Custom Budget & Requirement
-                </span>{" "}
-                spesial untuk Anda.
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                Bingung pilih paket? Diskusikan budget Anda dengan kami. Kami
+                akan carikan solusi website terbaik yang pas di kantong.
               </p>
             </div>
 
-            <div className="relative z-10 flex-shrink-0">
+            <div className="relative z-10 flex-shrink-0 w-full md:w-auto">
               <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-lg"
+                href={`https://wa.me/${
+                  settings?.whatsappNumber || "6282127666523"
+                }?text=${encodeURIComponent(
+                  "Halo Nexa Studio, saya mau buat website tapi mau diskusi sesuai budget saya. Bisa dibantu?",
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:scale-105 transition-transform shadow-xl w-full md:w-auto"
               >
-                Konsultasi Custom
+                <WhatsappLogo size={24} weight="fill" />
+                Diskusi Sesuai Budget
               </a>
             </div>
           </div>
         </div>
+
+        <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-12 max-w-2xl mx-auto">
+          *Syarat domain .co.id, .sch.id, .ac.id mengikuti ketentuan PANDI
+          (KTP/SK/Akta). Hosting & Domain gratis untuk tahun pertama.
+        </p>
       </div>
     </section>
   );

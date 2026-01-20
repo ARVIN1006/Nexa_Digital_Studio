@@ -6,6 +6,7 @@ import {
   ShieldCheck,
   PaintBrush,
   Code,
+  Tag,
 } from "phosphor-react";
 import heroPerson from "../assets/hero-people.avif";
 import { useSiteData } from "../context/SiteContext";
@@ -15,7 +16,7 @@ export default function Hero() {
 
   const waNumber = settings?.whatsappNumber || "6282127666523";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
   )}`;
 
   return (
@@ -29,21 +30,17 @@ export default function Hero() {
 
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
-        <div className="text-left pt-6 pb-12 md:pb-0">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-8 animate-fade-in-up">
+        <div className="text-left pt-0 pb-12 md:pb-0">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Available for New Projects
+            Siap Membantu Bisnis Anda
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
-            {settings?.heroTitle?.split(" ")[0] || "Ubah"}{" "}
-            {settings?.heroTitle?.split(" ")[1] || "Visi"}{" "}
-            {settings?.heroTitle?.split(" ").slice(2, -2).join(" ") ||
-              "Menjadi"}{" "}
-            <br />
+            Jasa Pembuatan <br />
+            Website UMKM <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
-              {settings?.heroTitle?.split(" ").slice(-2).join(" ") ||
-                "Karya Digital."}
+              Mulai 200 Ribu.
               <svg
                 className="absolute w-full h-3 -bottom-1 left-0 text-primary/20 -z-10"
                 viewBox="0 0 100 10"
@@ -59,9 +56,9 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
-            {settings?.heroSubtitle ||
-              "Nexa Digital Studio hadir untuk mendefinisikan ulang standar digital di Bandung. Kami membangun website & aplikasi berkelas dunia dengan harga yang tetap membumi."}
+          <p className="text-base md:text-lg text-gray-700 dark:text-gray-200 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
+            Website sederhana dan mudah dipakai. Tingkatkan kepercayaan
+            pelanggan dengan profil usaha yang profesional.
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
@@ -70,7 +67,7 @@ export default function Hero() {
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-full font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
             >
               <WhatsappLogo size={20} weight="fill" />
-              Diskusi Gratis
+              Chat WhatsApp
             </a>
             <a
               href="#pricing"
@@ -82,17 +79,17 @@ export default function Hero() {
               }}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold transition-all cursor-pointer"
             >
-              Lihat Price List
+              Lihat Pilihan Paket
               <ArrowRight size={16} weight="bold" />
             </a>
           </div>
 
           {/* Mobile Only Note */}
-          <p className="mt-6 text-xs text-gray-700 dark:text-gray-300 italic md:hidden text-left font-medium">
-            *Konsultasi gratis & tanpa komitmen apapun.
+          <p className="mt-6 text-xs text-gray-800 dark:text-gray-200 italic md:hidden text-left font-medium">
+            *Konsultasi gratis & respon cepat via WhatsApp.
           </p>
 
-          <div className="hidden md:flex items-center gap-8 mt-12 pt-8 border-t border-gray-100 dark:border-white/10">
+          <div className="hidden md:flex items-center gap-8 mt-2 pt-2 border-t border-gray-100 dark:border-white/10">
             <div className="flex -space-x-3">
               {[
                 {
@@ -133,8 +130,8 @@ export default function Hero() {
                   <Star key={i} weight="fill" />
                 ))}
               </div>
-              <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                Kualitas Premium & Bergaransi
+              <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                Terpercaya & Profesional
               </span>
             </div>
           </div>

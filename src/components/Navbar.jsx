@@ -72,7 +72,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-8">
           {navLinks.map((item) => (
             <li key={item.name}>
               <a
@@ -87,7 +87,7 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA & Theme Toggle */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
@@ -100,16 +100,19 @@ export default function Navbar() {
             )}
           </button>
           <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, "contact")}
-            className="px-5 py-2.5 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer"
+            href={`https://wa.me/6282127666523?text=${encodeURIComponent(
+              "Halo, saya mau tanya jasa pembuatan website UMKM.",
+            )}`}
+            target="_blank"
+            rel="noreferrer"
+            className="px-5 py-2.5 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
           >
-            Mulai Projek
+            Chat WhatsApp
           </a>
         </div>
 
         {/* Mobile Actions */}
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-4 lg:hidden">
           <button
             onClick={toggleTheme}
             className="p-2 text-gray-600 dark:text-gray-300 transition-colors"
@@ -138,7 +141,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-white/10 shadow-lg md:hidden overflow-hidden transition-all duration-300 ${
+        className={`absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-white/10 shadow-lg lg:hidden overflow-hidden transition-all duration-300 ${
           isOpen ? "max-h-96 py-6" : "max-h-0"
         }`}
       >
@@ -156,11 +159,14 @@ export default function Navbar() {
           ))}
           <li className="pt-4 border-t border-gray-100 dark:border-white/10 w-full flex flex-col gap-3">
             <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, "contact")}
+              href={`https://wa.me/6282127666523?text=${encodeURIComponent(
+                "Halo, saya mau tanya jasa pembuatan website UMKM.",
+              )}`}
+              target="_blank"
+              rel="noreferrer"
               className="w-full inline-block px-5 py-3 rounded-full text-sm font-bold bg-primary text-white shadow-lg shadow-primary/25"
             >
-              Mulai Projek
+              Chat WhatsApp
             </a>
           </li>
         </ul>

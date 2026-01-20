@@ -26,7 +26,7 @@ export default function Footer() {
               <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
                 Nexa Digital Studio.
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
                 Membantu individu dan UMKM membangun kehadiran digital pertama
                 mereka dengan hasil yang profesional dan berkelas.
               </p>
@@ -45,21 +45,21 @@ export default function Footer() {
                         item === "Portfolio"
                           ? "showcase"
                           : item === "Layanan"
-                          ? "benefits"
-                          : item === "Proses"
-                          ? "services"
-                          : item === "Harga"
-                          ? "pricing"
-                          : item === "FAQ"
-                          ? "faq"
-                          : "contact"
+                            ? "benefits"
+                            : item === "Proses"
+                              ? "services"
+                              : item === "Harga"
+                                ? "pricing"
+                                : item === "FAQ"
+                                  ? "faq"
+                                  : "contact"
                       }`}
-                      className="text-gray-400 hover:text-primary transition-colors text-sm font-medium"
+                      className="text-gray-300 hover:text-primary transition-colors text-sm font-medium"
                     >
                       {item}
                     </a>
                   </li>
-                )
+                ),
               )}
             </ul>
           </div>
@@ -68,14 +68,14 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Hubungi Kami</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-4 text-gray-400 text-sm group">
+              <li className="flex items-start gap-4 text-gray-300 text-sm group">
                 <WhatsappLogo
                   size={20}
                   className="mt-1 text-green-500 shrink-0 group-hover:scale-110 transition-transform"
                 />
                 <a
                   href={`https://wa.me/${waNumber}?text=${encodeURIComponent(
-                    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?"
+                    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
                   )}`}
                   target="_blank"
                   rel="noreferrer"
@@ -83,16 +83,16 @@ export default function Footer() {
                 >
                   +{waNumber.startsWith("62") ? waNumber : `62${waNumber}`}{" "}
                   <br />
-                  <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none">
+                  <span className="text-[10px] text-gray-300 uppercase tracking-widest leading-none">
                     WhatsApp Only
                   </span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
+              <li className="flex items-start gap-3 text-gray-300 text-sm">
                 <Envelope size={20} className="mt-0.5 text-blue-500 shrink-0" />
                 <span>{email}</span>
               </li>
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
+              <li className="flex items-start gap-3 text-gray-300 text-sm">
                 <MapPin size={20} className="mt-0.5 text-red-500 shrink-0" />
                 <span>Bandung, Indonesia</span>
               </li>

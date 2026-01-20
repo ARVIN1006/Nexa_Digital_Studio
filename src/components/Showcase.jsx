@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ArrowRight } from "phosphor-react";
+import { ArrowRight, Tag, Target, Storefront } from "phosphor-react";
 import { client, urlFor } from "../lib/sanity";
 
 export default function Showcase() {
@@ -8,65 +8,246 @@ export default function Showcase() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [sanityProjects, setSanityProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = `*[_type == "project"] | order(_createdAt desc)`;
+        const query = `*[_type == "project" || _type == "post"] | order(_createdAt desc) {
+          _id,
+          title,
+          "categoryString": category,
+          "categoriesRef": categories[]->{title},
+          mainImage,
+          accent,
+          previewUrl,
+          link,
+          url,
+          website,
+          businessType,
+          businessGoal,
+          businessFunction
+        }`;
         const data = await client.fetch(query);
-        if (data && data.length > 0) {
-          const formatted = data.map((proj) => ({
-            id: proj._id,
-            title: proj.title,
-            category: proj.category,
-            img: {
-              src: urlFor(proj.mainImage).width(800).quality(80).url(), // Default Fallback
-              srcSet: `
-                ${urlFor(proj.mainImage).width(400).quality(80).url()} 400w,
-                ${urlFor(proj.mainImage).width(800).quality(80).url()} 800w,
-                ${urlFor(proj.mainImage).width(1200).quality(80).url()} 1200w
-              `,
-            },
-            accent: proj.accent || "border-gray-200 shadow-gray-500/10",
-            previewUrl: proj.previewUrl || "#",
-          }));
-          setSanityProjects(formatted);
-        }
+        console.log("SANITY DATA DEBUG:", data);
+
+        // Helper to adapt raw data into Business Context based on Category AND URL (Pricing Aligned)
+        const getContext = (categoryTitle, projectUrl) => {
+          const cat = (categoryTitle || "").toLowerCase();
+          const url = (projectUrl || "").toLowerCase();
+
+          // 1. PENDIDIKAN (Education)
+          if (
+            cat.includes("edu") ||
+            cat.includes("sekolah") ||
+            cat.includes("kursus") ||
+            cat.includes("kampus") ||
+            url.includes(".sch.id") ||
+            url.includes(".ac.id")
+          ) {
+            return {
+              type: "Instansi Pendidikan",
+              goal: "Membangun Kepercayaan Publik",
+              function: "Profil Sekolah & Info PPDB",
+            };
+          }
+
+          // 2. COMPANY PROFILE (Corporate/Professional)
+          if (
+            cat.includes("company") ||
+            cat.includes("korporat") ||
+            cat.includes("pt") ||
+            cat.includes("cv") ||
+            cat.includes("agency") ||
+            cat.includes("properti")
+          ) {
+            return {
+              type: "Company Profile",
+              goal: "Branding & Profesionalitas",
+              function: "Showcase Layanan & Klien",
+            };
+          }
+
+          // 3. PERSONAL (Portfolio/Blog)
+          if (
+            cat.includes("personal") ||
+            cat.includes("blog") ||
+            cat.includes("porto") ||
+            cat.includes("resume")
+          ) {
+            return {
+              type: "Personal Branding",
+              goal: "Meningkatkan Nilai Jual Diri",
+              function: "Portofolio & Kontak Sewa",
+            };
+          }
+
+          // 4. UMKM & STORE (Specifics)
+          if (
+            cat.includes("kuliner") ||
+            cat.includes("makan") ||
+            cat.includes("resto") ||
+            cat.includes("cafe")
+          ) {
+            return {
+              type: "Usaha Kuliner",
+              goal: "Meningkatkan Pesanan Online",
+              function: "Menu Digital & Tombol WA",
+            };
+          }
+          if (
+            cat.includes("fashion") ||
+            cat.includes("baju") ||
+            cat.includes("store") ||
+            cat.includes("toko") ||
+            url.includes("store") ||
+            url.includes("shop")
+          ) {
+            return {
+              type: "Online Shop / Retail",
+              goal: "Katalog 24 Jam Nonstop",
+              function: "Galeri Produk & Checkout",
+            };
+          }
+          if (
+            cat.includes("jasa") ||
+            cat.includes("service") ||
+            cat.includes("laundry") ||
+            cat.includes("bengkel") ||
+            cat.includes("travel")
+          ) {
+            return {
+              type: "Usaha Jasa",
+              goal: "Memudahkan Booking Pelanggan",
+              function: "Daftar Harga & Lokasi",
+            };
+          }
+
+          // 5. GENERIC UMKM (Default)
+          return {
+            type: categoryTitle || "UMKM & Usaha Lokal",
+            goal: "Meningkatkan Penjualan",
+            function: "Profil Usaha & Identitas",
+          };
+        };
+
+        const mappedProjects = data.map((p) => {
+          // Smart URL detection
+          const getProjectUrl = (item) => {
+            const candidates = [
+              item.previewUrl, // Primary from project schema
+              item.link,
+              item.url,
+              item.website,
+            ];
+            for (const c of candidates) {
+              if (typeof c === "string" && c.length > 1) return c; // Simple string
+              if (typeof c === "object" && c?.href) return c.href; // Object with href
+            }
+            return "#";
+          };
+
+          const finalUrl = getProjectUrl(p);
+
+          // Prioritize simple string 'category' from project schema, fallback to 'categories' ref from post schema
+          const catTitle =
+            p.categoryString || p.categoriesRef?.[0]?.title || "UMKM";
+          const autoContext = getContext(catTitle, finalUrl);
+
+          // Use explicit Sanity fields if available, otherwise use auto-generated context
+          const finalContext = {
+            type: p.businessType || autoContext.type,
+            goal: p.businessGoal || autoContext.goal,
+            function: p.businessFunction || autoContext.function,
+          };
+
+          return {
+            id: p._id,
+            title: p.title,
+            category: catTitle,
+            context: finalContext,
+            img: p.mainImage
+              ? urlFor(p.mainImage).width(600).height(800).url()
+              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+            accent: p.accent || "border-primary/20",
+            previewUrl: finalUrl,
+          };
+        });
+
+        setProjects(mappedProjects);
       } catch (error) {
-        console.error("Sanity fetch error:", error);
+        console.error("Failed to fetch projects:", error);
       }
     };
 
     fetchProjects();
   }, []);
 
-  // Fallback to empty array or a loading skeleton could be better, but for now:
-  const activeProjects = sanityProjects;
+  // Hardcoded Demo Projects relevant to User's Real Portfolio (Fallback)
+  const demoProjects = [
+    {
+      id: 1,
+      title: "UMKM Kit - Web Builder",
+      category: "UMKM", // Matches Pricing "UMKM"
+      context: {
+        type: "Platform Digital UMKM",
+        goal: "Membantu UMKM Go Digital",
+        function: "Katalog & Pembuatan Web Instan",
+      },
+      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+      accent: "border-indigo-200 shadow-indigo-500/10",
+      previewUrl: "https://umkmkit.netlify.app/",
+    },
+    {
+      id: 2,
+      title: "Arvin Ramdhan Portfolio",
+      category: "Personal", // Matches Pricing "Personal"
+      context: {
+        type: "Personal Branding",
+        goal: "Menampilkan Portofolio Pro",
+        function: "Showcase Skill & Kontak",
+      },
+      img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop",
+      accent: "border-slate-200 shadow-slate-500/10",
+      previewUrl: "http://arvindev.netlify.app/",
+    },
+    {
+      id: 3,
+      title: "Smart WMS System",
+      category: "Company", // Matches Pricing "Company"
+      context: {
+        type: "Sistem Manajemen Perusahaan",
+        goal: "Efisiensi Operasional (B2B)",
+        function: "Tracking Stok & Laporan",
+      },
+      img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
+      accent: "border-blue-200 shadow-blue-500/10",
+      previewUrl: "https://wms-project-4dtd.vercel.app/",
+    },
+  ];
 
+  const displayProjects = projects.length > 0 ? projects : demoProjects;
+
+  // Duplicate for infinite scroll sensation only if we have projects
   const DUPLICATION_COUNT = 8;
-  const infiniteProjects = Array(DUPLICATION_COUNT).fill(activeProjects).flat();
+  const infiniteProjects =
+    displayProjects.length > 0
+      ? Array(DUPLICATION_COUNT).fill(displayProjects).flat()
+      : [];
 
   // Handle Infinite Looping Logic via onScroll
   const handleScroll = () => {
     const container = scrollRef.current;
-    if (!container) return;
+    if (!container || displayProjects.length === 0) return;
 
-    // Calculate width of one original set
-    // total scroll width / number of duplicates
     const totalWidth = container.scrollWidth;
     const oneSetWidth = totalWidth / DUPLICATION_COUNT;
+    const rightThreshold = oneSetWidth * (DUPLICATION_COUNT - 2);
+    const leftThreshold = oneSetWidth;
 
-    // Bounds for resetting
-    const rightThreshold = oneSetWidth * (DUPLICATION_COUNT - 2); // Near end
-    const leftThreshold = oneSetWidth; // Near start
-
-    // If scrolled too far right -> jump back 4 sets
     if (container.scrollLeft >= rightThreshold) {
       container.scrollLeft -= oneSetWidth * 4;
-    }
-    // If scrolled too far left -> jump forward 4 sets
-    else if (container.scrollLeft <= leftThreshold) {
+    } else if (container.scrollLeft <= leftThreshold) {
       container.scrollLeft += oneSetWidth * 4;
     }
   };
@@ -74,14 +255,12 @@ export default function Showcase() {
   // Initial Centering
   useEffect(() => {
     const container = scrollRef.current;
-    if (container) {
-      // Start in the middle
+    if (container && displayProjects.length > 0) {
       const totalWidth = container.scrollWidth;
       container.scrollLeft = totalWidth / 2 - container.clientWidth / 2;
     }
-  }, []);
+  }, [displayProjects]);
 
-  // Simplified Drag Handler to avoid Forced Reflow
   const onMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.pageX - scrollRef.current.offsetLeft);
@@ -103,30 +282,27 @@ export default function Showcase() {
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - startX) * 2;
-    // Directly setting scrollLeft is performant enough if not overloaded with heavy reads
     scrollRef.current.scrollLeft = scrollLeft - walk;
     setIsPaused(true);
   };
 
-  // Use simple interval for auto-scroll instead of heavy RAF loop
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
     const interval = setInterval(() => {
-      if (!isPaused && !isDragging) {
-        // Check if we need to loop back seamlessly
+      if (!isPaused && !isDragging && displayProjects.length > 0) {
         const maxScroll = container.scrollWidth - container.clientWidth;
         if (container.scrollLeft >= maxScroll - 10) {
-          container.scrollLeft = 0; // Quick jump back for loop effect
+          container.scrollLeft = 0;
         } else {
           container.scrollBy({ left: 1, behavior: "auto" });
         }
       }
-    }, 20); // 50fps is smooth enough and less taxing
+    }, 20);
 
     return () => clearInterval(interval);
-  }, [isPaused, isDragging]);
+  }, [isPaused, isDragging, displayProjects]);
 
   return (
     <section
@@ -137,20 +313,20 @@ export default function Showcase() {
         <div className="max-w-3xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Eksplorasi Karya
+            Contoh Hasil Kerja
           </div>
-          <h2 className="text-4xl md:text-7xl font-black text-gray-900 dark:text-white leading-tight mb-6">
-            Karya Yang <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-400 dark:to-gray-700">
-              Bicara Kualitas.
+          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-tight mb-6">
+            Contoh Website <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Untuk Usaha Kamu.
             </span>
           </h2>
           <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
         </div>
         <div className="flex flex-col items-start gap-4">
-          <p className="text-gray-500 dark:text-gray-400 max-w-sm text-lg text-left leading-relaxed">
-            Website dan aplikasi yang membantu bisnis tumbuh. Bukan sekadar
-            template, tapi solusi custom.
+          <p className="text-gray-800 dark:text-gray-200 max-w-sm text-lg text-left leading-relaxed font-medium">
+            Didesain khusus untuk kebutuhan UMKM. Simpel, informatif, dan
+            langsung ke tujuan bisnis.
           </p>
         </div>
       </div>
@@ -171,60 +347,111 @@ export default function Showcase() {
         {infiniteProjects.map((project, index) => (
           <div
             key={`${project.id}-${index}`}
-            className="w-[85vw] md:w-[450px] flex-shrink-0 select-none"
+            className="w-[85vw] md:w-[380px] lg:w-[450px] flex-shrink-0 select-none group"
           >
-            <a
-              href={project.previewUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => {
-                // Prevent navigation if we were dragging
-                if (isDragging) e.preventDefault();
-              }}
-              className={`group block relative h-[400px] md:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-4 border-transparent dark:border-slate-700/50 hover:border-primary/20 dark:hover:border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-500 ${project.accent} cursor-pointer`}
+            <div
+              className={`relative h-[550px] md:h-[500px] lg:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-[3px] border-gray-100 dark:border-slate-700 shadow-xl transition-all duration-500 flex flex-col`}
             >
-              <img
-                src={project.img.src}
-                srcSet={project.img.srcSet}
-                sizes="(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px"
-                alt={`${project.title} - Jasa Pembuatan Website Bandung`}
-                width="400"
-                height="550"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none"
-              />
-
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/40 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-90 transition-all duration-300 pointer-events-none"></div>
-
-              {/* Content */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                <div className="transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-full mb-3 shadow-lg">
+              {/* Image Top */}
+              <div className="h-[250px] md:h-[220px] lg:h-[250px] overflow-hidden relative">
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold rounded-full shadow-sm">
                     {project.category}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
-                    {project.title}
-                  </h3>
-                  <div className="h-0 md:group-hover:h-8 transition-all duration-300 overflow-hidden opacity-0 md:group-hover:opacity-100">
-                    <span className="text-white/80 text-sm font-medium flex items-center gap-2 mt-2">
-                      Lihat Detail Project <ArrowRight weight="bold" />
-                    </span>
-                  </div>
                 </div>
               </div>
-            </a>
+
+              {/* Business Context Content */}
+              <div className="p-6 md:p-6 lg:p-8 flex-1 flex flex-col relative bg-white dark:bg-slate-800">
+                <h3 className="text-2xl md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
+                  {project.title}
+                </h3>
+
+                <div className="space-y-4 mb-6 flex-1">
+                  <div className="flex items-start gap-3">
+                    <Storefront
+                      size={20}
+                      className="text-primary mt-1 flex-shrink-0"
+                      weight="fill"
+                    />
+                    <div>
+                      <p className="text-xs uppercase text-gray-700 dark:text-gray-300 font-bold tracking-wider mb-0.5">
+                        Jenis Usaha
+                      </p>
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">
+                        {project.context.type}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Target
+                      size={20}
+                      className="text-accent mt-1 flex-shrink-0"
+                      weight="fill"
+                    />
+                    <div>
+                      <p className="text-xs uppercase text-gray-700 dark:text-gray-300 font-bold tracking-wider mb-0.5">
+                        Tujuan Website
+                      </p>
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">
+                        {project.context.goal}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Tag
+                      size={20}
+                      className="text-green-600 dark:text-green-400 mt-1 flex-shrink-0"
+                      weight="fill"
+                    />
+                    <div>
+                      <p className="text-xs uppercase text-gray-700 dark:text-gray-300 font-bold tracking-wider mb-0.5">
+                        Fungsi Utama
+                      </p>
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">
+                        {project.context.function}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-gray-100 dark:border-slate-700 flex flex-col gap-3">
+                  <a
+                    href={
+                      project.previewUrl !== "#"
+                        ? project.previewUrl
+                        : undefined
+                    }
+                    target={project.previewUrl !== "#" ? "_blank" : undefined}
+                    rel="noreferrer"
+                    className={`block w-full text-center py-2 rounded-lg font-bold text-sm transition-colors ${
+                      project.previewUrl !== "#"
+                        ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white shadow-lg shadow-gray-200/50 dark:shadow-none"
+                        : "bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                    }`}
+                  >
+                    {project.previewUrl !== "#"
+                      ? "Kunjungi Website"
+                      : "Link Belum Tersedia"}
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Mobile View All Button Removed until Portfolio page is ready */}
-      {/* <div className="container mx-auto px-6 mt-4 md:hidden flex justify-center">
-        <button className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all p-4">
-          Lihat Semua Project <ArrowRight weight="bold" />
-        </button>
-      </div> */}
+      <div className="container mx-auto px-6 mt-4 flex justify-center">
+        <p className="text-center text-gray-500 text-sm">
+          Geser untuk melihat contoh lainnya
+        </p>
+      </div>
     </section>
   );
 }
