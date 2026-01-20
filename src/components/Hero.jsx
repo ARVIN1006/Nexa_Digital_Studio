@@ -10,14 +10,16 @@ import {
 } from "phosphor-react";
 import heroPerson from "../assets/hero-people.avif";
 import { useSiteData } from "../context/SiteContext";
+import { urlFor } from "../lib/sanity";
 
 export default function Hero() {
   const { settings } = useSiteData();
 
   const waNumber = settings?.whatsappNumber || "6282127666523";
-  const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
-  )}`;
+  const waWelcome =
+    settings?.whatsappWelcomeMessage ||
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?";
+  const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`;
 
   return (
     <header
@@ -33,32 +35,38 @@ export default function Hero() {
         <div className="text-left pt-0 pb-12 md:pb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Siap Membantu Bisnis Anda
+            {settings?.heroBadge || "Siap Membantu Bisnis Anda"}
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
-            Jasa Pembuatan <br />
-            Website UMKM <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
-              Mulai 200 Ribu.
-              <svg
-                className="absolute w-full h-3 -bottom-1 left-0 text-primary/20 -z-10"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 5 Q 50 10 100 5"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  fill="none"
-                />
-              </svg>
-            </span>
+            {settings?.heroTitle?.includes("Mulai") ? (
+              <>
+                {settings.heroTitle.split("Mulai")[0]} <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
+                  Mulai {settings.heroTitle.split("Mulai")[1]}
+                  <svg
+                    className="absolute w-full h-3 -bottom-1 left-0 text-primary/20 -z-10"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 5 Q 50 10 100 5"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+              </>
+            ) : (
+              settings?.heroTitle ||
+              "Jasa Pembuatan Website UMKM Mulai 200 Ribu."
+            )}
           </h1>
 
           <p className="text-base md:text-lg text-gray-700 dark:text-gray-200 mb-8 max-w-lg md:mx-0 leading-relaxed font-medium">
-            Website sederhana dan mudah dipakai. Tingkatkan kepercayaan
-            pelanggan dengan profil usaha yang profesional.
+            {settings?.heroSubtitle ||
+              "Website sederhana dan mudah dipakai. Tingkatkan kepercayaan pelanggan dengan profil usaha yang profesional."}
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
@@ -142,7 +150,11 @@ export default function Hero() {
           {/* Main Image */}
           <div className="relative z-10 w-full max-w-lg mx-auto md:mr-0">
             <img
-              src={heroPerson}
+              src={
+                settings?.heroImage
+                  ? urlFor(settings.heroImage).url()
+                  : heroPerson
+              }
               alt="Professional Developer"
               width="800"
               height="1000"

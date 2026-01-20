@@ -6,7 +6,7 @@ export default defineConfig({
   name: 'default',
   title: 'Nexa Studio Portfolio',
 
-  projectId: 'iz9h8b1m',
+  projectId: 'kagdqy88',
   dataset: 'production',
 
   plugins: [deskTool()],

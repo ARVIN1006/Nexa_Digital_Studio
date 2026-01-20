@@ -1,86 +1,21 @@
 import { useState } from "react";
 import { CaretDown } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
 
 export default function FAQ() {
+  const { faqs: sanityFaqs } = useSiteData();
   const [openIndex, setOpenIndex] = useState(null);
 
-  const faqs = [
-    {
-      question: "Apa saja layanan yang kamu tawarkan?",
-      answer:
-        "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi. Fokus pada website informatif, cepat, dan mudah dikelola.",
-    },
-    {
-      question: "Apakah semua paket sudah termasuk CMS?",
-      answer:
-        "Iya. Semua paket sudah termasuk CMS. Klien bisa edit teks, gambar, dan konten sendiri tanpa coding melalui browser.",
-    },
-    {
-      question: "Apakah domain dan hosting sudah termasuk?",
-      answer:
-        "Iya. Semua paket sudah termasuk domain dan hosting selama 1 tahun. Jenis domain menyesuaikan paket dan ketersediaan.",
-    },
-    {
-      question: "Domain apa saja yang bisa didapat?",
-      answer:
-        "Tergantung paket. Bisa subdomain, .my.id, .web.id, .biz.id, .co.id, .sch.id, .ac.id, atau .com. Domain tertentu mengikuti syarat resmi.",
-    },
-    {
-      question: "Berapa lama proses pengerjaan website?",
-      answer:
-        "Waktu pengerjaan tergantung paket. Mulai dari 3 hari sampai 14 hari. Waktu dihitung sejak data dan materi klien lengkap.",
-    },
-    {
-      question: "Apakah revisi benar benar sepuasnya?",
-      answer:
-        "Iya. Revisi tidak dibatasi selama masih dalam masa pengerjaan paket. Revisi dilakukan sampai klien menyatakan selesai.",
-    },
-    {
-      question: "Apa yang termasuk revisi?",
-      answer:
-        "Revisi meliputi perubahan teks, gambar, warna, layout ringan, dan penyesuaian konten sesuai brief awal.",
-    },
-    {
-      question: "Apakah bisa request desain?",
-      answer:
-        "Bisa. Klien boleh kirim referensi desain. Desain disesuaikan dengan kebutuhan dan paket yang dipilih.",
-    },
-    {
-      question: "Apakah website bisa dibuka di HP?",
-      answer:
-        "Iya. Semua website dibuat mobile friendly dan nyaman diakses di HP, tablet, dan desktop.",
-    },
-    {
-      question: "Apakah website sudah aman?",
-      answer:
-        "Iya. Semua paket sudah termasuk SSL dan pengamanan dasar untuk penggunaan normal.",
-    },
-    {
-      question: "Apakah klien dapat akses admin?",
-      answer:
-        "Iya. Akses admin diberikan setelah website live. Klien bebas mengelola konten sendiri.",
-    },
-    {
-      question: "Apakah ada biaya tambahan setelah jadi?",
-      answer:
-        "Tidak ada biaya tersembunyi. Biaya tahunan hanya untuk perpanjangan domain dan hosting setelah 1 tahun.",
-    },
-    {
-      question: "Apakah bisa upgrade paket di tengah jalan?",
-      answer:
-        "Bisa. Klien dapat upgrade paket dengan menyesuaikan selisih harga dan scope pekerjaan.",
-    },
-    {
-      question: "Apakah bisa minta bantuan setelah website aktif?",
-      answer:
-        "Bisa. Support awal tersedia sesuai paket. Layanan lanjutan bisa didiskusikan.",
-    },
-    {
-      question: "Bagaimana cara memulai pemesanan?",
-      answer:
-        "Pilih paket. Kirim brief dan kebutuhan. Proses pengerjaan dimulai setelah konfirmasi.",
-    },
-  ];
+  const faqs =
+    sanityFaqs.length > 0
+      ? sanityFaqs
+      : [
+          {
+            question: "Apa saja layanan yang kamu tawarkan?",
+            answer:
+              "Kami melayani pembuatan website untuk personal, UMKM, profesional, pendidikan, company, dan organisasi. Fokus pada website informatif, cepat, dan mudah dikelola.",
+          },
+        ];
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);

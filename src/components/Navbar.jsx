@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { List, X, Sun, Moon } from "phosphor-react";
 import { useTheme } from "../hooks/useTheme";
+import { useSiteData } from "../context/SiteContext";
 import logoLight from "../assets/logo-light.avif";
 import logoDark from "../assets/logo-dark.avif";
 
@@ -38,14 +39,24 @@ export default function Navbar() {
     }
   };
 
-  const navLinks = [
-    { name: "Portfolio", id: "showcase" },
-    { name: "Layanan", id: "benefits" },
-    { name: "Proses", id: "services" },
-    { name: "Harga", id: "pricing" },
-    { name: "FAQ", id: "faq" },
-    { name: "Kontak", id: "contact" },
-  ];
+  const { settings } = useSiteData();
+
+  const navLinks =
+    settings?.navLinks?.length > 0
+      ? settings.navLinks
+      : [
+          { name: "Portfolio", id: "showcase" },
+          { name: "Layanan", id: "benefits" },
+          { name: "Proses", id: "services" },
+          { name: "Harga", id: "pricing" },
+          { name: "FAQ", id: "faq" },
+          { name: "Kontak", id: "contact" },
+        ];
+
+  const waNumber = settings?.whatsappNumber || "6282127666523";
+  const waWelcome =
+    settings?.whatsappWelcomeMessage ||
+    "Halo, saya mau tanya jasa pembuatan website UMKM.";
 
   return (
     <nav
@@ -102,9 +113,7 @@ export default function Navbar() {
             )}
           </button>
           <a
-            href={`https://wa.me/6282127666523?text=${encodeURIComponent(
-              "Halo, saya mau tanya jasa pembuatan website UMKM.",
-            )}`}
+            href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
             target="_blank"
             rel="noreferrer"
             className="px-5 py-2.5 rounded-full text-sm font-medium bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
@@ -161,9 +170,7 @@ export default function Navbar() {
           ))}
           <li className="pt-4 border-t border-gray-100 dark:border-white/10 w-full flex flex-col gap-3">
             <a
-              href={`https://wa.me/6282127666523?text=${encodeURIComponent(
-                "Halo, saya mau tanya jasa pembuatan website UMKM.",
-              )}`}
+              href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
               target="_blank"
               rel="noreferrer"
               className="w-full inline-block px-5 py-3 rounded-full text-sm font-bold bg-primary text-white shadow-lg shadow-primary/25"

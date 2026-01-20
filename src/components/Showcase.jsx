@@ -167,7 +167,7 @@ export default function Showcase() {
             category: catTitle,
             context: finalContext,
             img: p.mainImage
-              ? urlFor(p.mainImage).width(600).height(800).url()
+              ? urlFor(p.mainImage).width(800).height(500).url()
               : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
             accent: p.accent || "border-primary/20",
             previewUrl: finalUrl,
@@ -310,11 +310,11 @@ export default function Showcase() {
               className={`relative h-[550px] md:h-[500px] lg:h-[550px] rounded-[2rem] overflow-hidden bg-white dark:bg-slate-800 border-[3px] border-gray-100 dark:border-slate-700 shadow-xl transition-all duration-500 flex flex-col`}
             >
               {/* Image Top */}
-              <div className="h-[250px] md:h-[220px] lg:h-[250px] overflow-hidden relative">
+              <div className="h-[250px] md:h-[220px] lg:h-[250px] overflow-hidden relative border-b border-gray-100 dark:border-slate-700">
                 <img
                   src={project.img}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
                 <div className="absolute top-4 left-4">

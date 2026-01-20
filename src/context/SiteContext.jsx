@@ -7,6 +7,8 @@ export const SiteProvider = ({ children }) => {
   const [settings, setSettings] = useState(null);
   const [benefits, setBenefits] = useState([]);
   const [pricing, setPricing] = useState([]);
+  const [faqs, setFaqs] = useState([]);
+  const [processes, setProcesses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,13 +17,17 @@ export const SiteProvider = ({ children }) => {
         const query = `{
           "settings": *[_type == "siteSettings"][0],
           "benefits": *[_type == "benefit"] | order(order asc),
-          "pricing": *[_type == "pricing"] | order(order asc)
+          "pricing": *[_type == "pricing"] | order(order asc),
+          "faqs": *[_type == "faq"] | order(order asc),
+          "processes": *[_type == "process"] | order(order asc)
         }`;
         const data = await client.fetch(query);
 
         if (data.settings) setSettings(data.settings);
-        if (data.benefits.length > 0) setBenefits(data.benefits);
-        if (data.pricing.length > 0) setPricing(data.pricing);
+        if (data.benefits) setBenefits(data.benefits);
+        if (data.pricing) setPricing(data.pricing);
+        setFaqs(data.faqs || []);
+        setProcesses(data.processes || []);
       } catch (error) {
         console.error("Sanity global fetch error:", error);
       } finally {
@@ -33,7 +39,9 @@ export const SiteProvider = ({ children }) => {
   }, []);
 
   return (
-    <SiteContext.Provider value={{ settings, benefits, pricing, loading }}>
+    <SiteContext.Provider
+      value={{ settings, benefits, pricing, faqs, processes, loading }}
+    >
       {children}
     </SiteContext.Provider>
   );

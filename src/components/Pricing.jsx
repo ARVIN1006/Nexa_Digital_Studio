@@ -16,8 +16,23 @@ import {
 import { useSiteData } from "../context/SiteContext";
 
 export default function Pricing() {
-  const { settings } = useSiteData();
-  const [activeTab, setActiveTab] = useState("umkm"); // Default to UMKM as it's the main focus usually
+  const { settings, pricing: sanityPricing } = useSiteData();
+  const [activeTab, setActiveTab] = useState("umkm");
+
+  // Format data from Sanity for the component
+  const pricingData = sanityPricing.reduce((acc, plan) => {
+    const cat = plan.category || "umkm";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push({
+      title: plan.title,
+      price: plan.price,
+      duration: plan.duration,
+      domain: plan.domainInfo,
+      features: plan.features || [],
+      popular: plan.isPopular,
+    });
+    return acc;
+  }, {});
 
   const commonFeatures = [
     { icon: <PenNib size={20} />, text: "Kelola Website Sendiri (CMS)" },
@@ -37,194 +52,6 @@ export default function Pricing() {
     { id: "edu", label: "Pendidikan", icon: <GraduationCap weight="bold" /> },
     { id: "company", label: "Company", icon: <Buildings weight="bold" /> },
   ];
-
-  const pricingData = {
-    personal: [
-      {
-        title: "Personal Lite",
-        price: "300 Ribu",
-        duration: "3 Hari",
-        domain: "Subdomain / .my.id",
-        features: [
-          "1 Halaman Landing Page",
-          "Desain Simpel & Rapi",
-          "Profil Singkat",
-          "Tujuan Website Jelas",
-          "Tombol WhatsApp",
-          "Form Kontak",
-          "Setup & Deploy",
-        ],
-      },
-      {
-        title: "Personal Pro",
-        price: "450 Ribu",
-        duration: "5 Hari",
-        domain: ".my.id / .web.id",
-        features: [
-          "3 Halaman Website",
-          "Desain Lebih Personal",
-          "Profil Lengkap",
-          "Galeri / Portofolio",
-          "Tombol WhatsApp",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-      },
-      {
-        title: "Personal Premium",
-        price: "650 Ribu",
-        duration: "7 Hari",
-        domain: ".com / .id (Standar)",
-        features: [
-          "5 Halaman Website",
-          "Desain Custom",
-          "Portofolio Lengkap",
-          "Integrasi WA & Email",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-        popular: true,
-      },
-    ],
-    umkm: [
-      {
-        title: "UMKM Lite",
-        price: "500 Ribu",
-        duration: "5 Hari",
-        domain: ".my.id / .biz.id",
-        features: [
-          "3 Halaman Website",
-          "Beranda & Profil Usaha",
-          "Kontak & WhatsApp",
-          "Struktur Rapi",
-          "Mobile Friendly",
-          "CMS Siap Pakai",
-          "Setup & Deploy",
-        ],
-      },
-      {
-        title: "UMKM Growth",
-        price: "750 Ribu",
-        duration: "7 Hari",
-        domain: ".web.id / .co.id*",
-        features: [
-          "5 Halaman Website",
-          "Halaman Layanan / Produk",
-          "Galeri Foto",
-          "Tombol WA di Semua Halaman",
-          "Struktur SEO Dasar",
-          "CMS Siap Pakai",
-          "Setup & Deploy",
-        ],
-        popular: true,
-      },
-      {
-        title: "UMKM Premium",
-        price: "1 Juta",
-        duration: "10 Hari",
-        domain: ".com / .id",
-        features: [
-          "7 Halaman Website",
-          "Desain Lebih Eksklusif",
-          "Katalog Produk",
-          "Integrasi WhatsApp",
-          "Struktur SEO Dasar",
-          "CMS Siap Pakai",
-          "Setup & Deploy",
-        ],
-      },
-    ],
-    edu: [
-      {
-        title: "Edu Basic",
-        price: "750 Ribu",
-        duration: "7 Hari",
-        domain: ".sch.id / .my.id*",
-        features: [
-          "5 Halaman Website",
-          "Profil Lembaga",
-          "Visi & Misi",
-          "Program / Jurusan",
-          "Kontak Admin",
-          "Setup & Deploy",
-        ],
-      },
-      {
-        title: "Edu Pro",
-        price: "1,1 Juta",
-        duration: "10 Hari",
-        domain: ".sch.id / .ac.id*",
-        features: [
-          "7 Halaman Website",
-          "Informasi Pendaftaran",
-          "Galeri Kegiatan",
-          "Kontak Terpusat",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-        popular: true,
-      },
-      {
-        title: "Edu Premium",
-        price: "1,5 Juta",
-        duration: "14 Hari",
-        domain: ".com / .id",
-        features: [
-          "10 Halaman Website",
-          "Desain Informatif",
-          "Navigasi Jelas",
-          "Integrasi WhatsApp",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-      },
-    ],
-    company: [
-      {
-        title: "Company Lite",
-        price: "1 Juta",
-        duration: "7 Hari",
-        domain: ".biz.id / .web.id",
-        features: [
-          "5 Halaman Website",
-          "Profil Perusahaan",
-          "Layanan",
-          "Kontak Resmi",
-          "CMS Siap Pakai",
-          "Setup & Deploy",
-        ],
-      },
-      {
-        title: "Company Pro",
-        price: "1,5 Juta",
-        duration: "10 Hari",
-        domain: ".co.id* / .com",
-        features: [
-          "8 Halaman Website",
-          "Company Profile Lengkap",
-          "Portofolio Proyek",
-          "Kontak Profesional",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-        popular: true,
-      },
-      {
-        title: "Company Premium",
-        price: "2 Juta",
-        duration: "14 Hari",
-        domain: ".com / .id",
-        features: [
-          "12 Halaman Website",
-          "Desain Custom",
-          "Struktur Profesional",
-          "Integrasi WA & Email",
-          "Struktur SEO Dasar",
-          "Setup & Deploy",
-        ],
-      },
-    ],
-  };
 
   const currentPricing = pricingData[activeTab] || [];
 

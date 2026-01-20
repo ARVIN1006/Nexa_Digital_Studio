@@ -6,8 +6,77 @@ import {
   Code,
   Rocket,
 } from "phosphor-react";
+import { useSiteData } from "../context/SiteContext";
+
+const ICON_MAP = {
+  Strategy,
+  Scroll,
+  ShieldCheck,
+  PaintBrushBroad,
+  Code,
+  Rocket,
+};
 
 export default function Consultation() {
+  const { processes: sanityProcesses } = useSiteData();
+
+  const defaultSteps = [
+    {
+      icon: "Strategy",
+      title: "Deep Discovery",
+      desc: "Kami bedah bisnis Anda. Bukan cuma tanya 'maunya apa', tapi 'butuhnya apa' untuk cuan.",
+      color: "text-blue-500",
+    },
+    {
+      icon: "Scroll",
+      title: "Blueprint Technic",
+      desc: "Rancangan arsitektur sistem. Database, server, teknologi yang dipakai—semua transparan.",
+      color: "text-purple-500",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "Secure Contract",
+      desc: "Legalitas jelas. Garansi uang kembali jika hasil tidak sesuai spek. Aman.",
+      color: "text-teal-500",
+    },
+    {
+      icon: "PaintBrushBroad",
+      title: "High-Fidelity UI/UX",
+      desc: "Desain yang bisa diklik-klik (Prototype). Revisi visual sepuasnya di fase ini.",
+      color: "text-pink-500",
+    },
+    {
+      icon: "Code",
+      title: "Agile Dev",
+      desc: "Coding dimulai. Anda bisa pantau progress mingguan. Tidak ada 'hilang kabar'.",
+      color: "text-orange-500",
+    },
+    {
+      icon: "Rocket",
+      title: "Launch & Handover",
+      desc: "Server setup, domain connect, training admin. Kami pastikan siap tempur.",
+      color: "text-green-500",
+    },
+  ];
+
+  const steps = (
+    sanityProcesses?.length > 0 ? sanityProcesses : defaultSteps
+  ).map((step, idx) => {
+    const colors = [
+      "text-blue-500",
+      "text-purple-500",
+      "text-teal-500",
+      "text-pink-500",
+      "text-orange-500",
+      "text-green-500",
+    ];
+    return {
+      ...step,
+      color: step.color || colors[idx % colors.length],
+      iconComponent: ICON_MAP[step.icon] || Code,
+    };
+  });
+
   return (
     <section
       className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300"
@@ -15,7 +84,6 @@ export default function Consultation() {
     >
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8 relative">
-          {/* Abstract Decoration */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl -z-10 opacity-50 pointer-events-none"></div>
 
           <div className="max-w-2xl relative">
@@ -30,7 +98,6 @@ export default function Consultation() {
                 <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 dark:from-white dark:via-gray-200 dark:to-gray-500">
                   Jadi Produk Besar.
                 </span>
-                {/* Unique Scratch Underline */}
                 <svg
                   className="absolute w-[110%] h-4 -bottom-2 -left-[5%] text-primary z-0 opacity-80"
                   viewBox="0 0 100 10"
@@ -62,62 +129,16 @@ export default function Consultation() {
         </div>
 
         <div className="relative">
-          {/* Vertical Line for Desktop */}
-          {/* Vertical Line */}
           <div className="absolute left-7 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/50 to-primary/20 block"></div>
 
           <div className="space-y-12">
-            {[
-              {
-                icon: <Strategy size={32} weight="fill" />,
-                title: "Deep Discovery",
-                desc: "Kami bedah bisnis Anda. Bukan cuma tanya 'maunya apa', tapi 'butuhnya apa' untuk cuan.",
-                color: "text-blue-500",
-                bg: "bg-blue-500/10",
-              },
-              {
-                icon: <Scroll size={32} weight="fill" />,
-                title: "Blueprint Technic",
-                desc: "Rancangan arsitektur sistem. Database, server, teknologi yang dipakai—semua transparan.",
-                color: "text-purple-500",
-                bg: "bg-purple-500/10",
-              },
-              {
-                icon: <ShieldCheck size={32} weight="fill" />,
-                title: "Secure Contract",
-                desc: "Legalitas jelas. Garansi uang kembali jika hasil tidak sesuai spek. Aman.",
-                color: "text-teal-500",
-                bg: "bg-teal-500/10",
-              },
-              {
-                icon: <PaintBrushBroad size={32} weight="fill" />,
-                title: "High-Fidelity UI/UX",
-                desc: "Desain yang bisa diklik-klik (Prototype). Revisi visual sepuasnya di fase ini.",
-                color: "text-pink-500",
-                bg: "bg-pink-500/10",
-              },
-              {
-                icon: <Code size={32} weight="fill" />,
-                title: "Agile Dev",
-                desc: "Coding dimulai. Anda bisa pantau progress mingguan. Tidak ada 'hilang kabar'.",
-                color: "text-orange-500",
-                bg: "bg-orange-500/10",
-              },
-              {
-                icon: <Rocket size={32} weight="fill" />,
-                title: "Launch & Handover",
-                desc: "Server setup, domain connect, training admin. Kami pastikan siap tempur.",
-                color: "text-green-500",
-                bg: "bg-green-500/10",
-              },
-            ].map((step, index) => (
+            {steps.map((step, index) => (
               <div
                 key={index}
                 className={`flex flex-row md:items-center gap-6 md:gap-8 ${
                   index % 2 === 0 ? "md:flex-row-reverse" : ""
                 }`}
               >
-                {/* Content Side */}
                 <div
                   className={`flex-1 w-full md:w-1/2 ${
                     index % 2 === 0 ? "md:text-left" : "md:text-right"
@@ -143,21 +164,19 @@ export default function Consultation() {
                       </h3>
                     </div>
                     <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">
-                      {step.desc}
+                      {step.description || step.desc}
                     </p>
                   </div>
                 </div>
 
-                {/* Center Icon */}
                 <div className="relative z-10 flex-shrink-0 order-first md:order-none">
                   <div
                     className={`w-14 h-14 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border-4 border-gray-50 dark:border-slate-800 shadow-xl ${step.color}`}
                   >
-                    {step.icon}
+                    <step.iconComponent size={32} weight="fill" />
                   </div>
                 </div>
 
-                {/* Spacer Side (Empty to balance flex on Desktop) */}
                 <div className="hidden md:block flex-1 w-1/2"></div>
               </div>
             ))}

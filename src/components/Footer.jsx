@@ -24,11 +24,11 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
-                Nexa Digital Studio.
+                {settings?.siteName || "Nexa Digital Studio."}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
-                Membantu individu dan UMKM membangun kehadiran digital pertama
-                mereka dengan hasil yang profesional dan berkelas.
+                {settings?.footerDescription ||
+                  "Membantu individu dan UMKM membangun kehadiran digital pertama mereka dengan hasil yang profesional dan berkelas."}
               </p>
             </div>
           </div>
@@ -37,30 +37,26 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Menu</h4>
             <ul className="space-y-4">
-              {["Portfolio", "Layanan", "Proses", "Harga", "FAQ", "Kontak"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href={`#${
-                        item === "Portfolio"
-                          ? "showcase"
-                          : item === "Layanan"
-                            ? "benefits"
-                            : item === "Proses"
-                              ? "services"
-                              : item === "Harga"
-                                ? "pricing"
-                                : item === "FAQ"
-                                  ? "faq"
-                                  : "contact"
-                      }`}
-                      className="text-gray-300 hover:text-primary transition-colors text-sm font-medium"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ),
-              )}
+              {(settings?.navLinks?.length > 0
+                ? settings.navLinks
+                : [
+                    { name: "Portfolio", id: "showcase" },
+                    { name: "Layanan", id: "benefits" },
+                    { name: "Proses", id: "services" },
+                    { name: "Harga", id: "pricing" },
+                    { name: "FAQ", id: "faq" },
+                    { name: "Kontak", id: "contact" },
+                  ]
+              ).map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={`#${item.id}`}
+                    className="text-gray-300 hover:text-primary transition-colors text-sm font-medium"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -75,7 +71,8 @@ export default function Footer() {
                 />
                 <a
                   href={`https://wa.me/${waNumber}?text=${encodeURIComponent(
-                    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
+                    settings?.whatsappWelcomeMessage ||
+                      "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
                   )}`}
                   target="_blank"
                   rel="noreferrer"
@@ -94,7 +91,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-gray-300 text-sm">
                 <MapPin size={20} className="mt-0.5 text-red-500 shrink-0" />
-                <span>Bandung, Indonesia</span>
+                <span>{settings?.address || "Bandung, Indonesia"}</span>
               </li>
             </ul>
           </div>
@@ -103,7 +100,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-300 dark:text-gray-300 text-xs md:text-sm font-medium">
-            &copy; {currentYear} Nexa Digital Studio. All rights reserved.
+            &copy; {currentYear} {settings?.siteName || "Nexa Digital Studio"}.
+            All rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-white font-bold opacity-90 hover:opacity-100 transition-opacity">
             <a href="/privacy-policy">Privacy Policy</a>
