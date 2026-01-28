@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { List, X, Sun, Moon } from "phosphor-react";
+import { List, X, Sun, Moon, Globe } from "phosphor-react";
 import { useTheme } from "../hooks/useTheme";
 import { useSiteData } from "../context/SiteContext";
 import logoLight from "../assets/logo-light.avif";
@@ -46,7 +46,7 @@ export default function Navbar() {
   const waNumber = settings?.whatsappNumber || "6285199198055";
   const waWelcome =
     settings?.whatsappWelcomeMessage ||
-    "Halo, saya mau tanya jasa pembuatan website UMKM.";
+    "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?";
 
   return (
     <nav

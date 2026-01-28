@@ -36,24 +36,39 @@ export default function Pricing() {
   }, {});
 
   const commonFeatures = [
-    { icon: <PenNib size={20} />, text: "Kelola Website Sendiri (CMS)" },
-    { icon: <Layout size={20} />, text: "Edit Teks & Gambar Mudah" },
+    { icon: <PenNib size={20} />, text: "Content Management System (CMS)" },
+    { icon: <Layout size={20} />, text: "Bisa Edit Konten Sendiri" },
     {
       icon: <CheckCircle size={20} />,
-      text: "Revisi Sepuasnya (Selama Pengerjaan)",
+      text: "Revisi Minor 2x",
     },
-    { icon: <DeviceMobile size={20} />, text: "Tampilan Mobile Friendly" },
+    {
+      icon: <DeviceMobile size={20} />,
+      text: "Tampilan Rapi di HP (Mobile Friendly)",
+    },
   ];
 
   const categories = [
-    { id: "personal", label: "Personal", icon: <User weight="bold" /> },
-    { id: "umkm", label: "UMKM", icon: <Storefront weight="bold" /> },
+    {
+      id: "personal",
+      label: "PERSONAL",
+      icon: <User weight="bold" />,
+    },
+    {
+      id: "umkm",
+      label: "UMKM",
+      icon: <Storefront weight="bold" />,
+    },
     {
       id: "pendidikan",
-      label: "Pendidikan",
+      label: "PENDIDIKAN",
       icon: <GraduationCap weight="bold" />,
     },
-    { id: "company", label: "Company", icon: <Buildings weight="bold" /> },
+    {
+      id: "company",
+      label: "COMPANY",
+      icon: <Buildings weight="bold" />,
+    },
   ];
 
   const currentPricing = pricingData[activeTab] || [];
@@ -83,17 +98,17 @@ export default function Pricing() {
         <div className="text-center max-w-3xl mx-auto mb-20 relative z-10">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-primary/10 text-primary dark:text-primary-light text-[10px] md:text-xs font-black tracking-[0.2em] uppercase mb-8 border border-primary/10">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Pricing Strategy
+            Investasi Strategis
           </div>
           <h2 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-6 leading-[1.1] tracking-tighter">
             Investasi Cerdas <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x bg-[length:200%_auto]">
-              Untuk Bisnis Kamu.
+              Untuk Masa Depan Bisnis
             </span>
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
-            Pilih paket yang paling pas. Tanpa biaya tersembunyi, semua sudah
-            termasuk domain, hosting, dan SSL.
+            Pilih paket yang paling sesuai dengan skala dan kebutuhan Anda saat
+            ini. Transparan, tanpa biaya tersembunyi.
           </p>
         </div>
 
@@ -175,7 +190,7 @@ export default function Pricing() {
               <div className="flex-1 mb-10">
                 <div className="mb-10">
                   <p className="text-[10px] font-black uppercase tracking-widest mb-6 text-primary/60">
-                    Spesifikasi Utama:
+                    Spesifikasi & Fitur
                   </p>
                   <ul className="space-y-5">
                     {item.features.map((feat, i) => (
@@ -206,7 +221,7 @@ export default function Pricing() {
                 ).length > 0 && (
                   <div className="pt-8 border-t border-gray-100 dark:border-white/5">
                     <p className="text-[10px] font-black uppercase tracking-widest mb-6 text-gray-400">
-                      Standard Inclusions:
+                      Sudah Termasuk Fitur Standar:
                     </p>
                     <ul className="space-y-4">
                       {commonFeatures
@@ -261,9 +276,8 @@ export default function Pricing() {
         </div>
 
         <p className="text-center text-[10px] text-gray-400 mt-12 max-w-3xl mx-auto uppercase tracking-[0.2em] font-bold leading-loose">
-          *Syarat domain .co.id, .sch.id, .ac.id mengikuti ketentuan PANDI.{" "}
-          <br className="hidden md:block" />
-          Gratis perpanjangan tahun pertama untuk domain & hosting pilihan.
+          *Harga dapat berubah menyesuaikan tingkat kompleksitas fitur yang
+          diminta.
         </p>
 
         {/* Custom Budget Section - Compact & Elegant */}
@@ -283,17 +297,18 @@ export default function Pricing() {
               <div className="text-center md:text-left relative z-10 flex-1">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 dark:bg-orange-950/20 text-orange-600 dark:text-orange-400 text-[9px] font-black uppercase tracking-widest mb-4">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                  Custom Solutions
+                  Butuh Lebih?
                 </div>
                 <h3 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-white mb-4 leading-tight tracking-tighter">
-                  Punya Budget Khusus? <br />
+                  Belum Memukan yang Pas? <br />
                   <span className="text-primary text-xl md:text-2xl opacity-80">
-                    Mari Kita Diskusikan Secara Personal.
+                    Yuk, Diskusi Sesuai Budget!
                   </span>
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 text-xs md:text-sm font-medium leading-relaxed max-w-lg">
-                  Sampaikan budget Anda, dan Nexa Studio akan merancang strategi
-                  digital yang paling optimal sesuai kebutuhan Anda.
+                  Punya request fitur khusus atau budget tertentu? Jangan ragu
+                  untuk konsultasi. Kami akan carikan solusi terbaik (Win-Win
+                  Solution).
                 </p>
               </div>
 
@@ -305,7 +320,7 @@ export default function Pricing() {
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-primary/20 w-full md:w-auto"
                 >
                   <WhatsappLogo size={20} weight="fill" />
-                  Konsultasi Budget
+                  Konsultasi Custom
                 </a>
               </div>
             </div>

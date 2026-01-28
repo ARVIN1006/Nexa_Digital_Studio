@@ -108,9 +108,9 @@ export default function FloatingCTA() {
         </div>
         <div className="text-left">
           <p className="text-[10px] font-medium text-green-50 opacity-90 uppercase tracking-wider">
-            Butuh Website?
+            Butuh Bantuan?
           </p>
-          <p className="text-sm font-bold">Chat WhatsApp</p>
+          <p className="text-sm font-bold">Chat Kami</p>
         </div>
       </a>
     </div>

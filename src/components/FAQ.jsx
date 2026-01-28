@@ -26,21 +26,21 @@ export default function FAQ() {
           <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              Common Questions
+              Tanya Jawab
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
-              Sering <br />
+              Paling Sering <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 Ditanyakan
               </span>
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-8">
-              Jawaban cepat untuk pertanyaan yang sering muncul. Masih bingung?{" "}
+              Masih bingung? Cek jawaban di bawah atau chat kami langsung.{" "}
               <a
                 href="#contact"
                 className="text-indigo-600 dark:text-indigo-400 font-semibold underline decoration-wavy"
               >
-                Chat WhatsApp aja.
+                Chat WhatsApp
               </a>
             </p>
           </div>

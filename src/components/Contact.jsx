@@ -45,11 +45,7 @@ export default function Contact() {
               Jasa Website Profesional
             </div>
             <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              Buat Website <br />
-              Usaha Kamu <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                Sekarang!
-              </span>
+              Buat Website Usaha Kamu Sekarang!
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-lg">
               Tunggu apa lagi? Miliki website profesional mulai dari{" "}
@@ -119,7 +115,7 @@ export default function Contact() {
                     />
                     <div className="text-left">
                       <p className="hidden md:block text-[9px] font-bold uppercase tracking-wider opacity-90">
-                        Fast Response
+                        Respon Cepat
                       </p>
                       <p className="text-sm md:text-base font-bold leading-none">
                         Chat WhatsApp
@@ -158,7 +154,7 @@ export default function Contact() {
                     />
                     <div className="text-left">
                       <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-80">
-                        Formal Discussion
+                        Diskusi Formal
                       </p>
                       <p className="text-sm md:text-lg font-bold leading-none group-hover:text-primary transition-colors">
                         Kirim Email
@@ -191,7 +187,7 @@ export default function Contact() {
                     />
                     <div className="text-left">
                       <p className="hidden md:block text-[10px] font-bold uppercase tracking-wider opacity-80">
-                        Explore Portfolio
+                        Lihat Portofolio
                       </p>
                       <p className="text-sm md:text-lg font-bold leading-none group-hover:text-pink-500 transition-colors">
                         DM Instagram

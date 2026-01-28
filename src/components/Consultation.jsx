@@ -55,7 +55,7 @@ export default function Consultation() {
           <div className="max-w-2xl relative">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              Our Process
+              Proses
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-tight">
               Dari Ide Liar,
@@ -123,7 +123,7 @@ export default function Consultation() {
                       }`}
                     >
                       <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">
-                        Step 0{index + 1}
+                        Langkah 0{index + 1}
                       </span>
                       <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                         {step.title}

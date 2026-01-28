@@ -174,20 +174,20 @@ export default function Showcase() {
         <div className="max-w-3xl relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold tracking-widest uppercase mb-4">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Contoh Hasil Kerja
+            Portofolio Pilihan
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
-            Contoh Website <br />
+            Karya Kami <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Untuk Usaha Kamu.
+              Untuk Klien Hebat
             </span>
           </h2>
           <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
         </div>
         <div className="flex flex-col items-start gap-4">
           <p className="text-gray-800 dark:text-gray-200 max-w-sm text-sm md:text-lg text-left leading-relaxed font-medium">
-            Didesain khusus untuk kebutuhan UMKM. Simpel, informatif, dan
-            langsung ke tujuan bisnis.
+            Kami membangun website yang tidak hanya bagus secara visual, tapi
+            juga berdampak nyata bagi bisnis Anda.
           </p>
         </div>
       </div>
@@ -258,7 +258,7 @@ export default function Showcase() {
                     />
                     <div>
                       <p className="text-xs uppercase text-gray-700 dark:text-gray-300 font-bold tracking-wider mb-0.5">
-                        Tujuan Website
+                        Goals
                       </p>
                       <p className="text-sm font-bold text-gray-900 dark:text-white">
                         {project.context.goal}
@@ -273,7 +273,7 @@ export default function Showcase() {
                     />
                     <div>
                       <p className="text-xs uppercase text-gray-700 dark:text-gray-300 font-bold tracking-wider mb-0.5">
-                        Fungsi Utama
+                        Fungsi
                       </p>
                       <p className="text-sm font-bold text-gray-900 dark:text-white">
                         {project.context.function}
@@ -310,7 +310,7 @@ export default function Showcase() {
 
       <div className="container mx-auto px-6 mt-4 flex justify-center">
         <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-          Geser untuk melihat contoh lainnya
+          *Geser untuk melihat project lainnya
         </p>
       </div>
     </section>

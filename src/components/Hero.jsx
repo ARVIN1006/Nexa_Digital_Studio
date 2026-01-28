@@ -38,36 +38,16 @@ export default function Hero() {
         <div className="text-left pt-0 pb-12 md:pb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            {settings?.heroBadge || ""}
+            {settings?.heroBadge || "Agensi Digital"}
           </div>
 
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.2] mb-4 tracking-tight">
-            {settings?.heroTitle?.includes("Mulai") ? (
-              <>
-                {settings.heroTitle.split("Mulai")[0]} <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
-                  Mulai {settings.heroTitle.split("Mulai")[1]}
-                  <svg
-                    className="absolute w-full h-3 -bottom-1 left-0 text-primary/20 -z-10"
-                    viewBox="0 0 100 10"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M0 5 Q 50 10 100 5"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      fill="none"
-                    />
-                  </svg>
-                </span>
-              </>
-            ) : (
-              settings?.heroTitle || ""
-            )}
+            Bangun Digital Presence Bisnis Anda.
           </h2>
 
           <p className="text-xs md:text-lg text-gray-700 dark:text-gray-200 mb-6 max-w-lg md:mx-0 leading-relaxed font-medium">
-            {settings?.heroSubtitle || ""}
+            Jasa pembuatan website profesional, cepat, dan terjangkau untuk UMKM
+            dan bisnis modern.
           </p>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
@@ -88,7 +68,7 @@ export default function Hero() {
               }}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold text-xs md:text-sm transition-all cursor-pointer"
             >
-              Lihat Pilihan Paket
+              Lihat Harga
               <ArrowRight size={16} weight="bold" />
             </a>
           </div>
@@ -165,7 +145,7 @@ export default function Hero() {
               `
                   : ""
               }
-              alt="Professional Developer"
+              alt="Developer Profesional"
               width="450"
               height="450"
               sizes="(max-width: 768px) 90vw, 450px"

@@ -28,7 +28,8 @@ export default function Footer() {
                 {settings?.siteName || ""}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
-                {settings?.footerDescription || ""}
+                {settings?.footerDescription ||
+                  "Mitra digital terbaik untuk menumbuhkan bisnis Anda."}
               </p>
             </div>
           </div>
@@ -37,16 +38,18 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-6">Menu</h4>
             <ul className="space-y-4">
-              {(settings?.navLinks || []).map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={`#${item.id}`}
-                    className="text-gray-300 hover:text-primary transition-colors text-sm font-medium"
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+              {(settings?.navLinks || []).map((item) => {
+                return (
+                  <li key={item.name}>
+                    <a
+                      href={`#${item.id}`}
+                      className="text-gray-300 hover:text-primary transition-colors text-sm font-medium"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -71,7 +74,7 @@ export default function Footer() {
                   +{waNumber.startsWith("62") ? waNumber : `62${waNumber}`}{" "}
                   <br />
                   <span className="text-[10px] text-gray-300 uppercase tracking-widest leading-none">
-                    WhatsApp Only
+                    Chat WhatsApp Only
                   </span>
                 </a>
               </li>
