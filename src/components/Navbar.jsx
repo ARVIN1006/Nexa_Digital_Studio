@@ -26,19 +26,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Smooth Scroll Function
-  const scrollToSection = (e, id) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const yOffset = 0;
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      setIsOpen(false); // Close mobile menu if open
-    }
-  };
-
   const { settings } = useSiteData();
 
   const navLinks = settings?.navLinks || [];
@@ -58,11 +45,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 h-full flex justify-between items-center">
         {/* Brand */}
-        <a
-          href="#"
-          onClick={(e) => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2 group"
-        >
+        <a href="#" className="flex items-center gap-2 group">
           <img
             src={theme === "dark" ? logoLight : logoDark}
             alt="Nexa Digital Studio"
@@ -80,7 +63,6 @@ export default function Navbar() {
             <li key={item.name}>
               <a
                 href={`#${item.id}`}
-                onClick={(e) => scrollToSection(e, item.id)}
                 className="text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
               >
                 {item.name}
@@ -152,7 +134,7 @@ export default function Navbar() {
               <a
                 href={`#${item.id}`}
                 className="block py-2 text-gray-700 dark:text-gray-200 font-bold hover:text-primary"
-                onClick={(e) => scrollToSection(e, item.id)}
+                onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </a>

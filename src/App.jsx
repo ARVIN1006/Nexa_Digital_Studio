@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import SmoothScroll from "./components/SmoothScroll";
 
 // Lazy load below-the-fold components
 const Showcase = lazy(() => import("./components/Showcase"));
@@ -50,6 +51,7 @@ function Home() {
 function App() {
   return (
     <SiteProvider>
+      <SmoothScroll />
       <div className="min-h-screen font-sans text-text-main dark:text-gray-50 bg-bg-body dark:bg-slate-900 overflow-x-hidden antialiased selection:bg-primary/20 selection:text-primary transition-colors duration-300">
         <Router>
           <Routes>

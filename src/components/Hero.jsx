@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   WhatsappLogo,
   ArrowRight,
@@ -13,8 +15,78 @@ import { useSiteData } from "../context/SiteContext";
 import { urlFor } from "../lib/sanity";
 import { HeroSkeleton } from "./Skeletons";
 
+const phrases = [
+  "Bangun Digital Presence Bisnis Anda.",
+  "Tingkatkan Kredibilitas Usaha Anda.",
+  "Jangkau Lebih Banyak Pelanggan.",
+  "Solusi Website Profesional Modern.",
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.8, x: 50 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
 export default function Hero() {
   const { settings, loading } = useSiteData();
+
+  // Typewriter Effect State
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const handleType = () => {
+      const i = loopNum % phrases.length;
+      const fullText = phrases[i];
+
+      setText(
+        isDeleting
+          ? fullText.substring(0, text.length - 1)
+          : fullText.substring(0, text.length + 1),
+      );
+
+      setTypingSpeed(isDeleting ? 50 : 100);
+
+      if (!isDeleting && text === fullText) {
+        setTypingSpeed(2000);
+        setIsDeleting(true);
+      } else if (isDeleting && text === "") {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setTypingSpeed(500);
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
 
   const waNumber = settings?.whatsappNumber || "6285199198055";
   const waWelcome =
@@ -35,22 +107,40 @@ export default function Hero() {
 
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
-        <div className="text-left pt-0 pb-12 md:pb-0">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in-up">
+        <motion.div
+          className="text-left pt-0 pb-12 md:pb-0"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4"
+          >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             {settings?.heroBadge || "Agensi Digital"}
-          </div>
+          </motion.div>
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.2] mb-4 tracking-tight">
-            Bangun Digital Presence Bisnis Anda.
-          </h2>
+          <motion.h2
+            variants={itemVariants}
+            className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.2] mb-4 tracking-tight min-h-[90px] md:min-h-[172px]"
+          >
+            {text}
+            <span className="animate-pulse text-primary ml-1">|</span>
+          </motion.h2>
 
-          <p className="text-xs md:text-lg text-gray-700 dark:text-gray-200 mb-6 max-w-lg md:mx-0 leading-relaxed font-medium">
+          <motion.p
+            variants={itemVariants}
+            className="text-xs md:text-lg text-gray-700 dark:text-gray-200 mb-6 max-w-lg md:mx-0 leading-relaxed font-medium"
+          >
             Jasa pembuatan website profesional, cepat, dan terjangkau untuk UMKM
             dan bisnis modern.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto"
+          >
             <a
               href={waLink}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-full font-semibold text-xs md:text-sm transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
@@ -60,25 +150,25 @@ export default function Hero() {
             </a>
             <a
               href="#pricing"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("pricing")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-primary hover:border-primary/30 rounded-full font-semibold text-xs md:text-sm transition-all cursor-pointer"
             >
               Lihat Harga
               <ArrowRight size={16} weight="bold" />
             </a>
-          </div>
+          </motion.div>
 
           {/* Mobile Only Note */}
-          <p className="mt-6 text-xs text-gray-800 dark:text-gray-200 italic md:hidden text-left font-medium">
+          <motion.p
+            variants={itemVariants}
+            className="mt-6 text-xs text-gray-800 dark:text-gray-200 italic md:hidden text-left font-medium"
+          >
             *Konsultasi gratis & respon cepat via WhatsApp.
-          </p>
+          </motion.p>
 
-          <div className="hidden md:flex items-center gap-8 mt-2 pt-2 border-t border-gray-100 dark:border-white/10">
+          <motion.div
+            variants={itemVariants}
+            className="hidden md:flex items-center gap-8 mt-2 pt-2 border-t border-gray-100 dark:border-white/10"
+          >
             <div className="flex -space-x-3">
               {[
                 {
@@ -123,11 +213,16 @@ export default function Hero() {
                 Terpercaya & Profesional
               </span>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right Visual */}
-        <div className="relative h-full flex flex-col justify-end items-center md:items-end">
+        <motion.div
+          className="relative h-full flex flex-col justify-end items-center md:items-end"
+          variants={imageVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Main Image */}
           <div className="relative z-10 w-full max-w-md mx-auto md:mr-0">
             <img
@@ -160,7 +255,7 @@ export default function Hero() {
               }}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </header>
   );
