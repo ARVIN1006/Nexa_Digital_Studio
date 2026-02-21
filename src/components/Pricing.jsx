@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CheckCircle,
   WhatsappLogo,
@@ -7,33 +6,22 @@ import {
   DeviceMobile,
   PenNib,
   Layout,
-  ShieldCheck,
-  User,
-  Storefront,
-  GraduationCap,
-  Buildings,
 } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
 import { PricingSkeleton } from "./Skeletons";
 
 export default function Pricing() {
   const { settings, pricing: sanityPricing, loading } = useSiteData();
-  const [activeTab, setActiveTab] = useState("umkm");
 
-  // Format data from Sanity for the component
-  const pricingData = (sanityPricing || []).reduce((acc, plan) => {
-    const cat = plan.category || "umkm";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push({
-      title: plan.title,
-      price: plan.price,
-      duration: plan.duration,
-      domain: plan.domainInfo,
-      features: plan.features || [],
-      popular: plan.isPopular,
-    });
-    return acc;
-  }, {});
+  // Format data from Sanity - show all plans without category filtering
+  const pricingData = (sanityPricing || []).map((plan) => ({
+    title: plan.title,
+    price: plan.price,
+    duration: plan.duration,
+    domain: plan.domainInfo,
+    features: plan.features || [],
+    popular: plan.isPopular,
+  }));
 
   const commonFeatures = [
     { icon: <PenNib size={20} />, text: "Content Management System (CMS)" },
@@ -47,31 +35,6 @@ export default function Pricing() {
       text: "Tampilan Rapi di HP (Mobile Friendly)",
     },
   ];
-
-  const categories = [
-    {
-      id: "personal",
-      label: "PERSONAL",
-      icon: <User weight="bold" />,
-    },
-    {
-      id: "umkm",
-      label: "UMKM",
-      icon: <Storefront weight="bold" />,
-    },
-    {
-      id: "pendidikan",
-      label: "PENDIDIKAN",
-      icon: <GraduationCap weight="bold" />,
-    },
-    {
-      id: "company",
-      label: "COMPANY",
-      icon: <Buildings weight="bold" />,
-    },
-  ];
-
-  const currentPricing = pricingData[activeTab] || [];
 
   const getWaLink = (title, price) => {
     const waNumber = settings?.whatsappNumber || "6285199198055";
@@ -112,35 +75,9 @@ export default function Pricing() {
           </p>
         </div>
 
-        {/* Tab Navigation - Responsive Premium Switcher */}
-        <div className="flex justify-center mb-16 md:mb-20 relative z-10 px-4">
-          <div className="w-full md:w-auto bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] p-1.5 border border-gray-100 dark:border-white/5 shadow-2xl shadow-black/[0.03] dark:shadow-none">
-            <div className="grid grid-cols-2 md:flex md:items-center gap-1.5">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  className={`flex flex-col md:flex-row items-center justify-center gap-1.5 md:gap-3 px-3 py-4 md:px-8 md:py-4 rounded-[1.2rem] md:rounded-[2.2rem] text-[10px] md:text-sm font-black transition-all duration-500 uppercase tracking-wider md:w-48 ${
-                    activeTab === cat.id
-                      ? "bg-primary text-white shadow-xl shadow-primary/30"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  }`}
-                >
-                  <span
-                    className={`text-lg md:text-2xl ${activeTab === cat.id ? "opacity-100 scale-110" : "opacity-60"} transition-transform`}
-                  >
-                    {cat.icon}
-                  </span>
-                  <span className="font-bold leading-none">{cat.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Pricing Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto relative z-10">
-          {currentPricing.map((item, index) => (
+          {pricingData.map((item, index) => (
             <div
               key={index}
               className={`group relative flex flex-col p-8 md:p-12 rounded-[2.5rem] bg-white dark:bg-slate-800/50 transition-all duration-500 h-full border-2 ${

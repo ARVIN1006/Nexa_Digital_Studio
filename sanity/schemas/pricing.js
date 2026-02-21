@@ -44,8 +44,9 @@ export default {
     },
     {
       name: 'category',
-      title: 'Category',
+      title: 'Category (Optional - Not Used Anymore)',
       type: 'string',
+      description: 'Category field is kept for backward compatibility but is no longer used in the pricing display.',
       options: {
         list: [
           {title: 'Personal', value: 'personal'},
