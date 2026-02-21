@@ -8,22 +8,22 @@ export default function Pricing() {
   // Function to parse price string to number for sorting
   const parsePrice = (priceString) => {
     if (!priceString) return 0;
-    
+
     // Remove "Rp" and whitespace, convert to lowercase
     const cleanPrice = priceString.toLowerCase().trim();
-    
+
     // Extract number and multiplier
     const match = cleanPrice.match(/([\d.,]+)\s*(ribu|juta|miliar)?/);
     if (!match) return 0;
-    
-    const number = parseFloat(match[1].replace(/\./g, '').replace(',', '.'));
-    const multiplier = match[2] || '';
-    
+
+    const number = parseFloat(match[1].replace(/\./g, "").replace(",", "."));
+    const multiplier = match[2] || "";
+
     let multiplierValue = 1;
-    if (multiplier === 'ribu') multiplierValue = 1000;
-    else if (multiplier === 'juta') multiplierValue = 1000000;
-    else if (multiplier === 'miliar') multiplierValue = 1000000000;
-    
+    if (multiplier === "ribu") multiplierValue = 1000;
+    else if (multiplier === "juta") multiplierValue = 1000000;
+    else if (multiplier === "miliar") multiplierValue = 1000000000;
+
     return number * multiplierValue;
   };
 
@@ -31,9 +31,9 @@ export default function Pricing() {
   const pricingData = (sanityPricing || [])
     .map((plan) => {
       // Use discounted price if available, otherwise use original price for sorting
-      const displayPrice = plan.price || plan.originalPrice || '';
+      const displayPrice = plan.price || plan.originalPrice || "";
       const priceValue = parsePrice(displayPrice);
-      
+
       return {
         title: plan.title,
         price: plan.price,
