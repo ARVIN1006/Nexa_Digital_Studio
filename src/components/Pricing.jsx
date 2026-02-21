@@ -1,12 +1,4 @@
-import {
-  CheckCircle,
-  WhatsappLogo,
-  Timer,
-  Globe,
-  DeviceMobile,
-  PenNib,
-  Layout,
-} from "phosphor-react";
+import { CheckCircle, WhatsappLogo, Timer, Globe } from "phosphor-react";
 import { useSiteData } from "../context/SiteContext";
 import { PricingSkeleton } from "./Skeletons";
 
@@ -17,29 +9,34 @@ export default function Pricing() {
   const pricingData = (sanityPricing || []).map((plan) => ({
     title: plan.title,
     price: plan.price,
+    originalPrice: plan.originalPrice,
     duration: plan.duration,
     domain: plan.domainInfo,
     features: plan.features || [],
     popular: plan.isPopular,
+    caption: plan.caption,
   }));
 
-  const commonFeatures = [
-    { icon: <PenNib size={20} />, text: "Content Management System (CMS)" },
-    { icon: <Layout size={20} />, text: "Bisa Edit Konten Sendiri" },
-    {
-      icon: <CheckCircle size={20} />,
-      text: "Revisi Minor 2x",
-    },
-    {
-      icon: <DeviceMobile size={20} />,
-      text: "Tampilan Rapi di HP (Mobile Friendly)",
-    },
-  ];
+  // const commonFeatures = [
+  //   { icon: <PenNib size={20} />, text: "Content Management System (CMS)" },
+  //   { icon: <Layout size={20} />, text: "Bisa Edit Konten Sendiri" },
+  //   {
+  //     icon: <CheckCircle size={20} />,
+  //     text: "Revisi Minor 2x",
+  //   },
+  //   {
+  //     icon: <DeviceMobile size={20} />,
+  //     text: "Tampilan Rapi di HP (Mobile Friendly)",
+  //   },
+  // ];
 
-  const getWaLink = (title, price) => {
+  const getWaLink = (title, price, originalPrice) => {
     const waNumber = settings?.whatsappNumber || "6285199198055";
+    const priceText = originalPrice
+      ? `${price} (dari ${originalPrice})`
+      : price;
     const text = encodeURIComponent(
-      `Halo Nexa Studio, saya tertarik dengan paket *${title}* (${price}). Bisa dibantu dijelaskan detailnya?`,
+      `Halo Nexa Studio, saya tertarik dengan paket *${title}* (${priceText}). Bisa dibantu dijelaskan detailnya?`
     );
     return `https://wa.me/${waNumber}?text=${text}`;
   };
@@ -76,70 +73,149 @@ export default function Pricing() {
         </div>
 
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto relative z-10">
           {pricingData.map((item, index) => (
             <div
               key={index}
-              className={`group relative flex flex-col p-8 md:p-12 rounded-[2.5rem] bg-white dark:bg-slate-800/50 transition-all duration-500 h-full border-2 ${
+              className={`group relative flex flex-col rounded-2xl bg-white dark:bg-slate-800/90 backdrop-blur-sm transition-all duration-300 h-full border overflow-hidden ${
                 item.popular
-                  ? "border-primary shadow-[0_30px_60px_-15px_rgba(var(--primary-rgb),0.15)] lg:scale-[1.05] z-20"
-                  : "border-gray-50 dark:border-white/5 shadow-xl shadow-black/[0.02] hover:shadow-2xl hover:-translate-y-2"
+                  ? "border-primary/40 shadow-xl shadow-primary/10 lg:scale-[1.02] z-20 ring-1 ring-primary/30"
+                  : "border-gray-200 dark:border-slate-700/60 shadow-md hover:shadow-xl hover:border-primary/30 hover:-translate-y-1"
               }`}
             >
+              {/* Popular Badge */}
               {item.popular && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-white text-[10px] font-black px-6 py-2.5 rounded-full uppercase tracking-widest shadow-lg shadow-primary/30 z-30">
-                  Best Value
-                </div>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary"></div>
               )}
 
-              <div className="mb-10 text-center md:text-left">
-                <p className="text-[11px] font-black uppercase tracking-[0.2em] mb-4 text-primary opacity-80">
-                  {item.title}
-                </p>
-                <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-base font-bold text-gray-400">Rp</span>
-                  <span className="text-5xl md:text-6xl font-black tracking-tighter text-gray-900 dark:text-white">
-                    {item.price.split(" ")[0]}
-                  </span>
-                  <span className="text-xl font-bold text-gray-400/80">
-                    {item.price.split(" ").slice(1).join(" ")}
-                  </span>
-                </div>
-              </div>
+              {/* Card Content */}
+              <div className="flex flex-col h-full">
+                {/* Header Section */}
+                <div className="px-6 pt-6 pb-5">
+                  {item.popular && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 mb-4 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-[10px] font-bold uppercase tracking-wider">
+                      <span className="text-xs">⭐</span>
+                      Paling Populer
+                    </div>
+                  )}
+                  <h3
+                    className={`text-base font-bold uppercase tracking-wide mb-2 ${
+                      item.popular
+                        ? "text-gray-900 dark:text-white"
+                        : "text-gray-700 dark:text-gray-300"
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+                  
+                  {/* Caption */}
+                  {item.caption && (
+                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+                      {item.caption}
+                    </p>
+                  )}
 
-              {/* Specs Feature Bar */}
-              <div className="flex items-center justify-center md:justify-start gap-6 py-4 px-5 rounded-2xl mb-10 text-[11px] font-black bg-gray-50/80 dark:bg-slate-900/40 border border-gray-100 dark:border-white/5 text-gray-700 dark:text-gray-300">
-                <div className="flex items-center gap-2.5">
-                  <Timer
-                    size={20}
-                    weight="duotone"
-                    className="text-orange-500"
-                  />
-                  {item.duration}
+                  {/* Pricing Section */}
+                  <div className="space-y-2">
+                    {item.originalPrice ? (
+                      <>
+                        {/* Original Price */}
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs font-medium text-gray-400">
+                            Rp
+                          </span>
+                          <span className="text-base font-semibold text-gray-400 line-through">
+                            {item.originalPrice.split(" ")[0]}
+                          </span>
+                          <span className="text-xs font-medium text-gray-400/70 line-through">
+                            {item.originalPrice.split(" ").slice(1).join(" ")}
+                          </span>
+                        </div>
+                        {/* Discounted Price */}
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                            Rp
+                          </span>
+                          <span
+                            className={`text-4xl md:text-5xl font-black tracking-tight ${
+                              item.popular
+                                ? "text-primary dark:text-primary-light"
+                                : "text-gray-900 dark:text-white"
+                            }`}
+                          >
+                            {item.price.split(" ")[0]}
+                          </span>
+                          <span className="text-base font-semibold text-gray-500 dark:text-gray-400">
+                            {item.price.split(" ").slice(1).join(" ")}
+                          </span>
+                        </div>
+                        {/* Discount Badge */}
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-[9px] font-bold">
+                          <span className="w-1 h-1 rounded-full bg-red-500"></span>
+                          Diskon
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                          Rp
+                        </span>
+                        <span
+                          className={`text-4xl md:text-5xl font-black tracking-tight ${
+                            item.popular
+                              ? "text-primary dark:text-primary-light"
+                              : "text-gray-900 dark:text-white"
+                          }`}
+                        >
+                          {item.price.split(" ")[0]}
+                        </span>
+                        <span className="text-base font-semibold text-gray-500 dark:text-gray-400">
+                          {item.price.split(" ").slice(1).join(" ")}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="w-px h-4 bg-gray-200 dark:bg-gray-700"></div>
-                <div className="flex items-center gap-2.5">
-                  <Globe size={20} weight="duotone" className="text-blue-500" />
-                  {item.domain}
-                </div>
-              </div>
 
-              <div className="flex-1 mb-10">
-                <div className="mb-10">
-                  <p className="text-[10px] font-black uppercase tracking-widest mb-6 text-primary/60">
-                    Spesifikasi & Fitur
-                  </p>
-                  <ul className="space-y-5">
+                {/* Specs Info Bar */}
+                <div className="px-6 py-3.5 bg-gray-50/80 dark:bg-slate-900/50 border-y border-gray-100 dark:border-slate-700/50">
+                  <div className="flex items-center justify-center gap-6 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-2">
+                      <Timer
+                        size={16}
+                        weight="duotone"
+                        className="text-orange-500"
+                      />
+                      <span>{item.duration}</span>
+                    </div>
+                    <div className="w-px h-4 bg-gray-300 dark:bg-slate-600"></div>
+                    <div className="flex items-center gap-2">
+                      <Globe
+                        size={16}
+                        weight="duotone"
+                        className="text-blue-500"
+                      />
+                      <span>{item.domain}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Features List */}
+                <div className="flex-1 px-6 py-5">
+                  <h4 className="text-xs font-bold uppercase tracking-wider mb-4 text-gray-500 dark:text-gray-400">
+                    Fitur Utama
+                  </h4>
+                  <ul className="space-y-3">
                     {item.features.map((feat, i) => (
-                      <li key={i} className="flex items-start gap-4">
-                        <div className="mt-1 flex-shrink-0">
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="mt-0.5 flex-shrink-0">
                           <CheckCircle
-                            size={22}
+                            size={18}
                             weight="fill"
-                            className="text-green-500 shadow-sm"
+                            className="text-green-500"
                           />
                         </div>
-                        <span className="text-sm md:text-base font-bold leading-relaxed text-gray-800 dark:text-gray-200">
+                        <span className="text-sm font-medium leading-relaxed text-gray-700 dark:text-gray-300">
                           {feat}
                         </span>
                       </li>
@@ -147,67 +223,23 @@ export default function Pricing() {
                   </ul>
                 </div>
 
-                {/* Smart Filtering Logic for Standard Features */}
-                {commonFeatures.filter(
-                  (feat) =>
-                    !item.features.some((itemFeat) =>
-                      itemFeat
-                        .toLowerCase()
-                        .includes(feat.text.split(" (")[0].toLowerCase()),
-                    ),
-                ).length > 0 && (
-                  <div className="pt-8 border-t border-gray-100 dark:border-white/5">
-                    <p className="text-[10px] font-black uppercase tracking-widest mb-6 text-gray-400">
-                      Sudah Termasuk Fitur Standar:
-                    </p>
-                    <ul className="space-y-4">
-                      {commonFeatures
-                        .filter(
-                          (feat) =>
-                            !item.features.some((itemFeat) =>
-                              itemFeat
-                                .toLowerCase()
-                                .includes(
-                                  feat.text.split(" (")[0].toLowerCase(),
-                                ),
-                            ),
-                        )
-                        .map((feat, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-3.5 opacity-50 hover:opacity-100 transition-opacity"
-                          >
-                            <div className="mt-1 flex-shrink-0">
-                              <CheckCircle
-                                size={18}
-                                weight="bold"
-                                className="text-gray-400"
-                              />
-                            </div>
-                            <span className="text-xs font-bold leading-tight text-gray-500 dark:text-gray-400">
-                              {feat.text.split(" (")[0]}
-                            </span>
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                )}
+                {/* CTA Button */}
+                <div className="px-6 pb-6 pt-4">
+                  <a
+                    href={getWaLink(item.title, item.price, item.originalPrice)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`relative overflow-hidden w-full py-3.5 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2.5 ${
+                      item.popular
+                        ? "bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35"
+                        : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-primary hover:text-white shadow-md hover:shadow-lg"
+                    } hover:-translate-y-0.5 active:translate-y-0`}
+                  >
+                    <WhatsappLogo size={20} weight="fill" />
+                    <span>Pesan Sekarang</span>
+                  </a>
+                </div>
               </div>
-
-              <a
-                href={getWaLink(item.title, item.price)}
-                target="_blank"
-                rel="noreferrer"
-                className={`relative overflow-hidden group/btn w-full py-5 rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 shadow-xl ${
-                  item.popular
-                    ? "bg-primary text-white hover:bg-primary-dark shadow-primary/30"
-                    : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-primary hover:text-white"
-                } hover:-translate-y-1`}
-              >
-                <WhatsappLogo size={24} weight="fill" />
-                Pesan Sekarang
-                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 skew-x-[-20deg]"></div>
-              </a>
             </div>
           ))}
         </div>
@@ -251,7 +283,11 @@ export default function Pricing() {
 
               <div className="relative z-10 flex-shrink-0 w-full md:w-auto">
                 <a
-                  href={`https://wa.me/${settings?.whatsappNumber || "6285199198055"}?text=${encodeURIComponent("Halo Nexa Studio, saya mau diskusi sesuai budget saya.")}`}
+                  href={`https://wa.me/${
+                    settings?.whatsappNumber || "6285199198055"
+                  }?text=${encodeURIComponent(
+                    "Halo Nexa Studio, saya mau diskusi sesuai budget saya."
+                  )}`}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-primary/20 w-full md:w-auto"

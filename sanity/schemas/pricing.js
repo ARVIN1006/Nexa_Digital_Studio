@@ -43,6 +43,12 @@ export default {
       type: 'boolean',
     },
     {
+      name: 'caption',
+      title: 'Caption / Description',
+      type: 'string',
+      description: 'Short description about who this plan is suitable for (e.g. "Cocok untuk company, institusi, dan bisnis profesional")',
+    },
+    {
       name: 'category',
       title: 'Category (Optional - Not Used Anymore)',
       type: 'string',
