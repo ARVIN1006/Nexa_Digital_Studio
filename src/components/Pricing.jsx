@@ -27,10 +27,10 @@ export default function Pricing() {
     return number * multiplierValue;
   };
 
-  // Format data from Sanity - show all plans without category filtering
+  // Format data from Sanity - show all plans without category filtering, sorted by price
   const pricingData = (sanityPricing || [])
     .map((plan) => {
-      // Use discounted price if available, otherwise use original price
+      // Use discounted price if available, otherwise use original price for sorting
       const displayPrice = plan.price || plan.originalPrice || '';
       const priceValue = parsePrice(displayPrice);
       
@@ -122,18 +122,18 @@ export default function Pricing() {
               {/* Card Content */}
               <div className="flex flex-col h-full">
                 {/* Header Section */}
-                <div className="px-6 pt-6 pb-5">
+                <div className="px-6 pt-6 pb-5 border-b border-gray-100 dark:border-slate-700/50">
                   {item.popular && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 mb-4 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-[10px] font-bold uppercase tracking-wider">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-4 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-[10px] font-bold uppercase tracking-wider">
                       <span className="text-xs">⭐</span>
                       Paling Populer
                     </div>
                   )}
                   <h3
-                    className={`text-base font-bold uppercase tracking-wide mb-2 ${
+                    className={`text-lg font-bold uppercase tracking-wide mb-2 ${
                       item.popular
                         ? "text-gray-900 dark:text-white"
-                        : "text-gray-700 dark:text-gray-300"
+                        : "text-gray-800 dark:text-gray-200"
                     }`}
                   >
                     {item.title}
@@ -141,13 +141,13 @@ export default function Pricing() {
 
                   {/* Caption */}
                   {item.caption && (
-                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-5 leading-relaxed">
                       {item.caption}
                     </p>
                   )}
 
                   {/* Pricing Section */}
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {item.originalPrice ? (
                       <>
                         {/* Original Price */}
@@ -209,7 +209,7 @@ export default function Pricing() {
                 </div>
 
                 {/* Specs Info Bar */}
-                <div className="px-6 py-3.5 bg-gray-50/80 dark:bg-slate-900/50 border-y border-gray-100 dark:border-slate-700/50">
+                <div className="px-6 py-4 bg-gray-50/60 dark:bg-slate-900/40">
                   <div className="flex items-center justify-center gap-6 text-xs font-semibold text-gray-600 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <Timer
@@ -232,11 +232,11 @@ export default function Pricing() {
                 </div>
 
                 {/* Features List */}
-                <div className="flex-1 px-6 py-5">
+                <div className="flex-1 px-6 py-6">
                   <h4 className="text-xs font-bold uppercase tracking-wider mb-4 text-gray-500 dark:text-gray-400">
                     Fitur Utama
                   </h4>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3.5">
                     {item.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <div className="mt-0.5 flex-shrink-0">
@@ -255,7 +255,7 @@ export default function Pricing() {
                 </div>
 
                 {/* CTA Button */}
-                <div className="px-6 pb-6 pt-4">
+                <div className="px-6 pb-6 pt-0">
                   <a
                     href={getWaLink(item.title, item.price, item.originalPrice)}
                     target="_blank"
