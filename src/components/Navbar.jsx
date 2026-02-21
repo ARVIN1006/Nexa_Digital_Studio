@@ -54,6 +54,8 @@ export default function Navbar() {
             className={`transition-all duration-500 w-auto ${
               scrolled ? "h-6 md:h-9" : "h-7 md:h-11"
             }`}
+            loading="eager"
+            fetchpriority="high"
           />
         </a>
 
@@ -85,7 +87,9 @@ export default function Navbar() {
             )}
           </button>
           <a
-            href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
+            href={`https://wa.me/${waNumber}?text=${encodeURIComponent(
+              waWelcome
+            )}`}
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 rounded-full text-xs font-bold bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
@@ -142,7 +146,9 @@ export default function Navbar() {
           ))}
           <li className="pt-4 border-t border-gray-100 dark:border-white/10 w-full flex flex-col gap-3">
             <a
-              href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
+              href={`https://wa.me/${waNumber}?text=${encodeURIComponent(
+                waWelcome
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full inline-block px-4 py-2.5 rounded-full text-xs font-bold bg-primary text-white shadow-lg shadow-primary/25"

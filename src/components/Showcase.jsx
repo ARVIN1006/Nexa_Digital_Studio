@@ -63,12 +63,34 @@ export default function Showcase() {
             },
             img: p.mainImage
               ? urlFor(p.mainImage)
-                  .width(600)
-                  .height(400)
+                  .width(450)
+                  .height(288)
                   .fit("crop")
                   .crop("top")
                   .url()
-              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop",
+              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=450&auto=format&fit=crop",
+            imgSrcSet: p.mainImage
+              ? [
+                  `${urlFor(p.mainImage)
+                    .width(340)
+                    .height(220)
+                    .fit("crop")
+                    .crop("top")
+                    .url()} 340w`,
+                  `${urlFor(p.mainImage)
+                    .width(450)
+                    .height(288)
+                    .fit("crop")
+                    .crop("top")
+                    .url()} 450w`,
+                  `${urlFor(p.mainImage)
+                    .width(600)
+                    .height(384)
+                    .fit("crop")
+                    .crop("top")
+                    .url()} 600w`,
+                ].join(", ")
+              : undefined,
             accent: p.accent || "border-primary/20",
             previewUrl: finalUrl,
           };
@@ -99,24 +121,31 @@ export default function Showcase() {
     const container = scrollRef.current;
     if (!container || displayProjects.length === 0) return;
 
-    const totalWidth = container.scrollWidth;
-    const oneSetWidth = totalWidth / DUPLICATION_COUNT;
-    const rightThreshold = oneSetWidth * (DUPLICATION_COUNT - 2);
-    const leftThreshold = oneSetWidth;
+    // Use requestAnimationFrame to batch DOM reads and avoid forced reflows
+    requestAnimationFrame(() => {
+      const totalWidth = container.scrollWidth;
+      const oneSetWidth = totalWidth / DUPLICATION_COUNT;
+      const rightThreshold = oneSetWidth * (DUPLICATION_COUNT - 2);
+      const leftThreshold = oneSetWidth;
 
-    if (container.scrollLeft >= rightThreshold) {
-      container.scrollLeft -= oneSetWidth * 4;
-    } else if (container.scrollLeft <= leftThreshold) {
-      container.scrollLeft += oneSetWidth * 4;
-    }
+      if (container.scrollLeft >= rightThreshold) {
+        container.scrollLeft -= oneSetWidth * 4;
+      } else if (container.scrollLeft <= leftThreshold) {
+        container.scrollLeft += oneSetWidth * 4;
+      }
+    });
   };
 
   // Initial Centering
   useEffect(() => {
     const container = scrollRef.current;
     if (container && displayProjects.length > 0) {
-      const totalWidth = container.scrollWidth;
-      container.scrollLeft = totalWidth / 2 - container.clientWidth / 2;
+      // Use requestAnimationFrame to batch DOM reads
+      requestAnimationFrame(() => {
+        const totalWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+        container.scrollLeft = totalWidth / 2 - clientWidth / 2;
+      });
     }
   }, [displayProjects]);
 
@@ -151,12 +180,15 @@ export default function Showcase() {
 
     const interval = setInterval(() => {
       if (!isPaused && !isDragging && displayProjects.length > 0) {
-        const maxScroll = container.scrollWidth - container.clientWidth;
-        if (container.scrollLeft >= maxScroll - 10) {
-          container.scrollLeft = 0;
-        } else {
-          container.scrollBy({ left: 1, behavior: "auto" });
-        }
+        // Use requestAnimationFrame to batch DOM reads
+        requestAnimationFrame(() => {
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          if (container.scrollLeft >= maxScroll - 10) {
+            container.scrollLeft = 0;
+          } else {
+            container.scrollBy({ left: 1, behavior: "auto" });
+          }
+        });
       }
     }, 20);
 
@@ -217,7 +249,11 @@ export default function Showcase() {
               <div className="h-[200px] md:h-[220px] lg:h-[250px] overflow-hidden relative border-b border-gray-100 dark:border-slate-700">
                 <img
                   src={project.img}
+                  srcSet={project.imgSrcSet}
+                  sizes="(max-width: 768px) 85vw, (max-width: 1024px) 380px, 450px"
                   alt={project.title}
+                  width="450"
+                  height="288"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -290,7 +326,11 @@ export default function Showcase() {
                         : undefined
                     }
                     target={project.previewUrl !== "#" ? "_blank" : undefined}
-                    rel={project.previewUrl !== "#" ? "noopener noreferrer" : undefined}
+                    rel={
+                      project.previewUrl !== "#"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     className={`block w-full text-center py-2 rounded-lg font-bold text-sm transition-colors ${
                       project.previewUrl !== "#"
                         ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white shadow-lg shadow-gray-200/50 dark:shadow-none"
