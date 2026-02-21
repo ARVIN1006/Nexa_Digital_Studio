@@ -290,7 +290,7 @@ export default function Showcase() {
                         : undefined
                     }
                     target={project.previewUrl !== "#" ? "_blank" : undefined}
-                    rel="noreferrer"
+                    rel={project.previewUrl !== "#" ? "noopener noreferrer" : undefined}
                     className={`block w-full text-center py-2 rounded-lg font-bold text-sm transition-colors ${
                       project.previewUrl !== "#"
                         ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white shadow-lg shadow-gray-200/50 dark:shadow-none"

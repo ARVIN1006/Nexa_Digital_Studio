@@ -87,7 +87,7 @@ export default function Navbar() {
           <a
             href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="px-4 py-2 rounded-full text-xs font-bold bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
           >
             Chat WhatsApp
@@ -144,7 +144,7 @@ export default function Navbar() {
             <a
               href={`https://wa.me/${waNumber}?text=${encodeURIComponent(waWelcome)}`}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-full inline-block px-4 py-2.5 rounded-full text-xs font-bold bg-primary text-white shadow-lg shadow-primary/25"
             >
               Chat WhatsApp

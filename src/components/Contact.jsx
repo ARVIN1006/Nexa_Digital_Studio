@@ -175,7 +175,7 @@ export default function Contact() {
               <a
                 href={igLink}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="group block w-full bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-slate-700 text-gray-700 dark:text-gray-200 hover:border-pink-500/50 hover:bg-pink-50 dark:hover:bg-slate-800/80 p-0.5 md:p-1 rounded-full transition-all hover:-translate-y-1"
               >
                 <div className="flex items-center justify-between px-4 py-2.5 md:px-6 md:py-4">

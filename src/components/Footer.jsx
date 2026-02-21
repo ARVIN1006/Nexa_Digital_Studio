@@ -68,7 +68,7 @@ export default function Footer() {
                       "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
                   )}`}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   +{waNumber.startsWith("62") ? waNumber : `62${waNumber}`}{" "}

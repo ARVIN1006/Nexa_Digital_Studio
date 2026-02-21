@@ -259,7 +259,7 @@ export default function Pricing() {
                   <a
                     href={getWaLink(item.title, item.price, item.originalPrice)}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className={`relative overflow-hidden w-full py-3.5 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2.5 ${
                       item.popular
                         ? "bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35"
@@ -320,7 +320,7 @@ export default function Pricing() {
                     "Halo Nexa Studio, saya mau diskusi sesuai budget saya."
                   )}`}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-primary/20 w-full md:w-auto"
                 >
                   <WhatsappLogo size={20} weight="fill" />

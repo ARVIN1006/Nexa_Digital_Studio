@@ -99,7 +99,7 @@ export default function FloatingCTA() {
           "Halo Nexa Digital Studio, saya ingin konsultasi mengenai layanan pembuatan website. Bisa dibantu?",
         )}`}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="group flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white pl-4 pr-6 py-3.5 rounded-full shadow-lg shadow-green-500/30 transition-all hover:-translate-y-1"
         aria-label="Chat via WhatsApp"
       >
