@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   WhatsappLogo,
   ArrowRight,
@@ -22,38 +22,41 @@ const phrases = [
   "Solusi Website Profesional Modern.",
 ];
 
-const containerVariants = {
+const getContainerVariants = (reduceMotion) => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
+    transition: reduceMotion
+      ? { duration: 0 }
+      : {
+          staggerChildren: 0.15,
+          delayChildren: 0.1,
+        },
   },
-};
+});
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+const getItemVariants = (reduceMotion) => ({
+  hidden: { opacity: 0, y: reduceMotion ? 0 : 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.6, ease: "easeOut" },
   },
-};
+});
 
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8, x: 50 },
+const getImageVariants = (reduceMotion) => ({
+  hidden: { opacity: 0, scale: reduceMotion ? 1 : 0.8, x: reduceMotion ? 0 : 50 },
   visible: {
     opacity: 1,
     scale: 1,
     x: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.8, ease: "easeOut" },
   },
-};
+});
 
 export default function Hero() {
   const { settings, loading } = useSiteData();
+  const shouldReduceMotion = useReducedMotion();
 
   // Typewriter Effect State
   const [text, setText] = useState("");
@@ -96,6 +99,10 @@ export default function Hero() {
 
   if (loading) return <HeroSkeleton />;
 
+  const containerVars = getContainerVariants(shouldReduceMotion);
+  const itemVars = getItemVariants(shouldReduceMotion);
+  const imageVars = getImageVariants(shouldReduceMotion);
+
   return (
     <header
       id="hero"
@@ -109,12 +116,13 @@ export default function Hero() {
         {/* Left Content */}
         <motion.div
           className="text-left pt-0 pb-12 md:pb-0"
-          variants={containerVariants}
+          variants={containerVars}
           initial="hidden"
           animate="visible"
+          style={{ willChange: shouldReduceMotion ? "auto" : "transform, opacity" }}
         >
           <motion.div
-            variants={itemVariants}
+            variants={itemVars}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-indigo-900 dark:text-indigo-100 text-xs font-bold tracking-widest uppercase mb-4"
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
@@ -122,7 +130,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.h2
-            variants={itemVariants}
+            variants={itemVars}
             className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.2] mb-4 tracking-tight min-h-[90px] md:min-h-[172px]"
           >
             {text}
@@ -130,7 +138,7 @@ export default function Hero() {
           </motion.h2>
 
           <motion.p
-            variants={itemVariants}
+            variants={itemVars}
             className="text-xs md:text-lg text-gray-700 dark:text-gray-200 mb-6 max-w-lg md:mx-0 leading-relaxed font-medium"
           >
             Jasa pembuatan website profesional, cepat, dan terjangkau untuk UMKM
@@ -138,7 +146,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            variants={itemVariants}
+            variants={itemVars}
             className="flex flex-col md:flex-row items-start md:items-center gap-3 w-full md:w-auto"
           >
             <a
@@ -159,14 +167,14 @@ export default function Hero() {
 
           {/* Mobile Only Note */}
           <motion.p
-            variants={itemVariants}
+            variants={itemVars}
             className="mt-6 text-xs text-gray-800 dark:text-gray-200 italic md:hidden text-left font-medium"
           >
             *Konsultasi gratis & respon cepat via WhatsApp.
           </motion.p>
 
           <motion.div
-            variants={itemVariants}
+            variants={itemVars}
             className="hidden md:flex items-center gap-8 mt-2 pt-2 border-t border-gray-100 dark:border-white/10"
           >
             <div className="flex -space-x-3">
@@ -219,9 +227,10 @@ export default function Hero() {
         {/* Right Visual */}
         <motion.div
           className="relative h-full flex flex-col justify-end items-center md:items-end"
-          variants={imageVariants}
+          variants={imageVars}
           initial="hidden"
           animate="visible"
+          style={{ willChange: shouldReduceMotion ? "auto" : "transform, opacity" }}
         >
           {/* Main Image */}
           <div className="relative z-10 w-full max-w-md mx-auto md:mr-0">
