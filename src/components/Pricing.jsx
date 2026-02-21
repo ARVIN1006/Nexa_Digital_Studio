@@ -5,17 +5,48 @@ import { PricingSkeleton } from "./Skeletons";
 export default function Pricing() {
   const { settings, pricing: sanityPricing, loading } = useSiteData();
 
+  // Function to parse price string to number for sorting
+  const parsePrice = (priceString) => {
+    if (!priceString) return 0;
+    
+    // Remove "Rp" and whitespace, convert to lowercase
+    const cleanPrice = priceString.toLowerCase().trim();
+    
+    // Extract number and multiplier
+    const match = cleanPrice.match(/([\d.,]+)\s*(ribu|juta|miliar)?/);
+    if (!match) return 0;
+    
+    const number = parseFloat(match[1].replace(/\./g, '').replace(',', '.'));
+    const multiplier = match[2] || '';
+    
+    let multiplierValue = 1;
+    if (multiplier === 'ribu') multiplierValue = 1000;
+    else if (multiplier === 'juta') multiplierValue = 1000000;
+    else if (multiplier === 'miliar') multiplierValue = 1000000000;
+    
+    return number * multiplierValue;
+  };
+
   // Format data from Sanity - show all plans without category filtering
-  const pricingData = (sanityPricing || []).map((plan) => ({
-    title: plan.title,
-    price: plan.price,
-    originalPrice: plan.originalPrice,
-    duration: plan.duration,
-    domain: plan.domainInfo,
-    features: plan.features || [],
-    popular: plan.isPopular,
-    caption: plan.caption,
-  }));
+  const pricingData = (sanityPricing || [])
+    .map((plan) => {
+      // Use discounted price if available, otherwise use original price
+      const displayPrice = plan.price || plan.originalPrice || '';
+      const priceValue = parsePrice(displayPrice);
+      
+      return {
+        title: plan.title,
+        price: plan.price,
+        originalPrice: plan.originalPrice,
+        duration: plan.duration,
+        domain: plan.domainInfo,
+        features: plan.features || [],
+        popular: plan.isPopular,
+        caption: plan.caption,
+        priceValue, // For sorting
+      };
+    })
+    .sort((a, b) => a.priceValue - b.priceValue); // Sort from cheapest to most expensive
 
   // const commonFeatures = [
   //   { icon: <PenNib size={20} />, text: "Content Management System (CMS)" },
@@ -107,7 +138,7 @@ export default function Pricing() {
                   >
                     {item.title}
                   </h3>
-                  
+
                   {/* Caption */}
                   {item.caption && (
                     <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
